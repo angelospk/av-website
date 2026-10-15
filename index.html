@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ΑΞΟΝΑΣ — Μελέτες · Άδειες · Κατασκευές</title>
+<meta name="description" content="Τεχνικό γραφείο: άδειες, μελέτες, ενέργεια, τοπογραφικά και κατασκευή κατοικιών. Demo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@500&display=swap&subset=greek" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="#top">ΑΞΟΝΑΣ<span>Τεχνικό γραφείο</span></a>
+  <nav>
+    <a href="#services">Υπηρεσίες</a>
+    <a href="#projects">Έργα</a>
+    <a href="#process">Διαδρομή</a>
+    <a href="#team">Ομάδα</a>
+    <a href="#contact" class="btn btn-primary btn-sm">Επικοινωνία</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <canvas id="hero3d" aria-label="Τρισδιάστατο μοντέλο κατοικίας"></canvas>
+  <div class="hero-shade"></div>
+  <div class="hero-inner wrap">
+    <p class="label">Μελέτες · Άδειες · Ενέργεια · Κατασκευή</p>
+    <h1>Από το οικόπεδο<br>ως τα κλειδιά.</h1>
+    <div class="hero-foot">
+      <p class="lead">Πολιτικοί μηχανικοί, αρχιτέκτονες, τοπογράφοι, μηχανολόγοι και ηλεκτρολόγοι κάτω από μία στέγη. Ένας υπεύθυνος για όλο το έργο σας.</p>
+      <div class="cta">
+        <a href="#contact" class="btn btn-primary">Κλείστε αυτοψία</a>
+        <a href="#projects" class="btn btn-ghost">Δείτε έργα</a>
+      </div>
+    </div>
+    <p class="model-tag label" id="modelTag">3D · Κατοικία στη Βάρη · σύρετε για περιστροφή</p>
+  </div>
+</section>
+
+<section class="stats wrap reveal">
+  <div><b data-count="14">0</b><span>μηχανικοί &amp; συνεργάτες</span></div>
+  <div><b data-count="320" data-suffix="+">0</b><span>άδειες δόμησης</span></div>
+  <div><b data-count="48">0</b><span>κατοικίες χτισμένες</span></div>
+  <div><b data-count="1100" data-suffix="+">0</b><span>ΠΕΑ &amp; ενεργειακές μελέτες</span></div>
+</section>
+
+<section id="services" class="services wrap">
+  <header class="sec-head reveal">
+    <p class="label">01 — Υπηρεσίες</p>
+    <h2>Ό,τι χρειάζεται ένα κτίριο,<br>από ένα γραφείο.</h2>
+  </header>
+  <ol class="svc-list" id="serviceList"></ol>
+</section>
+
+<section id="projects" class="projects wrap">
+  <header class="sec-head reveal">
+    <p class="label">02 — Έργα</p>
+    <h2>Επιλεγμένα έργα</h2>
+  </header>
+  <div class="filters" id="filters" role="group" aria-label="Φίλτρο κατηγορίας"></div>
+  <div class="proj-grid" id="projectGrid"></div>
+</section>
+
+<section id="process" class="process wrap">
+  <header class="sec-head reveal">
+    <p class="label">03 — Διαδρομή</p>
+    <h2>Έξι βήματα, ένας υπεύθυνος.</h2>
+  </header>
+  <ol class="steps" id="steps"></ol>
+</section>
+
+<section id="team" class="team wrap">
+  <header class="sec-head reveal">
+    <p class="label">04 — Ομάδα</p>
+    <h2>Οι ειδικότητες της ομάδας.</h2>
+  </header>
+  <div class="team-grid" id="teamGrid"></div>
+</section>
+
+<section id="contact" class="contact wrap reveal">
+  <div>
+    <p class="label">05 — Επικοινωνία</p>
+    <h2>Πείτε μας για το ακίνητό σας.</h2>
+    <p class="muted">Απαντάμε εντός μίας εργάσιμης. Η πρώτη αυτοψία στην Αττική είναι δωρεάν.</p>
+    <dl class="contact-facts">
+      <dt>Γραφείο</dt><dd>Λεωφ. Κηφισίας 000, Μαρούσι</dd>
+      <dt>Τηλέφωνο</dt><dd>210 000 0000</dd>
+      <dt>Email</dt><dd>info@axonas.example</dd>
+    </dl>
+  </div>
+  <form class="form" onsubmit="event.preventDefault(); this.querySelector('.ok').hidden=false;">
+    <label>Όνομα<input required name="name" autocomplete="name"></label>
+    <label>Τηλέφωνο<input required name="phone" type="tel" autocomplete="tel"></label>
+    <label>Τι χρειάζεστε;
+      <select name="need">
+        <option>Άδεια δόμησης / νέα κατοικία</option>
+        <option>Ανακαίνιση</option>
+        <option>Ενεργειακή αναβάθμιση / Εξοικονομώ</option>
+        <option>Τακτοποίηση αυθαιρέτου</option>
+        <option>Τοπογραφικό</option>
+        <option>Κάτι άλλο</option>
+      </select>
+    </label>
+    <label>Μήνυμα<textarea name="msg" rows="3"></textarea></label>
+    <button class="btn btn-primary" type="submit">Αποστολή</button>
+    <p class="ok label" hidden>Demo: το μήνυμα δεν στάλθηκε πουθενά.</p>
+  </form>
+</section>
+
+</main>
+
+<footer class="foot wrap">
+  <span>© 2026 ΑΞΟΝΑΣ — demo, ψεύτικο γραφείο</span>
+  <span class="label">ΤΕΕ · Μέλη Μητρώου Μελετητών</span>
+</footer>
+
+<dialog id="projectDialog" class="dlg" aria-labelledby="dlgTitle">
+  <button class="dlg-close" aria-label="Κλείσιμο" onclick="this.closest('dialog').close()">✕</button>
+  <div id="dlgBody"></div>
+</dialog>
+
+<script src="data/site.js"></script>
+<script src="data/projects.js"></script>
+<script src="app.js"></script>
+<script type="module" src="hero3d.js"></script>
+</body>
+</html>
