@@ -30,5 +30,5 @@ python3 -m http.server 8765   # άνοιξε http://localhost:8765
 | `hero3d.js` | 3D μοντέλο κατοικίας στο hero |
 | `data/*.js` | Περιεχόμενο |
 
-Design: `~/projects/ui-vault/experiments/2026-10-15-techniko-grafeio/DESIGN.md`.
+Design: `DESIGN.md` (tokens, layout, rules). Origin: ui-vault run 2026-10-15-techniko-grafeio.
 Φωτογραφίες: Unsplash (hotlink, μόνο για demo).
