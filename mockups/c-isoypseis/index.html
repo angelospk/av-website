@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Γ · Ισοϋψείς | Αλέξανδρος Βλάχος</title>
+<link rel="icon" href="../../logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@200;300;400&family=Roboto+Flex:wght@400;500&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #070707;
+  --ink: #f1f1ee;
+  --ash: #8b8b88;
+  --hair: rgba(241,241,238,.14);
+  --gut: clamp(20px, 5vw, 80px);
+  --serif: "Noto Serif Display", serif;
+  --body: "Roboto Flex", sans-serif;
+  --mono: "Roboto Mono", monospace;
+  --ease: cubic-bezier(.16,1,.3,1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-color: #333 var(--void); }
+body { margin: 0; background: var(--void); color: var(--ink); font: 400 17px/1.65 var(--body); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--ink); color: var(--void); }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 200; margin: 0; letter-spacing: -0.015em; }
+.mono { font: 400 12px/1.4 var(--mono); color: var(--ash); letter-spacing: .02em; }
+
+.top { position: fixed; inset: 0 0 auto; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 22px var(--gut); mix-blend-mode: difference; }
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand svg { width: 42px; height: 32px; overflow: visible; }
+.brand b { font: 400 15px/1 var(--body); letter-spacing: .22em; }
+.lg polyline { fill: none; stroke-width: 30; stroke-linejoin: miter; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.6s var(--ease) .3s forwards; }
+.lg .la { stroke: #fff; } .lg .lv { stroke: #8b8b8b; animation-delay: .8s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.top nav { display: flex; gap: 32px; font: 400 14px/1 var(--body); letter-spacing: .06em; }
+.top nav a { opacity: .75; transition: opacity .25s; }
+.top nav a:hover { opacity: 1; }
+
+/* hero */
+.hero { position: relative; height: 100svh; min-height: 620px; overflow: hidden; }
+#topo { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-in { position: absolute; left: var(--gut); right: var(--gut); bottom: clamp(32px, 7vh, 72px); display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: end; pointer-events: none; }
+.hero-in a { pointer-events: auto; }
+.hero h1 { font-size: clamp(52px, 7.4vw, 116px); line-height: .96; text-shadow: 0 0 40px var(--void), 0 0 12px var(--void); }
+.side { justify-self: end; max-width: 380px; }
+.side p { margin: 0 0 24px; color: #cfcfcb; text-shadow: 0 0 18px var(--void); }
+.ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 12px; padding: 15px 22px; border: 1px solid var(--ink); font: 500 14px/1 var(--body); letter-spacing: .04em; transition: background .3s, color .3s; background: var(--void); }
+.btn.solid { background: var(--ink); color: var(--void); }
+.btn.solid:hover { background: transparent; color: var(--ink); }
+.btn:not(.solid):hover { background: var(--ink); color: var(--void); }
+.readout { position: absolute; right: var(--gut); top: 96px; text-align: right; pointer-events: none; }
+.readout b { display: block; font: 300 30px/1 var(--serif); color: var(--ink); margin-top: 6px; }
+
+/* sections */
+section { padding: clamp(110px, 13vw, 190px) var(--gut) 0; }
+.sh { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end; margin-bottom: 56px; }
+.sh h2 { font-size: clamp(44px, 5.6vw, 88px); line-height: 1; }
+.sh p { margin: 0; color: #bdbdb9; max-width: 44ch; }
+
+.svc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+.svc li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; padding: 28px 0; border-bottom: 1px solid var(--hair); align-items: baseline; transition: background .4s; }
+.svc h3 { font-size: clamp(28px, 3vw, 44px); line-height: 1.05; transition: transform .6s var(--ease); }
+.svc li:hover h3 { transform: translateX(18px); }
+.svc p { margin: 0; color: #bdbdb9; }
+.svc .mono { display: block; margin-top: 8px; }
+
+/* projects: list with floating photo */
+.plist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+.plist li { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--hair); align-items: baseline; cursor: default; transition: color .3s, opacity .3s; }
+.plist:hover li { opacity: .35; }
+.plist li:hover { opacity: 1; }
+.plist h3 { font-size: clamp(26px, 2.8vw, 40px); }
+.plist img { display: none; }
+.peek { position: fixed; left: 0; top: 0; width: 340px; aspect-ratio: 4 / 3; pointer-events: none; z-index: 15; opacity: 0; transform: scale(.92); transition: opacity .3s, transform .5s var(--ease); overflow: hidden; }
+.peek.on { opacity: 1; transform: none; }
+.peek img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); }
+
+/* process: survey traverse */
+.trav { list-style: none; margin: 0; padding: 0; position: relative; max-width: 880px; margin-left: auto; }
+.trav::before { content: ""; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 1px; background: var(--ink); transform: scaleY(0); transform-origin: top; transition: transform 2s var(--ease); }
+.trav.in::before { transform: scaleY(1); }
+.trav li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; padding: 0 0 44px 56px; }
+.trav svg { position: absolute; left: 0; top: 6px; width: 23px; height: 20px; }
+.trav h3 { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.05; }
+.trav p { margin: 6px 0 0; color: #bdbdb9; }
+
+/* contact */
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; padding-bottom: 120px; }
+.contact h2 { font-size: clamp(48px, 6vw, 96px); line-height: .98; }
+.contact > div > p { color: #bdbdb9; max-width: 40ch; }
+.facts { margin: 40px 0 0; display: grid; gap: 18px; }
+.facts dd { margin: 2px 0 0; font: 300 26px/1.2 var(--serif); }
+.facts a { border-bottom: 1px solid var(--hair); transition: border-color .3s; }
+.facts a:hover { border-color: var(--ink); }
+.form { display: grid; gap: 26px; align-content: start; }
+.form label { display: grid; gap: 4px; }
+.form input, .form select, .form textarea { font: 400 18px/1.4 var(--body); color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid var(--hair); border-radius: 0; padding: 8px 0; outline: none; transition: border-color .3s; }
+.form select option { background: var(--void); }
+.form input:focus, .form select:focus, .form textarea:focus { border-color: var(--ink); }
+.form .btn { justify-self: start; cursor: pointer; }
+.ok { margin: 0; }
+.foot { margin: 0 var(--gut); padding: 28px 0 44px; border-top: 1px solid var(--hair); display: flex; justify-content: space-between; gap: 16px; }
+
+.rv { opacity: 0; transform: translateY(20px); filter: blur(6px); transition: opacity 1s var(--ease), transform 1s var(--ease), filter 1s var(--ease); }
+.rv.in { opacity: 1; transform: none; filter: none; }
+
+@media (max-width: 860px) {
+  .top nav { display: none; }
+  .hero-in { grid-template-columns: 1fr; }
+  .side { justify-self: start; }
+  .readout { top: 80px; }
+  .sh, .svc li, .contact { grid-template-columns: 1fr; gap: 14px; }
+  .plist li { grid-template-columns: 1fr; gap: 4px; }
+  .plist img { display: block; margin-top: 12px; aspect-ratio: 4 / 3; object-fit: cover; filter: grayscale(1); }
+  .peek { display: none; }
+  .trav li { grid-template-columns: 1fr; gap: 2px; }
+  .foot { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#">
+    <svg class="lg" viewBox="0 0 915 685" aria-hidden="true"><polyline class="la" pathLength="1" points="30,395 320,30 570,415"/><polyline class="lv" pathLength="1" points="205,295 405,295 635,655 885,325"/></svg>
+    <b>ΑΛΕΞΑΝΔΡΟΣ ΒΛΑΧΟΣ</b>
+  </a>
+  <nav>
+    <a href="#ypiresies">Υπηρεσίες</a>
+    <a href="#erga">Έργα</a>
+    <a href="#poreia">Πορεία</a>
+    <a href="#epikoinonia">Επικοινωνία</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <canvas id="topo" aria-label="Ισοϋψείς καμπύλες που σχηματίζουν το λογότυπο"></canvas>
+  <div class="readout mono" aria-hidden="true">38°49′48″ Β · 20°42′24″ Α<b id="elev">+000 μ.</b><span>υψόμετρο, ενδεικτικό</span></div>
+  <div class="hero-in">
+    <h1>Μελέτη, άδεια<br>και κατασκευή<br>στη Λευκάδα.</h1>
+    <div class="side">
+      <p>Ένα γραφείο για όλο το έργο. Από το τοπογραφικό ως τα κλειδιά, μιλάτε με τον ίδιο μηχανικό. Η πρώτη αυτοψία είναι δωρεάν.</p>
+      <div class="ctas">
+        <a class="btn solid" href="#epikoinonia">Κλείστε αυτοψία</a>
+        <a class="btn" href="tel:+306931666980">693 166 6980</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ypiresies">
+  <div class="sh rv"><h2>Τι αναλαμβάνουμε</h2><p>Όλες οι μελέτες και η κατασκευή από την ίδια ομάδα: αρχιτέκτονες, πολιτικοί μηχανικοί, τοπογράφοι, μηχανολόγοι.</p></div>
+  <ul class="svc" id="svc"></ul>
+</section>
+
+<section id="erga">
+  <div class="sh rv"><h2>Έργα</h2><p class="mono">Ενδεικτικά έργα · demo περιεχόμενο</p></div>
+  <ul class="plist" id="plist"></ul>
+</section>
+
+<section id="poreia">
+  <div class="sh rv"><h2>Πώς προχωράει<br>ένα έργο</h2><p>Κάθε εβδομάδα σας στέλνουμε αναφορά και φωτογραφίες από το εργοτάξιο.</p></div>
+  <ol class="trav" id="trav"></ol>
+</section>
+
+<section id="epikoinonia" class="contact">
+  <div class="rv">
+    <h2>Πείτε μας για<br>το ακίνητό σας.</h2>
+    <p>Απαντάμε την ίδια ή την επόμενη εργάσιμη.</p>
+    <dl class="facts">
+      <div><dt class="mono">Γραφείο</dt><dd>Λόρδου Βύρωνα 39, Λευκάδα</dd></div>
+      <div><dt class="mono">Τηλέφωνο</dt><dd><a href="tel:+306931666980">693 166 6980</a></dd></div>
+      <div><dt class="mono">Email</dt><dd><a href="mailto:civil.avlachos@gmail.com">civil.avlachos@gmail.com</a></dd></div>
+    </dl>
+  </div>
+  <form class="form rv" onsubmit="event.preventDefault(); this.querySelector('.ok').hidden=false;">
+    <label><span class="mono">Όνομα</span><input required name="name" autocomplete="name"></label>
+    <label><span class="mono">Τηλέφωνο</span><input required name="phone" type="tel" autocomplete="tel"></label>
+    <label><span class="mono">Τι χρειάζεστε</span>
+      <select name="need"><option>Άδεια δόμησης / νέα κατοικία</option><option>Ανακαίνιση</option><option>Ενεργειακή αναβάθμιση / Εξοικονομώ</option><option>Τακτοποίηση αυθαιρέτου</option><option>Τοπογραφικό</option><option>Κάτι άλλο</option></select></label>
+    <label><span class="mono">Μήνυμα</span><textarea name="msg" rows="3"></textarea></label>
+    <button class="btn solid" type="submit">Αποστολή</button>
+    <p class="ok mono" hidden>Η φόρμα δεν στέλνει ακόμα. Πάρτε μας στο 693 166 6980.</p>
+  </form>
+</section>
+</main>
+
+<footer class="foot mono"><span>© 2026 Αλέξανδρος Βλάχος · Πολιτικός μηχανικός</span><span>ΤΕΕ · Μητρώο Μελετητών</span></footer>
+<div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
+
+<script src="../../data/site.js"></script>
+<script src="../../data/projects.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tri = `<svg viewBox="0 0 23 20"><path d="M11.5 1 22 19H1z" fill="#070707" stroke="#f1f1ee"/><circle cx="11.5" cy="13" r="1.6" fill="#f1f1ee"/></svg>`;
+
+$("#svc").innerHTML = SERVICES.map(s => `<li class="rv"><h3>${esc(s.title)}</h3><div><p>${esc(s.text)}</p><span class="mono">${esc(s.who)}</span></div></li>`).join("");
+$("#plist").innerHTML = PROJECTS.slice(0, 6).map(p => `<li class="rv" data-img="${esc(p.cover)}"><h3>${esc(p.title)}</h3><span class="mono">${esc(p.place)}</span><span class="mono">${p.year}</span><img src="${esc(p.cover)}" alt="${esc(p.title)}" loading="lazy"></li>`).join("");
+$("#trav").innerHTML = STEPS.map(s => `<li class="rv">${tri}<div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div><span class="mono">${esc(s.dur)}</span></li>`).join("");
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll(".rv, .trav").forEach(el => io.observe(el));
+
+// floating project photo
+const peek = $("#peek"), pimg = peek.querySelector("img");
+if (matchMedia("(pointer: fine)").matches) {
+  document.querySelectorAll("#plist li").forEach(li => {
+    li.addEventListener("pointerenter", () => { pimg.src = li.dataset.img; peek.classList.add("on"); });
+    li.addEventListener("pointerleave", () => peek.classList.remove("on"));
+  });
+  addEventListener("pointermove", e => { peek.style.left = (e.clientX + 24) + "px"; peek.style.top = (e.clientY - 120) + "px"; }, { passive: true });
+}
+
+/* signature: contour lines of a terrain whose ridges are the logo's A and V.
+   Three layers drift at different speeds; the pointer raises a hill. */
+(() => {
+  const cv = $("#topo"), ctx = cv.getContext("2d");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const CELL = 7;
+  let W, H, cols, rows, field, ridge, dpr, mx = -1e4, my = -1e4, hill = 0;
+  // smooth value noise
+  const P = new Uint8Array(512); for (let i = 0; i < 256; i++) P[i] = i;
+  for (let i = 255; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [P[i], P[j]] = [P[j], P[i]]; }
+  for (let i = 0; i < 256; i++) P[i + 256] = P[i];
+  const fade = t => t * t * (3 - 2 * t);
+  const h2 = (x, y) => P[(P[x & 255] + y) & 511] / 255;
+  const noise = (x, y) => { const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = fade(xf), v = fade(yf);
+    const a = h2(xi, yi), b = h2(xi + 1, yi), c = h2(xi, yi + 1), d = h2(xi + 1, yi + 1);
+    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; };
+  const A = [[30,395],[320,30],[570,415]], V = [[205,295],[405,295],[635,655],[885,325]];
+  let segs = [];
+  function segDist(px, py, ax, ay, bx, by) { const dx = bx - ax, dy = by - ay, t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy))); const qx = ax + t * dx - px, qy = ay + t * dy - py; return Math.sqrt(qx * qx + qy * qy); }
+  function resize() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cols = Math.ceil(W / CELL) + 1; rows = Math.ceil(H / CELL) + 1; field = new Float32Array(cols * rows);
+    // place the logo: right side on desktop, centred top on mobile
+    const s = W > 860 ? Math.min(W * 0.55, H * 0.95) / 915 : (W * 0.95) / 915;
+    const ox = W > 860 ? W - 915 * s - W * 0.04 : (W - 915 * s) / 2, oy = W > 860 ? H * 0.1 : H * 0.12;
+    const map = pts => pts.map(([x, y]) => [ox + x * s, oy + y * s]);
+    segs = [];
+    [[map(A), 1], [map(V), .8]].forEach(([pts, w]) => { for (let i = 0; i < pts.length - 1; i++) segs.push([...pts[i], ...pts[i + 1], w]); });
+    segs.scale = s;
+    const sig = 46 * s + 10; ridge = new Float32Array(cols * rows);
+    for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) { const x = i * CELL, y = j * CELL; let r = 0;
+      for (const [ax, ay, bx, by, w] of segs) { const d = segDist(x, y, ax, ay, bx, by); r = Math.max(r, w * Math.exp(-(d * d) / (2 * sig * sig))); }
+      ridge[j * cols + i] = r; }
+  }
+  function height(x, y, t, layer) {
+    let n = noise(x * .004 + t * .02 * (layer + 1), y * .004 - t * .013) * .55 + noise(x * .011, y * .011 + t * .03) * .2;
+    const i = Math.min(cols - 1, Math.max(0, Math.round(x / CELL))), j = Math.min(rows - 1, Math.max(0, Math.round(y / CELL)));
+    const r = ridge[j * cols + i];
+    const dx = x - mx, dy = y - my; const m = hill * .55 * Math.exp(-(dx * dx + dy * dy) / (2 * 90 * 90));
+    return n + r * .9 + m;
+  }
+  const LAYERS = [{ a: .18, step: .045, off: .022 }, { a: .34, step: .09, off: 0 }, { a: .9, step: .18, off: .01 }];
+  function contour(level) {
+    ctx.beginPath();
+    for (let j = 0; j < rows - 1; j++) for (let i = 0; i < cols - 1; i++) {
+      const k = j * cols + i, a = field[k], b = field[k + 1], c = field[k + cols + 1], d = field[k + cols];
+      const idx = (a > level ? 8 : 0) | (b > level ? 4 : 0) | (c > level ? 2 : 0) | (d > level ? 1 : 0);
+      if (idx === 0 || idx === 15) continue;
+      const x = i * CELL, y = j * CELL;
+      const top = [x + CELL * (level - a) / (b - a), y], right = [x + CELL, y + CELL * (level - b) / (c - b)];
+      const bot = [x + CELL * (level - d) / (c - d), y + CELL], left = [x, y + CELL * (level - a) / (d - a)];
+      const L = (p, q) => { ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); };
+      switch (idx) {
+        case 1: case 14: L(left, bot); break; case 2: case 13: L(bot, right); break;
+        case 3: case 12: L(left, right); break; case 4: case 11: L(top, right); break;
+        case 5: L(left, top); L(bot, right); break; case 6: case 9: L(top, bot); break;
+        case 7: case 8: L(left, top); break; case 10: L(left, bot); L(top, right); break;
+      }
+    }
+    ctx.stroke();
+  }
+  let t0 = performance.now(), last = 0, visible = true, intro = 0;
+  function frame(now) {
+    if (visible && now - last > 33) {
+      last = now; const t = (now - t0) / 1000; intro = Math.min(1, intro + .018);
+      hill += ((mx > -1e3 ? 1 : 0) - hill) * .06;
+      ctx.clearRect(0, 0, W, H);
+      LAYERS.forEach((L, li) => {
+        for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) field[j * cols + i] = height(i * CELL, j * CELL, t, li);
+        ctx.strokeStyle = `rgba(241,241,238,${L.a * intro})`; ctx.lineWidth = li === 2 ? 1.1 : .8;
+        for (let lv = L.off + .05; lv < 1.6; lv += L.step) contour(lv);
+      });
+      if (mx > -1e3) $("#elev").textContent = "+" + String(Math.round(height(mx, my, t, 2) * 220)).padStart(3, "0") + " μ.";
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  resize(); addEventListener("resize", resize);
+  cv.parentElement.addEventListener("pointermove", e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
+  cv.parentElement.addEventListener("pointerleave", () => { mx = my = -1e4; });
+  new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(cv);
+  if (reduce) { intro = 1; last = -1e9; frame(performance.now()); } else requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
