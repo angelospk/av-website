@@ -104,6 +104,13 @@
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  // Mobile menu
+  const menuBtn = $("#menuBtn");
+  const setMenu = (open) => { nav.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", open); };
+  menuBtn.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
+  nav.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+
   // Reveal + count-up
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const countUp = (el) => {
