@@ -1,4 +1,5 @@
 ---
+slug: kifisia-house
 title: Διώροφη κατοικία από μπετόν και ξύλο
 place: Κηφισιά
 year: 2024

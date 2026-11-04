@@ -1,4 +1,5 @@
 ---
+slug: koukaki-flat
 title: Ανακαίνιση διαμερίσματος
 place: Κουκάκι
 year: 2025

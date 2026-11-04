@@ -29,7 +29,7 @@ collections:
     create: true
     slug: "{{fields.slug}}"
     identifier_field: title
-    summary: "{{title}} · {{place}} · {{year}}"
+    summary: "{{title}} · {{place}}"
     sortable_fields: [order, year, title]
     media_folder: /public/images/projects
     public_folder: /images/projects

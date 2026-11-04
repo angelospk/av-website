@@ -1,4 +1,5 @@
 ---
+slug: glyfada-block
 title: Πολυκατοικία 6 διαμερισμάτων
 place: Γλυφάδα
 year: 2026

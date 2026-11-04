@@ -1,4 +1,5 @@
 ---
+slug: kalamos-energy
 title: Ενεργειακή αναβάθμιση μονοκατοικίας
 place: Κάλαμος
 year: 2024

@@ -1,4 +1,5 @@
 ---
+slug: keratea-survey
 title: Τοπογραφική αποτύπωση αγροτεμαχίου
 place: Κερατέα
 year: 2026

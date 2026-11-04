@@ -1,4 +1,5 @@
 ---
+slug: vari-villa
 title: Κατοικία στη Βάρη
 place: Βάρη, Αττική
 year: 2025

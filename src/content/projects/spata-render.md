@@ -1,4 +1,5 @@
 ---
+slug: spata-render
 title: Ισόγεια κατοικία (μελέτη)
 place: Σπάτα
 year: 2026

@@ -1,4 +1,5 @@
 ---
+slug: pagrati-facade
 title: Ανακαίνιση όψεων πολυκατοικίας
 place: Παγκράτι
 year: 2025

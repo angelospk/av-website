@@ -1,4 +1,5 @@
 ---
+slug: rooftop-pv
 title: Φωτοβολταϊκό στέγης 10 kW
 place: Παλλήνη
 year: 2025
