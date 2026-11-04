@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ε · Φάκελος | Αλέξανδρος Βλάχος</title>
+<link rel="icon" href="../../logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;500;700&family=Cousine:wght@400;700&family=Sofia+Sans+Extra+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kraft: #c8a476;
+  --kraft-2: #b8925f;
+  --card: #f3ead9;
+  --ink: #2e1d10;
+  --mid: #6b4f36;
+  --stamp: #8e2f1b;
+  --hair: rgba(46,29,16,.22);
+  --gut: clamp(16px, 5vw, 72px);
+  --display: "Roboto Slab", serif;
+  --type: "Cousine", monospace;
+  --stampf: "Sofia Sans Extra Condensed", sans-serif;
+  --ease: cubic-bezier(.16,1,.3,1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); font: 400 16px/1.6 var(--type); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  background: var(--kraft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .2 0 0 0 0 .1 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
+::selection { background: var(--stamp); color: var(--card); }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 2px dashed var(--stamp); outline-offset: 4px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; }
+.lbl { font: 700 12px/1.3 var(--type); letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+
+/* header: folder tabs */
+.top { position: sticky; top: 0; z-index: 20; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 12px var(--gut) 0; background: var(--kraft-2); box-shadow: 0 1px 0 var(--hair); }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; padding-bottom: 12px; }
+.brand av-logo { width: 40px; --logo-a: var(--ink); --logo-v: var(--stamp); flex: none; }
+.brand b { font: 700 17px/1 var(--display); display: block; }
+.brand small { display: block; margin-top: 4px; }
+.tabs { display: flex; gap: 4px; }
+.tabs a { text-decoration: none; padding: 10px 18px 12px; background: var(--kraft); border-radius: 8px 8px 0 0; font: 700 13px/1 var(--type); letter-spacing: .04em; box-shadow: inset 0 1px 0 rgba(255,255,255,.25); transition: transform .25s var(--ease), background .2s; transform: translateY(3px); }
+.tabs a:hover { transform: none; }
+.tabs a.cta { background: var(--stamp); color: var(--card); }
+
+/* hero: folder with typed card and stamp */
+.hero { padding: clamp(40px, 6vw, 80px) var(--gut) 60px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; min-height: calc(100svh - 64px); }
+.hero h1 { font-size: clamp(46px, 6.4vw, 104px); line-height: .95; font-weight: 700; letter-spacing: -0.02em; }
+.hero h1 span { font-weight: 300; display: block; font-size: .62em; line-height: 1.05; margin-top: .15em; }
+.lead { max-width: 40ch; margin: 24px 0 30px; }
+.btn { display: inline-flex; align-items: center; gap: 12px; background: var(--ink); color: var(--card); border: 0; padding: 15px 22px; text-decoration: none; font: 700 14px/1 var(--type); letter-spacing: .04em; cursor: pointer; transition: background .2s, transform .15s; }
+.btn:hover { background: var(--stamp); }
+.btn:active { transform: scale(.97); }
+.folder { position: relative; background: #d8b886; border-radius: 4px 14px 4px 4px; padding: 26px; box-shadow: 0 30px 50px -28px rgba(46,29,16,.6); transform: rotate(1.5deg); }
+.folder::before { content: "ΦΑΚΕΛΟΣ ΕΡΓΟΥ Νο 001"; position: absolute; left: 22px; top: -30px; padding: 8px 18px 6px; background: #d8b886; border-radius: 8px 8px 0 0; font: 700 12px/1 var(--type); letter-spacing: .1em; }
+.sheet { background: var(--card); padding: 26px 26px 22px; box-shadow: 0 2px 0 var(--hair); transform: rotate(-2deg); position: relative; }
+.sheet dl { display: grid; grid-template-columns: 120px 1fr; margin: 0; }
+.sheet dt, .sheet dd { margin: 0; padding: 7px 0; border-bottom: 1px dotted var(--hair); }
+.sheet dd { min-height: 1.6em; }
+.sheet dd .tw { border-right: 2px solid var(--ink); animation: caret .7s steps(1) infinite; }
+.sheet dd .tw.done { border-right-color: transparent; animation: none; }
+@keyframes caret { 50% { border-right-color: transparent; } }
+.sheet h3 { font: 700 13px/1 var(--type); letter-spacing: .12em; margin-bottom: 12px; }
+.clip { position: absolute; top: -18px; right: 40px; width: 22px; height: 64px; border: 3px solid #8b8b86; border-radius: 12px; border-bottom-color: transparent; z-index: 2; }
+.stamp { position: absolute; right: 18px; bottom: 26px; padding: 8px 16px 6px; border: 4px double var(--stamp); color: var(--stamp); font: 800 clamp(26px, 3vw, 40px)/1 var(--stampf); letter-spacing: .06em; text-transform: uppercase; transform: rotate(-12deg) scale(2.4); opacity: 0; mix-blend-mode: multiply; pointer-events: none; mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.7' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 2.1'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.stamp small { display: block; font: 700 11px/1.2 var(--type); letter-spacing: .1em; }
+.stamp.hit { animation: hit .38s cubic-bezier(.5,0,.75,0) forwards; }
+@keyframes hit { 70% { transform: rotate(-12deg) scale(.94); opacity: .95; } 100% { transform: rotate(-12deg) scale(1); opacity: .9; } }
+.folder.shake { animation: shake .3s .3s; }
+@keyframes shake { 30% { transform: rotate(1.5deg) translateY(3px); } 60% { transform: rotate(1.5deg) translateY(-1px); } }
+
+section { padding: clamp(80px, 10vw, 140px) var(--gut) 0; }
+.sh { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 40px; }
+.sh h2 { font-size: clamp(38px, 4.8vw, 70px); line-height: 1; font-weight: 700; }
+.sh p { margin: 0; max-width: 48ch; }
+
+/* services: index cards */
+.cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.cards li { background: var(--card); padding: 20px 18px 18px; position: relative; box-shadow: 0 10px 20px -14px rgba(46,29,16,.6); background-image: linear-gradient(transparent 46px, var(--stamp) 46px, var(--stamp) 47px, transparent 47px), repeating-linear-gradient(transparent 0 25px, rgba(60,90,140,.18) 25px 26px); background-position: 0 0, 0 47px; transition: transform .35s var(--ease); }
+.cards li:nth-child(odd) { transform: rotate(-1deg); } .cards li:nth-child(even) { transform: rotate(1.2deg); }
+.cards li:hover { transform: rotate(0) translateY(-6px); z-index: 2; }
+.cards .no { position: absolute; right: 14px; top: 14px; font: 700 12px var(--type); color: var(--stamp); }
+.cards h3 { font: 700 18px/1.25 var(--display); min-height: 2.5em; padding-right: 26px; }
+.cards p { margin: 14px 0 12px; font-size: 14px; line-height: 26px; }
+.cards .who { font-size: 12px; color: var(--mid); }
+
+/* projects: photos clipped to the folder */
+.proj { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px 28px; }
+.proj button { all: unset; cursor: pointer; display: block; width: 100%; position: relative; }
+.proj button:focus-visible { outline: 2px dashed var(--stamp); outline-offset: 8px; }
+.print { display: block; background: #fbf6ec; padding: 10px 10px 14px; box-shadow: 0 14px 24px -16px rgba(46,29,16,.7); transform: rotate(var(--r, -1.5deg)); transition: transform .4s var(--ease); }
+.proj figure:nth-child(2) .print { --r: 2deg; } .proj figure:nth-child(3) .print { --r: -.5deg; } .proj figure:nth-child(4) .print { --r: 1.2deg; }
+.print > span { display: block; aspect-ratio: 1; overflow: hidden; }
+.print img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.85) contrast(1.05) brightness(.95); transition: filter .6s; }
+.proj button:hover .print, .proj button:focus-visible .print { transform: rotate(0) scale(1.03); }
+.proj button:hover img, .proj button:focus-visible img { filter: none; }
+.print b { display: block; font: 700 16px/1.25 var(--display); margin-top: 10px; }
+.print small { font-size: 12px; color: var(--mid); }
+.pin { position: absolute; top: -12px; left: 50%; width: 18px; height: 40px; border: 3px solid #8b8b86; border-radius: 10px; border-bottom-color: transparent; z-index: 2; transform: translateX(-50%) rotate(8deg); }
+
+/* process: checklist with stamps */
+.check { list-style: none; margin: 0; padding: 0; background: var(--card); max-width: 960px; box-shadow: 0 20px 40px -26px rgba(46,29,16,.7); }
+.check li { display: grid; grid-template-columns: 54px 1fr 150px 130px; gap: 16px; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--hair); position: relative; }
+.check li:last-child { border-bottom: 0; }
+.check .n { font: 700 13px var(--type); color: var(--stamp); }
+.check h3 { font: 700 20px/1.2 var(--display); }
+.check p { margin: 2px 0 0; font-size: 14px; }
+.check .dur { font-size: 13px; color: var(--mid); }
+.check .ok-st { justify-self: end; border: 3px solid var(--stamp); color: var(--stamp); font: 800 18px/1 var(--stampf); letter-spacing: .08em; padding: 6px 10px 4px; transform: rotate(-8deg) scale(2); opacity: 0; mix-blend-mode: multiply; }
+.check li.in .ok-st { animation: hitS .32s cubic-bezier(.5,0,.75,0) forwards; }
+@keyframes hitS { to { transform: rotate(-8deg) scale(1); opacity: .85; } }
+.check-h { display: grid; grid-template-columns: 54px 1fr 150px 130px; gap: 16px; padding: 10px 20px; background: var(--ink); color: var(--card); max-width: 960px; }
+
+/* contact */
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding-bottom: 110px; }
+.contact h2 { font-size: clamp(40px, 5vw, 76px); line-height: .98; font-weight: 700; }
+dl.fx { display: grid; grid-template-columns: 110px 1fr; gap: 8px 18px; margin: 28px 0 0; }
+dl.fx dd { margin: 0; font-weight: 700; }
+dl.fx a { text-decoration: none; border-bottom: 2px solid var(--stamp); }
+.form { background: var(--card); padding: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; box-shadow: 0 20px 40px -26px rgba(46,29,16,.7); }
+.form h3 { grid-column: 1 / -1; font: 700 13px/1 var(--type); letter-spacing: .12em; border-bottom: 2px solid var(--ink); padding-bottom: 10px; }
+.form label { display: flex; flex-direction: column; gap: 2px; }
+.form .full { grid-column: 1 / -1; }
+.form input, .form select, .form textarea { font: 400 16px/1.5 var(--type); color: var(--ink); background: transparent; border: 0; border-bottom: 1px dotted var(--ink); padding: 6px 0; border-radius: 0; outline: none; }
+.form input:focus, .form select:focus, .form textarea:focus { border-bottom: 1px solid var(--stamp); background: rgba(142,47,27,.05); }
+.form .btn { grid-column: 1 / -1; justify-content: space-between; }
+.ok { grid-column: 1 / -1; margin: 0; font-size: 13px; color: var(--stamp); }
+.foot { margin: 0 var(--gut); padding: 24px 0 44px; border-top: 2px solid var(--ink); display: flex; justify-content: space-between; gap: 16px; font-size: 13px; }
+
+/* project sheet */
+.dlg { width: min(1220px, calc(100vw - 32px)); max-height: calc(100svh - 32px); padding: 0; border: 0; background: var(--card); color: var(--ink); overflow: auto; box-shadow: 0 40px 80px -30px #000; }
+.dlg::backdrop { background: rgba(46,29,16,.6); }
+.dlg[open] { animation: slide .55s var(--ease); }
+@keyframes slide { from { transform: translateY(40px) rotate(1deg); opacity: 0; } }
+.dlg-top { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 20px; background: var(--ink); color: var(--card); }
+.crumbs { display: flex; flex-wrap: wrap; gap: 4px 10px; min-width: 0; font-size: 13px; }
+.crumbs a { text-decoration: none; opacity: .7; } .crumbs a:hover { opacity: 1; }
+.crumbs [aria-current] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 40ch; font-weight: 700; }
+.x { all: unset; cursor: pointer; font: 700 13px var(--type); padding: 6px 4px; }
+.x:focus-visible { outline: 2px dashed var(--card); }
+.dlg-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+.dlg-media { padding: 20px; }
+.stage { aspect-ratio: 3 / 2; overflow: hidden; background: var(--kraft); padding: 8px; }
+.stage img { width: 100%; height: 100%; object-fit: cover; animation: in .5s var(--ease); }
+@keyframes in { from { opacity: 0; } }
+.thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+.thumbs button { all: unset; cursor: pointer; aspect-ratio: 4 / 3; overflow: hidden; }
+.thumbs img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.85); transition: filter .4s; }
+.thumbs button:hover img, .thumbs button[aria-pressed="true"] img { filter: none; }
+.thumbs button[aria-pressed="true"] { outline: 2px solid var(--stamp); outline-offset: 2px; }
+.dlg-info { padding: 24px 24px 32px 4px; }
+.dlg-info h2 { font-size: clamp(30px, 3vw, 46px); line-height: 1.05; font-weight: 700; }
+.dlg-info .sum { font-size: 17px; margin: 14px 0 8px; font-family: var(--display); }
+.dlg-info .body { margin: 0 0 20px; font-size: 14px; }
+.kv { display: grid; grid-template-columns: 140px 1fr; margin: 0 0 20px; border: 2px solid var(--ink); }
+.kv > * { margin: 0; padding: 7px 10px; border-bottom: 1px solid var(--hair); font-size: 14px; }
+.kv dt { border-right: 1px solid var(--hair); text-transform: uppercase; font-size: 11px; letter-spacing: .06em; color: var(--mid); display: flex; align-items: center; }
+.kv dd { font-weight: 700; }
+.tl-h { font: 700 12px var(--type); letter-spacing: .1em; text-transform: uppercase; margin: 0 0 6px; }
+.tl { list-style: none; margin: 0; padding: 0; }
+.tl li { display: grid; grid-template-columns: 70px 16px 1fr; gap: 10px; align-items: center; padding: 4px 0; font-size: 14px; }
+.tl time { color: var(--mid); }
+.tl i { width: 14px; height: 14px; border: 1.5px solid var(--ink); position: relative; }
+.tl li.done i::after { content: "✓"; position: absolute; inset: -6px 0 0 1px; color: var(--stamp); font: 700 16px/1 var(--type); }
+.tl li:not(.done) { color: var(--mid); }
+
+.rv { opacity: 0; transform: translateY(16px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+.cards li.rv.in:nth-child(odd) { transform: rotate(-1deg); } .cards li.rv.in:nth-child(even) { transform: rotate(1.2deg); }
+.cards li.rv.in:hover { transform: rotate(0) translateY(-6px); }
+
+@media (max-width: 1000px) {
+  .cards, .proj { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .tabs a:not(.cta), .brand small { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 40px; }
+  .folder { margin-top: 30px; }
+  .sheet dl { grid-template-columns: 96px 1fr; }
+  .stamp { right: 6px; bottom: 18px; font-size: 22px; padding: 6px 10px 4px; }
+  .hero { overflow: hidden; padding-top: 70px; }
+  .sh, .contact { grid-template-columns: 1fr; gap: 14px; }
+  .cards, .proj { grid-template-columns: 1fr; }
+  .check-h { display: none; }
+  .check li { grid-template-columns: 40px 1fr; }
+  .check .dur { grid-column: 2; }
+  .check .ok-st { position: absolute; right: 14px; top: 14px; }
+  .form { grid-template-columns: 1fr; padding: 18px; }
+  .foot { flex-direction: column; }
+  .dlg { width: 100vw; max-width: 100vw; max-height: 100svh; height: 100svh; margin: 0; }
+  .dlg-grid { grid-template-columns: 1fr; }
+  .dlg-media { padding: 12px; }
+  .dlg-info { padding: 16px 16px 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+}
+.contact > * { min-width: 0; }
+.contact dd { overflow-wrap: anywhere; }
+.form > * { min-width: 0; } .form select { width: 100%; }
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <a class="brand" href="#">
+    <av-logo></av-logo>
+    <span><b>Αλέξανδρος Βλάχος</b><small class="lbl">Πολιτικός μηχανικός · Λευκάδα</small></span>
+  </a>
+  <nav class="tabs">
+    <a href="#ypiresies">Υπηρεσίες</a>
+    <a href="#erga">Έργα</a>
+    <a href="#poreia">Πορεία</a>
+    <a href="#epikoinonia" class="cta">Επικοινωνία</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <h1>Τα χαρτιά<span>τα αναλαμβάνουμε εμείς.</span></h1>
+    <p class="lead">Άδεια, μελέτες, ΥΔΟΜ, κατασκευή. Ένα γραφείο κρατά όλο τον φάκελο του έργου σας, και μιλάτε με τον ίδιο μηχανικό ως τα κλειδιά.</p>
+    <a class="btn" href="#epikoinonia">Ανοίξτε φάκελο → δωρεάν αυτοψία</a>
+  </div>
+  <div class="folder" id="folder">
+    <div class="sheet">
+      <i class="clip" aria-hidden="true"></i>
+      <h3>ΔΕΛΤΙΟ ΕΡΓΟΥ</h3>
+      <dl id="typed">
+        <dt class="lbl">Ιδιοκτήτης</dt><dd data-t="Εσείς"></dd>
+        <dt class="lbl">Ακίνητο</dt><dd data-t="Οικόπεδο, Λευκάδα"></dd>
+        <dt class="lbl">Αίτημα</dt><dd data-t="Νέα κατοικία, 120 m²"></dd>
+        <dt class="lbl">Μηχανικός</dt><dd data-t="Αλέξανδρος Βλάχος"></dd>
+        <dt class="lbl">Τηλέφωνο</dt><dd data-t="693 166 6980"></dd>
+      </dl>
+      <div class="stamp" id="stamp" aria-hidden="true">Άδεια εκδόθηκε<small>ΥΔΟΜ Λευκάδας</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="ypiresies">
+  <div class="sh rv"><h2>Τι αναλαμβάνουμε</h2><p>Μία καρτέλα για κάθε δουλειά. Όλες οι μελέτες και η κατασκευή, από μία ομάδα αρχιτεκτόνων και μηχανικών.</p></div>
+  <ul class="cards" id="svc"></ul>
+</section>
+
+<section id="erga">
+  <div class="sh rv"><h2>Έργα</h2><p class="lbl">Από το αρχείο · demo περιεχόμενο</p></div>
+  <div class="proj" id="proj"></div>
+</section>
+
+<section id="poreia">
+  <div class="sh rv"><h2>Πώς προχωράει<br>ένα έργο</h2><p>Κάθε βήμα κλείνει με σφραγίδα. Κάθε εβδομάδα σας στέλνουμε φωτογραφίες από το εργοτάξιο.</p></div>
+  <div class="check-h lbl" style="color:var(--card)"><span>Α/Α</span><span>Βήμα</span><span>Διάρκεια</span><span></span></div>
+  <ol class="check" id="steps"></ol>
+</section>
+
+<section id="epikoinonia" class="contact">
+  <div class="rv">
+    <h2>Πείτε μας για<br>το ακίνητό σας.</h2>
+    <p>Απαντάμε την ίδια ή την επόμενη εργάσιμη. Στη Λευκάδα η πρώτη αυτοψία είναι δωρεάν.</p>
+    <dl class="fx">
+      <dt class="lbl">Γραφείο</dt><dd>Λόρδου Βύρωνα 39, Λευκάδα 31100</dd>
+      <dt class="lbl">Τηλέφωνο</dt><dd><a href="tel:+306931666980">693 166 6980</a></dd>
+      <dt class="lbl">Email</dt><dd><a href="mailto:civil.avlachos@gmail.com">civil.avlachos@gmail.com</a></dd>
+    </dl>
+  </div>
+  <form class="form rv" onsubmit="event.preventDefault(); this.querySelector('.ok').hidden=false;">
+    <h3>ΑΙΤΗΣΗ ΑΥΤΟΨΙΑΣ</h3>
+    <label><span class="lbl">Όνομα</span><input required name="name" autocomplete="name"></label>
+    <label><span class="lbl">Τηλέφωνο</span><input required name="phone" type="tel" autocomplete="tel"></label>
+    <label class="full"><span class="lbl">Τι χρειάζεστε</span>
+      <select name="need"><option>Άδεια δόμησης / νέα κατοικία</option><option>Ανακαίνιση</option><option>Ενεργειακή αναβάθμιση / Εξοικονομώ</option><option>Τακτοποίηση αυθαιρέτου</option><option>Τοπογραφικό</option><option>Κάτι άλλο</option></select></label>
+    <label class="full"><span class="lbl">Μήνυμα</span><textarea name="msg" rows="3"></textarea></label>
+    <button class="btn" type="submit">Κατάθεση <span aria-hidden="true">→</span></button>
+    <p class="ok" hidden>Η φόρμα δεν στέλνει ακόμα. Πάρτε μας στο 693 166 6980.</p>
+  </form>
+</section>
+</main>
+
+<footer class="foot"><span>© 2026 Αλέξανδρος Βλάχος · Πολιτικός μηχανικός</span><span>ΤΕΕ · Μητρώο Μελετητών</span></footer>
+
+<dialog class="dlg" id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg-top"><nav class="crumbs" id="crumbs" aria-label="Διαδρομή"></nav><button class="x" type="button" onclick="this.closest('dialog').close()">[Χ] ΚΛΕΙΣΙΜΟ</button></div>
+  <div class="dlg-grid" id="dlgBody"></div>
+</dialog>
+
+<script src="../shared/av-logo.js"></script>
+<script src="../shared/project-sheet.js"></script>
+<script src="../../data/site.js"></script>
+<script src="../../data/projects.js"></script>
+<script>
+const $ = s => document.querySelector(s), esc = ProjectSheet.esc;
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+$("#svc").innerHTML = SERVICES.map((s, i) => `<li class="rv"><span class="no">${String(i + 1).padStart(2, "0")}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p><span class="who">${esc(s.who)}</span></li>`).join("");
+$("#proj").innerHTML = PROJECTS.slice(0, 4).map(p => `<figure class="rv" style="margin:0"><button type="button" data-id="${esc(p.id)}" aria-haspopup="dialog"><i class="pin" aria-hidden="true"></i><span class="print"><span><img src="${esc(p.cover)}" alt="${esc(p.title)}" loading="lazy"></span><b>${esc(p.title)}</b><small>${esc(p.place)} · ${p.year}</small></span></button></figure>`).join("");
+$("#steps").innerHTML = STEPS.map((s, i) => `<li><span class="n">${String(i + 1).padStart(2, "0")}</span><span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></span><span class="dur">${esc(s.dur || "—")}</span><span class="ok-st" aria-hidden="true">${i === STEPS.length - 1 ? "ΠΑΡΕΔΟΘΗ" : "ΕΓΙΝΕ"}</span></li>`).join("");
+
+ProjectSheet.init({ trigger: "#proj" });
+
+// typewriter fills the card, then the stamp hits
+const dds = [...document.querySelectorAll("#typed dd")];
+function stampIt() { $("#stamp").classList.add("hit"); $("#folder").classList.add("shake"); }
+if (reduced) { dds.forEach(d => d.textContent = d.dataset.t); stampIt(); }
+else {
+  let k = 0;
+  (function next() {
+    const d = dds[k]; if (!d) { setTimeout(stampIt, 350); return; }
+    const t = d.dataset.t, span = document.createElement("span"); span.className = "tw"; d.appendChild(span);
+    let i = 0;
+    const iv = setInterval(() => { span.textContent = t.slice(0, ++i); if (i >= t.length) { clearInterval(iv); span.classList.add("done"); k++; setTimeout(next, 120); } }, 38);
+  })();
+}
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .2 });
+document.querySelectorAll(".rv, .check li").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
