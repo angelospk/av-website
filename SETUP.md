@@ -144,18 +144,20 @@
 
 ### Φάση 3: Login στο CMS από οποιονδήποτε υπολογιστή
 
-Κάθε άτομο που αλλάζει το site έχει **δικό του** λογαριασμό GitHub και **δικό του** token
-(κλειδί πρόσβασης μόνο σε αυτό το repo). Έτσι δεν χρειάζεται κανένας server για login.
+Το CMS μπαίνει με ένα token (κλειδί πρόσβασης μόνο σε αυτό το repo) του λογαριασμού GitHub
+**του γραφείου**. Ένα token **ανά υπολογιστή**, ώστε να ακυρώνεται μόνο αυτό αν χαθεί ένας υπολογιστής.
+Δεν χρειάζεται κανένας server για login.
 
-1. Άλλο άτομο από τον owner: ο owner το προσθέτει στο repo (Settings → Collaborators, ρόλος Write)
-   και εκείνο αποδέχεται την πρόσκληση από το email.
-2. Το άτομο, στο GitHub: Settings → Developer settings → Personal access tokens →
-   **Fine-grained tokens** → Generate new token:
+1. Συνδεδεμένος ως ο λογαριασμός του γραφείου, στο GitHub: Settings → Developer settings →
+   Personal access tokens → **Fine-grained tokens** → Generate new token:
    - Token name: `av-website CMS <όνομα υπολογιστή>`
    - Expiration: 1 χρόνος. **Βάλε υπενθύμιση στο ημερολόγιο** μία εβδομάδα πριν λήξει.
-   - Resource owner: ο λογαριασμός του γραφείου. Repository access: **Only select repositories** → `av-website`
+   - Repository access: **Only select repositories** → `av-website`
    - Permissions → Repository permissions → **Contents: Read and write**. Τίποτα άλλο.
    Το token μπαίνει στον password manager. **Όχι** στη συνομιλία με το AI.
+2. Κάποιος θέλει να μπαίνει με **δικό του** λογαριασμό GitHub; Τα fine-grained tokens δεν δουλεύουν
+   για συνεργάτες σε repo προσωπικού λογαριασμού. Τότε: είτε το Παράρτημα (κουμπί GitHub), είτε
+   ο λογαριασμός του γραφείου γίνεται GitHub Organization. Ρώτα τον τεχνικό.
 3. Εσύ αλλάζεις στο `public/admin/config.yml` το `repo:` σε `<username γραφείου>/av-website`. Commit, push.
 4. Το άτομο ανοίγει `https://<username>.github.io/av-website/admin/` → «Sign In Using Access Token» →
    επικολλά το token → αλλάζει κάτι → Save. Σε 1-2 λεπτά η αλλαγή φαίνεται online.
