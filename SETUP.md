@@ -3,13 +3,14 @@
 Αυτός ο οδηγός παίρνει έναν υπολογιστή Windows 10/11 **χωρίς τίποτα εγκατεστημένο**
 και φτάνει σε:
 
-- site online στο Cloudflare, που ενημερώνεται μόνο του σε κάθε αλλαγή·
+- site online στο GitHub Pages (δωρεάν), που ενημερώνεται μόνο του σε κάθε αλλαγή·
 - CMS στο `/admin/` για αλλαγές από το browser·
-- repo στον λογαριασμό GitHub **του γραφείου**·
+- repo στον λογαριασμό GitHub **του γραφείου** (public: ό,τι μπαίνει εκεί το βλέπει όποιος θέλει)·
 - AI agent (Claude Code) στον υπολογιστή, που προσθέτει έργα από το NAS·
 - εβδομαδιαίο backup στο NAS και φάκελο «ΑΝΑΚΤΗΣΗ».
 
-Χρόνος: 3-4 ώρες με έναν τεχνικό δίπλα. Κόστος: 0 € (εκτός από domain και, αν θέλετε AI agent, συνδρομή Claude).
+Χρόνος: 2-3 ώρες με έναν τεχνικό δίπλα. Κόστος: 0 € (εκτός από domain και, αν θέλετε AI agent, συνδρομή Claude).
+Χρειάζεται μόνο λογαριασμός GitHub. Cloudflare **δεν** χρειάζεται (προαιρετικό: Παράρτημα).
 
 ## Ποιος κάνει τι
 
@@ -50,8 +51,7 @@
    - Username σύντομο, π.χ. το όνομα του γραφείου.
    - Ενεργοποίηση 2FA με εφαρμογή authenticator στο κινητό.
    - Κατέβασμα των recovery codes: εκτύπωση και σε φάκελο «ΑΝΑΚΤΗΣΗ», + αντίγραφο στον password manager.
-3. Λογαριασμός Cloudflare με το ίδιο email, με 2FA και recovery codes όπως πάνω.
-4. Εγκαταστάσεις: άνοιξε PowerShell (Έναρξη → γράψε PowerShell → Enter) και τρέξε
+3. Εγκαταστάσεις: άνοιξε PowerShell (Έναρξη → γράψε PowerShell → Enter) και τρέξε
    μία-μία, περιμένοντας να τελειώσει κάθε μία:
      winget install --id Git.Git -e --source winget
      winget install --id OpenJS.NodeJS.LTS -e --source winget
@@ -66,30 +66,28 @@
    Αν το winget λείπει: εγκατάσταση «App Installer» από το Microsoft Store.
    Αν το npm αργότερα πει «running scripts is disabled»:
      Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-5. Σύνδεση του git με τον λογαριασμό GitHub του γραφείου:
+4. Σύνδεση του git με τον λογαριασμό GitHub του γραφείου:
      gh auth login
    (GitHub.com → HTTPS → Yes → Login with a web browser)
      gh auth setup-git
      git config --global user.name "Όνομα Γραφείου"
      git config --global user.email "<email γραφείου>"
-6. Αντιγραφή του site και δημιουργία δικού μας (private) repo.
-   Πριν από αυτό: αν το repo angelospk/av-website δεν είναι public, ο τεχνικός
-   προσκαλεί τον λογαριασμό GitHub του γραφείου (Settings → Collaborators) και
-   εγώ αποδέχομαι την πρόσκληση από το email. Αλλιώς το clone αποτυγχάνει.
+5. Αντιγραφή του site και δημιουργία δικού μας repo (public, γιατί το GitHub Pages
+   είναι δωρεάν μόνο για public repo):
      mkdir C:\Sites
      cd C:\Sites
      git clone https://github.com/angelospk/av-website.git
      cd av-website
      git remote remove origin
-     gh repo create av-website --private --source . --remote origin --push
-   Έλεγχος: άνοιξε https://github.com/<username>/av-website, πρέπει να λέει Private.
-7. Σύνδεση στο Claude Code (χρειάζεται συνδρομή Claude Pro ή μεγαλύτερη):
+     gh repo create av-website --public --source . --remote origin --push
+   Έλεγχος: άνοιξε https://github.com/<username>/av-website, πρέπει να λέει Public.
+6. Σύνδεση στο Claude Code (χρειάζεται συνδρομή Claude Pro ή μεγαλύτερη):
      cd C:\Sites\av-website
      claude
    Κάνε login όταν ζητηθεί. Μετά γράψε στο Claude Code:
      «Διάβασε το SETUP.md και συνέχισε από τη Φάση 1. Ο τεχνικός είναι δίπλα μου.»
 
-Όταν φτάσουμε στο 7, η δουλειά σου τελείωσε. Ξεκίνα από το βήμα 1.
+Όταν φτάσουμε στο 6, η δουλειά σου τελείωσε. Ξεκίνα από το βήμα 1.
 ````
 
 ---
@@ -127,69 +125,65 @@
 
 **Απόδειξη:** `grep -l "demo: true" src/content/projects/*.md` δεν βγάζει τίποτα. Ο χρήστης είπε «εντάξει» για τη σελίδα.
 
-Αν το περιεχόμενο θέλει μέρες: κάνε τις Φάσεις 2-3 με δοκιμαστικό όνομα Worker
-(`"name": "av-website-test"` στο `wrangler.jsonc`) και μη δώσεις το URL πουθενά. Σβήσ' το μετά.
+Το repo είναι public: και τα πρόχειρα (`draft: true`) φαίνονται στο GitHub, απλώς όχι στο site.
+Γι' αυτό: καμία φωτογραφία ή κείμενο στο repo πριν πάρετε την άδεια του πελάτη.
 
-### Φάση 2: Cloudflare (site online)
+### Φάση 2: GitHub Pages (site online)
 
-1. `npx wrangler login` (ανοίγει browser, login στον λογαριασμό Cloudflare του γραφείου).
-2. `npm run build` και `npx wrangler deploy`. Γράφει ένα URL `https://av-website.<κάτι>.workers.dev`.
-   Ο χρήστης το ανοίγει.
-3. Αυτόματο deploy από το GitHub. Ο χρήστης, στο dashboard του Cloudflare:
-   Workers & Pages → `av-website` → Settings → Build → Connect (Git repository) →
-   GitHub → εγκρίνει πρόσβαση **μόνο** στο repo `av-website`.
-   - Build command: `npm run build`
-   - Deploy command: `npx wrangler deploy`
-   - Branch: `main`
-4. Έλεγχος: άλλαξε ένα γράμμα σε ένα έργο, commit, push. Σε 1-2 λεπτά η αλλαγή φαίνεται online.
-   Μετά επανάφερέ το με νέο commit (όχι force push).
-5. Γράψε το τελικό URL στο `astro.config.mjs` (`site:`), commit, push.
+1. Ο χρήστης, στο GitHub: repo `av-website` → Settings → Pages →
+   Build and deployment → Source: **GitHub Actions**. (Τίποτα άλλο.)
+2. Εσύ: `gh workflow run deploy.yml`, μετά `gh run watch` μέχρι να τελειώσει με ✓.
+3. Το site είναι στο `https://<username>.github.io/av-website/`. Ο χρήστης το ανοίγει.
+4. Έλεγχος αυτόματης ενημέρωσης: άλλαξε ένα γράμμα σε ένα έργο, commit, push.
+   `gh run watch` → σε 1-2 λεπτά η αλλαγή φαίνεται online. Μετά επανάφερέ το με νέο commit (όχι force push).
 
-**Απόδειξη:** push → η αλλαγή φαίνεται στο workers.dev URL.
+Αν το build αποτύχει (π.χ. λάθος πεδίο), το site **μένει όπως ήταν** και το GitHub στέλνει email
+στον owner. Το `gh run view --log-failed` δείχνει ποιο αρχείο και ποιο πεδίο.
+
+**Απόδειξη:** push → η αλλαγή φαίνεται στο github.io URL.
 
 ### Φάση 3: Login στο CMS από οποιονδήποτε υπολογιστή
 
-Το CMS χρειάζεται ένα μικρό «θυρωρό» για το login με GitHub (Sveltia CMS Authenticator).
+Κάθε άτομο που αλλάζει το site έχει **δικό του** λογαριασμό GitHub και **δικό του** token
+(κλειδί πρόσβασης μόνο σε αυτό το repo). Έτσι δεν χρειάζεται κανένας server για login.
 
-1. Ο χρήστης ανοίγει https://github.com/sveltia/sveltia-cms-auth και πατά «Deploy to Cloudflare Workers».
-   Συνδέεται με τον λογαριασμό Cloudflare του γραφείου. Στο τέλος κρατά το URL
-   `https://sveltia-cms-auth.<κάτι>.workers.dev`.
-2. GitHub → Settings → Developer settings → OAuth Apps → New OAuth App:
-   - Application name: `AV website CMS`
-   - Homepage URL: το URL του site
-   - Authorization callback URL: `<URL του authenticator>/callback`
-   Μετά: Generate a new client secret.
-3. Cloudflare → Workers → `sveltia-cms-auth` → Settings → Variables and Secrets:
-   - `GITHUB_CLIENT_ID` = Client ID
-   - `GITHUB_CLIENT_SECRET` = Client secret, τύπος **Secret** (κρυφό)
-   - `ALLOWED_DOMAINS` = το hostname του site (π.χ. `av-website.xxx.workers.dev`, αργότερα και το domain)
-   Ο χρήστης τα επικολλά **ο ίδιος** στο dashboard. Το secret μπαίνει και στον password manager.
-4. Εσύ αλλάζεις στο `public/admin/config.yml`:
-   - `repo:` → `<username γραφείου>/av-website`
-   - βγάζεις το `#` από το `base_url:` και βάζεις το URL του authenticator
-   Build, commit, push.
-5. Ο χρήστης ανοίγει `<URL site>/admin/` → «Sign In with GitHub» → αλλάζει κάτι → Save.
-   Σε 1-2 λεπτά η αλλαγή φαίνεται online. Εσύ κάνεις `git pull` και δείχνεις το commit.
+1. Άλλο άτομο από τον owner: ο owner το προσθέτει στο repo (Settings → Collaborators, ρόλος Write)
+   και εκείνο αποδέχεται την πρόσκληση από το email.
+2. Το άτομο, στο GitHub: Settings → Developer settings → Personal access tokens →
+   **Fine-grained tokens** → Generate new token:
+   - Token name: `av-website CMS <όνομα υπολογιστή>`
+   - Expiration: 1 χρόνος. **Βάλε υπενθύμιση στο ημερολόγιο** μία εβδομάδα πριν λήξει.
+   - Resource owner: ο λογαριασμός του γραφείου. Repository access: **Only select repositories** → `av-website`
+   - Permissions → Repository permissions → **Contents: Read and write**. Τίποτα άλλο.
+   Το token μπαίνει στον password manager. **Όχι** στη συνομιλία με το AI.
+3. Εσύ αλλάζεις στο `public/admin/config.yml` το `repo:` σε `<username γραφείου>/av-website`. Commit, push.
+4. Το άτομο ανοίγει `https://<username>.github.io/av-website/admin/` → «Sign In Using Access Token» →
+   επικολλά το token → αλλάζει κάτι → Save. Σε 1-2 λεπτά η αλλαγή φαίνεται online.
+   Εσύ κάνεις `git pull` και δείχνεις το commit.
+
+Το token μένει αποθηκευμένο σε αυτόν τον browser. Σε κοινόχρηστο υπολογιστή: «Sign Out» στο τέλος.
+Αν χαθεί ή διαρρεύσει: GitHub → Settings → Developer settings → Personal access tokens → **Revoke**, και νέο.
 
 **Απόδειξη:** αλλαγή από το online CMS εμφανίστηκε στο site και στο `git log`.
 
-Πρόσβαση άλλου υπαλλήλου στο CMS: φτιάχνει δικό του GitHub, και ο owner τον προσθέτει
-στο repo (Settings → Collaborators, ρόλος Write).
+### Φάση 4: Domain (μόνο αν υπάρχει ή αγοραστεί)
 
-### Φάση 4: Domain (αν υπάρχει ή αγοραστεί)
+Εδώ **δεν** αλλάζουν nameservers. Προστίθενται μόνο 2 είδη εγγραφών για το site.
+Οι εγγραφές του email (MX, SPF, DKIM) δεν αγγίζονται, άρα το email δεν επηρεάζεται.
 
-**ΣΤΑΜΑΤΑ και ρώτα τον τεχνικό πριν από αυτή τη φάση.** Λάθος εδώ σταματά το email του γραφείου.
+1. GitHub → το avatar πάνω δεξιά → Settings → Pages → **Add a domain** (επαλήθευση domain).
+   Ο χρήστης προσθέτει την εγγραφή TXT που δίνει το GitHub στον registrar (π.χ. Papaki) και πατά Verify.
+   Αυτό εμποδίζει άλλον να «κλέψει» το domain σε δικό του site.
+2. Στον registrar, στις ρυθμίσεις DNS του domain:
+   - **CNAME** `www` → `<username>.github.io`
+   - **A** `@` (χωρίς www) → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   Αν υπάρχουν ήδη A ή CNAME για `@` ή `www` (π.χ. παλιό site), **σταμάτα και ρώτα** τον τεχνικό πριν τα σβήσεις.
+   Μην αλλάξεις τίποτα άλλο.
+3. Repo `av-website` → Settings → Pages → Custom domain: `www.<domain>` → Save.
+   Όταν περάσει ο έλεγχος (λεπτά έως λίγες ώρες): **Enforce HTTPS** ✓.
+4. `gh workflow run deploy.yml`: το site χτίζεται ξανά στη ρίζα του domain (χωρίς `/av-website/`).
 
-1. Cloudflare → Add a domain → το domain του γραφείου → Free plan.
-2. Το Cloudflare διαβάζει τις υπάρχουσες εγγραφές DNS. Σύγκρινε με τον χρήστη, γραμμή-γραμμή,
-   ότι υπάρχουν **όλες** οι εγγραφές MX, και τα TXT με `v=spf1`, DKIM (`._domainkey`) και DMARC,
-   όπως είναι στον τωρινό πάροχο. Κράτα screenshot των παλιών εγγραφών στο NAS.
-3. Ο χρήστης αλλάζει τους nameservers στον registrar (π.χ. Papaki) σε αυτούς που δίνει το Cloudflare.
-4. Workers → `av-website` → Settings → Domains & Routes → Add → Custom domain (`www` και χωρίς `www`).
-5. Ενημέρωσε `astro.config.mjs` (`site:`) και `ALLOWED_DOMAINS` στον authenticator.
-6. Στείλε ένα δοκιμαστικό email προς και από το email του γραφείου.
-
-**Απόδειξη:** το site ανοίγει στο domain και το email στέλνει και λαμβάνει.
+**Απόδειξη:** `https://www.<domain>/` και `https://<domain>/` ανοίγουν το site με λουκέτο.
 
 ### Φάση 5: Backup στο NAS
 
@@ -213,15 +207,14 @@
 | Υπηρεσία | Username | 2FA σε | Recovery codes |
 |---|---|---|---|
 | GitHub | <username> | κινητό <ποιου> | φάκελος ΑΝΑΚΤΗΣΗ (χαρτί) + password manager |
-| Cloudflare | <email> | κινητό <ποιου> | φάκελος ΑΝΑΚΤΗΣΗ (χαρτί) + password manager |
 | Registrar domain | <πάροχος> | | |
 | Password manager | <email> | | master password: <πού φυλάσσεται> |
 
 ## Πού είναι τι
-- Κώδικας + περιεχόμενο: github.com/<username>/av-website (private)
+- Κώδικας + περιεχόμενο: github.com/<username>/av-website (public)
 - Τοπικό αντίγραφο: C:\Sites\av-website στον υπολογιστή <όνομα>
 - Backup: \\NAS\Site\backup\av-website-<ημερομηνία>.bundle (κάθε Δευτέρα)
-- Site: Cloudflare Worker «av-website». CMS login: Cloudflare Worker «sveltia-cms-auth»
+- Site: GitHub Pages του repo (Settings → Pages). CMS login: token ανά άτομο (λήγει: <ημερομηνία>)
 
 ## Αν χαθεί ο υπολογιστής
 Νέος υπολογιστής → SETUP.md Φάση 0, αλλά στο βήμα 6 αντί για clone + gh repo create:
@@ -231,12 +224,11 @@
 1. Recovery codes → login. Αν δεν γίνεται: νέος λογαριασμός GitHub.
 2. git clone \\NAS\Site\backup\<πιο πρόσφατο>.bundle C:\Sites\av-website
 3. cd C:\Sites\av-website ; git remote remove origin
-4. gh repo create av-website --private --source . --remote origin --push
-5. Cloudflare: σύνδεση του Worker με το νέο repo (SETUP.md Φάση 2.3)
-6. Νέο OAuth App + config.yml (SETUP.md Φάση 3)
+4. gh repo create av-website --public --source . --remote origin --push
+5. SETUP.md Φάση 2 (Pages), Φάση 3 (νέα tokens, config.yml) και, αν υπάρχει domain, Φάση 4
 
-## Αν χαθούν όλα (και το Cloudflare)
-Bundle από το NAS → SETUP.md από τη Φάση 0. Χρόνος: ~3 ώρες.
+## Αν χαθούν όλα
+Bundle από το NAS → SETUP.md από τη Φάση 0. Χρόνος: ~2 ώρες.
 ```
 
 Εκτύπωσε το αρχείο και βάλ' το στον φάκελο «ΑΝΑΚΤΗΣΗ» μαζί με τα recovery codes.
@@ -254,11 +246,24 @@ Bundle από το NAS → SETUP.md από τη Φάση 0. Χρόνος: ~3 ώ�
 ## Τέλος: λίστα ελέγχου
 
 - [ ] Κανένα έργο με `demo: true` και κανένας αριθμός-παράδειγμα online
-- [ ] Το site ανοίγει online (workers.dev ή domain)
+- [ ] Το site ανοίγει online (github.io ή domain)
 - [ ] Push στο GitHub → αλλαγή online σε 1-2 λεπτά
 - [ ] Login στο `/admin/` από άλλο υπολογιστή δουλεύει
 - [ ] Claude Code προσθέτει έργο από φάκελο του NAS (με «ναι» πριν το push)
 - [ ] Υπάρχει backup στο NAS και η εργασία τρέχει κάθε εβδομάδα
 - [ ] Η δοκιμή ανάκτησης πέρασε
 - [ ] Φάκελος «ΑΝΑΚΤΗΣΗ» τυπωμένος, recovery codes μέσα
-- [ ] Owner σε GitHub, Cloudflare και domain είναι ο λογαριασμός του γραφείου· ο τεχνικός είναι μόνο συνεργάτης
+- [ ] Owner στο GitHub και στο domain είναι ο λογαριασμός του γραφείου· ο τεχνικός είναι μόνο συνεργάτης
+- [ ] Υπενθύμιση στο ημερολόγιο για τη λήξη κάθε token
+
+---
+
+## Παράρτημα (προαιρετικό): κουμπί «Sign In with GitHub» με Cloudflare
+
+Μόνο αν τα tokens γίνουν ενόχληση (πολλά άτομα, συχνές λήξεις). Χρειάζεται δωρεάν λογαριασμό Cloudflare.
+
+1. https://github.com/sveltia/sveltia-cms-auth → «Deploy to Cloudflare Workers». Κράτα το URL του Worker.
+2. GitHub → Settings → Developer settings → OAuth Apps → New: callback `<URL Worker>/callback`. Generate client secret.
+3. Cloudflare → Worker → Settings → Variables and Secrets: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (τύπος Secret),
+   `ALLOWED_DOMAINS` = το hostname του site. Τα επικολλά ο χρήστης, όχι το AI.
+4. `public/admin/config.yml` → `base_url: <URL Worker>` κάτω από το `backend:`. Commit, push.

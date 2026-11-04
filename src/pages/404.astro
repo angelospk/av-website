@@ -1,9 +1,10 @@
 ---
 import Base from "../layouts/Base.astro";
+import { u } from "../lib/url";
 ---
 <Base title="Η σελίδα δεν βρέθηκε | Αλέξανδρος Βλάχος" description="Η σελίδα δεν βρέθηκε.">
 <main class="wrap" style="padding:200px 0 160px">
   <h1>Η σελίδα δεν βρέθηκε.</h1>
-  <p><a class="btn btn-primary" href="/">Αρχική</a></p>
+  <p><a class="btn btn-primary" href={u("/")}>Αρχική</a></p>
 </main>
 </Base>

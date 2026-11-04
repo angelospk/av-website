@@ -2,7 +2,7 @@
 
 Site του τεχνικού γραφείου Αλέξανδρου Βλάχου, πολιτικού μηχανικού στη Λευκάδα.
 
-- **Astro 7**, στατικό. Hosting: **Cloudflare Workers** (static assets, δωρεάν).
+- **Astro 7**, στατικό. Hosting: **GitHub Pages** (δωρεάν), αυτόματα σε κάθε push στο `main`.
 - **Sveltia CMS** στο `/admin/`: φόρμες για έργα και στοιχεία γραφείου, online ή τοπικά.
 - Περιεχόμενο σε απλά αρχεία: `src/content/projects/*.md` και `src/data/site.json`.
 - Οδηγίες για AI agent: `AGENTS.md`. Στήσιμο σε νέο υπολογιστή από το μηδέν: `SETUP.md`.
@@ -28,6 +28,7 @@ npm run build      # ελέγχει το περιεχόμενο και φτιά�
 | `public/styles.css`, `public/app.js`, `public/hero3d.js` | Εμφάνιση, φίλτρα/παράθυρο έργου, 3D |
 | `scripts/import-project.mjs` | Φωτογραφίες από φάκελο → WebP χωρίς EXIF/GPS |
 | `scripts/backup.mjs` | `git bundle` σε φάκελο backup |
-| `wrangler.jsonc` | Ρύθμιση Cloudflare |
+| `.github/workflows/deploy.yml` | Build + δημοσίευση στο GitHub Pages |
+| `src/lib/url.ts` | Σωστά links είτε σε `/` είτε σε `/av-website/` |
 
 Design: `DESIGN.md`.

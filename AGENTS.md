@@ -1,7 +1,8 @@
 # Οδηγίες για AI agent (Claude Code, Codex κ.ά.)
 
 Αυτό το repo είναι το site του τεχνικού γραφείου Αλέξανδρου Βλάχου (Λευκάδα).
-Στατικό site με Astro 7. Hosting: Cloudflare Workers (μόνο στατικά αρχεία).
+Στατικό site με Astro 7. Hosting: GitHub Pages (κάθε push στο `main` το δημοσιεύει, `.github/workflows/deploy.yml`).
+Το repo είναι **public**: ό,τι μπαίνει σε commit το βλέπει όποιος θέλει, ακόμα και με `draft: true`.
 CMS: Sveltia CMS στο `/admin/`. Ο χρήστης είναι συνήθως μη προγραμματιστής:
 μίλα ελληνικά, απλά, ένα βήμα τη φορά.
 
@@ -17,8 +18,8 @@ CMS: Sveltia CMS στο `/admin/`. Ο χρήστης είναι συνήθως �
 3. **Το NAS το διαβάζεις, δεν γράφεις σε αυτό.** Εξαίρεση: ο φάκελος backup που όρισε ο χρήστης.
 4. **Φωτογραφίες μόνο μέσω `npm run import-project`.** Το script σβήνει EXIF/GPS. Ποτέ μην αντιγράφεις φωτογραφία απευθείας.
 5. **Προσωπικά δεδομένα:** ποτέ διεύθυνση ακινήτου, όνομα πελάτη, ΑΦΜ, τηλέφωνο πελάτη, αριθμό άδειας ή σχέδια με στοιχεία. Μόνο χωριό/περιοχή.
-6. **Πριν το push:** `npm run build` πρέπει να περάσει. Μετά `npm run dev` και δείξε στον χρήστη τη σελίδα (`http://localhost:4321/`). Push **μόνο** όταν ο χρήστης πει «ναι».
-7. **Μυστικά ποτέ στο repo ή στη συνομιλία:** tokens, client secrets, κωδικοί. Αυτά μπαίνουν μόνο στο dashboard του Cloudflare ή στον password manager.
+6. **Πριν το push:** `npm run build` πρέπει να περάσει. Μετά `npm run dev` και δείξε στον χρήστη τη σελίδα (`http://localhost:4321/`). Push **μόνο** όταν ο χρήστης πει «ναι». Μετά: `gh run watch` μέχρι ✓.
+7. **Μυστικά ποτέ στο repo ή στη συνομιλία:** tokens, client secrets, κωδικοί. Αυτά μπαίνουν μόνο στον password manager.
 8. Ποτέ `git push --force`, ποτέ διαγραφή branch ή ιστορικού.
 
 ## Νέο έργο από φάκελο στο NAS
@@ -44,6 +45,7 @@ CMS: Sveltia CMS στο `/admin/`. Ο χρήστης είναι συνήθως �
 | Σειρά έργων | πεδίο `order` (μικρότερο = πιο πάνω) |
 | Διαγραφή έργου | σβήσε το `.md` και τον φάκελο `public/images/projects/<slug>/`, μόνο με «ναι» |
 | Backup τώρα | `npm run backup -- "<φάκελος backup>"` |
+| Το online build απέτυχε | `gh run view --log-failed` |
 | Το build αποτυγχάνει | διάβασε τη γραμμή `data does not match collection schema`: λέει ποιο αρχείο και ποιο πεδίο |
 
 ## Εντολές

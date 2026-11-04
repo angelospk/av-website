@@ -4,7 +4,7 @@ backend:
   name: github
   repo: angelospk/av-website # ΑΛΛΑΞΕ: <λογαριασμός-γραφείου>/av-website
   branch: main
-  # base_url: https://sveltia-cms-auth.<subdomain>.workers.dev  # βήμα «Login για το CMS» στο SETUP.md
+  # Login: «Sign In Using Access Token» (SETUP.md Φάση 3). Κουμπί GitHub: SETUP.md Παράρτημα (base_url).
   commit_messages:
     create: "content: νέο {{collection}} «{{slug}}»"
     update: "content: αλλαγή {{collection}} «{{slug}}»"

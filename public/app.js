@@ -60,7 +60,7 @@
         <div>
           <dl class="facts">${facts}</dl>
           <div class="tags">${p.categories.map((c) => `<span>${esc(c)}</span>`).join("")}</div>
-          <p><a class="btn btn-ghost btn-sm" href="/erga/${encodeURIComponent(p.id)}/">Σελίδα έργου</a></p>
+          <p><a class="btn btn-ghost btn-sm" href="${window.BASE || ""}/erga/${encodeURIComponent(p.id)}/">Σελίδα έργου</a></p>
         </div>
       </div>
       ${gal ? `<div class="gallery">${gal}</div>` : ""}`;
