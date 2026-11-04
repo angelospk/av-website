@@ -170,13 +170,18 @@ section { padding: clamp(110px, 13vw, 190px) var(--gut) 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+.brand av-logo { width: 42px; --logo-a: #fff; --logo-v: #8b8b8b; flex: none; }
+.crumbs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; min-width: 0; }
+.crumbs a { text-decoration: none; opacity: .7; transition: opacity .2s; }
+.crumbs a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+.crumbs [aria-current] { color: inherit; opacity: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 40ch; }
 </style>
 </head>
 <body>
 
 <header class="top">
   <a class="brand" href="#">
-    <svg class="lg" viewBox="0 0 915 685" aria-hidden="true"><polyline class="la" pathLength="1" points="30,395 320,30 570,415"/><polyline class="lv" pathLength="1" points="205,295 405,295 635,655 885,325"/></svg>
+    <av-logo></av-logo>
     <b>ΑΛΕΞΑΝΔΡΟΣ ΒΛΑΧΟΣ</b>
   </a>
   <nav>
@@ -243,10 +248,11 @@ section { padding: clamp(110px, 13vw, 190px) var(--gut) 0; }
 <footer class="foot mono"><span>© 2026 Αλέξανδρος Βλάχος · Πολιτικός μηχανικός</span><span>ΤΕΕ · Μητρώο Μελετητών</span></footer>
 <div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
 <dialog class="panel" id="panel" aria-labelledby="pnTitle">
-  <div class="pn-top"><span class="mono">Έργο · demo περιεχόμενο</span><button class="x" type="button" onclick="this.closest('dialog').close()">Κλείσιμο <svg viewBox="0 0 16 16"><path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.2"/></svg></button></div>
+  <div class="pn-top"><nav class="crumbs mono" id="crumbs" aria-label="Διαδρομή"></nav><button class="x" type="button" onclick="this.closest('dialog').close()">Κλείσιμο <svg viewBox="0 0 16 16"><path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.2"/></svg></button></div>
   <div class="pn-body" id="pnBody"></div>
 </dialog>
 
+<script src="../shared/av-logo.js"></script>
 <script src="../../data/site.js"></script>
 <script src="../../data/projects.js"></script>
 <script>
@@ -272,6 +278,8 @@ function openProject(id) {
     <dl class="kv">${Object.entries(facts).map(([k, v]) => `<div><dt class="mono">${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
     ${p.timeline ? `<p class="mono" style="margin:0 0 10px">Χρονολόγιο</p><ol class="tl">${p.timeline.map(t => `<li class="${t.done ? "done" : ""}">${tri}<span class="mono">${esc(t.date)}</span><span>${esc(t.label)}</span></li>`).join("")}</ol>` : ""}`;
   peek.classList.remove("on");
+  $("#crumbs").innerHTML = `<a href="#top" data-close>Αρχική</a><span aria-hidden="true">/</span><a href="#erga" data-close>Έργα</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.title)}</span>`;
+  if (location.hash !== "#erga/" + p.id) history.pushState(null, "", "#erga/" + p.id);
   panel.showModal(); panel.scrollTop = 0;
 }
 $("#plist").addEventListener("click", e => { const b = e.target.closest(".row"); if (b) openProject(b.dataset.id); });
@@ -381,6 +389,12 @@ if (matchMedia("(pointer: fine)").matches) {
   new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(cv);
   if (reduce) { intro = 1; last = -1e9; frame(performance.now()); } else requestAnimationFrame(frame);
 })();
+
+// breadcrumb + deep link: #erga/<id> opens the project, closing returns to #erga
+panel.addEventListener("click", e => { const a = e.target.closest("[data-close]"); if (a) { e.preventDefault(); panel.close(); document.querySelector(a.getAttribute("href") === "#top" ? "body" : "#erga").scrollIntoView(); } });
+panel.addEventListener("close", () => { if (location.hash.startsWith("#erga/")) history.pushState(null, "", "#erga"); });
+function fromHash() { const m = location.hash.match(/^#erga\/(.+)$/); if (m && !panel.open) openProject(decodeURIComponent(m[1])); else if (!m && panel.open) { panel.close(); } }
+addEventListener("popstate", fromHash); fromHash();
 </script>
 </body>
 </html>

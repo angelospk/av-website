@@ -235,6 +235,11 @@ figure:hover .ph::after { opacity: 1; transform: scale(1); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
 }
+.brand av-logo { width: 44px; --logo-a: var(--ink); --logo-v: var(--mid); flex: none; }
+.crumbs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; min-width: 0; }
+.crumbs a { text-decoration: none; opacity: .7; transition: opacity .2s; }
+.crumbs a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+.crumbs [aria-current] { color: inherit; opacity: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 40ch; }
 </style>
 </head>
 <body>
@@ -248,7 +253,7 @@ figure:hover .ph::after { opacity: 1; transform: scale(1); }
 
 <header class="top" id="top">
   <a class="brand" href="#">
-    <svg class="lg" viewBox="0 0 915 685" aria-hidden="true"><polyline class="la" pathLength="1" stroke-width="34" points="30,395 320,30 570,415"/><polyline class="lv" pathLength="1" stroke-width="34" points="205,295 405,295 635,655 885,325"/></svg>
+    <av-logo></av-logo>
     <span><b>ΑΛΕΞΑΝΔΡΟΣ ΒΛΑΧΟΣ</b><small class="cap">Πολιτικός μηχανικός · Λευκάδα</small></span>
   </a>
   <nav>
@@ -336,10 +341,11 @@ figure:hover .ph::after { opacity: 1; transform: scale(1); }
 <footer class="foot"><span>© 2026 Αλέξανδρος Βλάχος · Πολιτικός μηχανικός</span><span>ΤΕΕ · Μητρώο Μελετητών</span></footer>
 
 <dialog class="dlg" id="dlg" aria-labelledby="dlgTitle">
-  <div class="dlg-top"><span class="cap">Φύλλο έργου · demo περιεχόμενο</span><button class="x" type="button" onclick="this.closest('dialog').close()">Κλείσιμο <svg viewBox="0 0 16 16"><path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.4"/></svg></button></div>
+  <div class="dlg-top"><nav class="crumbs cap" id="crumbs" aria-label="Διαδρομή"></nav><button class="x" type="button" onclick="this.closest('dialog').close()">Κλείσιμο <svg viewBox="0 0 16 16"><path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.4"/></svg></button></div>
   <div class="dlg-grid" id="dlgBody"></div>
 </dialog>
 
+<script src="../shared/av-logo.js"></script>
 <script src="../../data/site.js"></script>
 <script src="../../data/projects.js"></script>
 <script>
@@ -367,6 +373,8 @@ function openProject(id) {
       <dl class="kv">${Object.entries(facts).map(([k, v]) => `<dt class="cap">${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
       ${p.timeline ? `<p class="cap" style="margin-bottom:8px">Χρονολόγιο</p><ol class="tl">${p.timeline.map(t => `<li class="${t.done ? "done" : ""}"><time>${esc(t.date)}</time><i></i><span>${esc(t.label)}</span></li>`).join("")}</ol>` : ""}
     </div>`;
+  $("#crumbs").innerHTML = `<a href="#top" data-close>Αρχική</a><span aria-hidden="true">/</span><a href="#erga" data-close>Έργα</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.title)}</span>`;
+  if (location.hash !== "#erga/" + p.id) history.pushState(null, "", "#erga/" + p.id);
   dlg.showModal(); dlg.scrollTop = 0;
 }
 $("#proj").addEventListener("click", e => { const b = e.target.closest(".open"); if (b) openProject(b.dataset.id); });
@@ -396,6 +404,12 @@ if (matchMedia("(pointer: fine)").matches && !matchMedia("(prefers-reduced-motio
   }, { passive: true });
   document.addEventListener("pointerleave", () => cross.classList.remove("on"));
 }
+
+// breadcrumb + deep link: #erga/<id> opens the project, closing returns to #erga
+dlg.addEventListener("click", e => { const a = e.target.closest("[data-close]"); if (a) { e.preventDefault(); dlg.close(); document.querySelector(a.getAttribute("href") === "#top" ? "body" : "#erga").scrollIntoView(); } });
+dlg.addEventListener("close", () => { if (location.hash.startsWith("#erga/")) history.pushState(null, "", "#erga"); });
+function fromHash() { const m = location.hash.match(/^#erga\/(.+)$/); if (m && !dlg.open) openProject(decodeURIComponent(m[1])); else if (!m && dlg.open) { dlg.close(); } }
+addEventListener("popstate", fromHash); fromHash();
 </script>
 </body>
 </html>

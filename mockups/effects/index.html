@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Εφέ δόμησης | Αλέξανδρος Βλάχος</title>
+<link rel="icon" href="../../logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Advent+Pro:wght@200;300;500&family=Ysabeau+Office:wght@400;500;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root { --paper: #fff; --ink: #0b0b0b; --mid: #6a6a6a; --hair: rgba(11,11,11,.14); --gut: clamp(16px, 5vw, 72px);
+  --display: "Advent Pro", sans-serif; --body: "Ysabeau Office", sans-serif; --num: "Roboto Mono", monospace; --ease: cubic-bezier(.16,1,.3,1); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--ink); color: var(--paper); }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); font-weight: 300; margin: 0; }
+.cap { font: 600 11px/1.3 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--mid); }
+:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 3px; }
+header.page { padding: 40px var(--gut) 24px; display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; border-bottom: 1px solid var(--ink); }
+header.page av-logo { width: 84px; --logo-a: var(--ink); --logo-v: var(--mid); }
+header.page h1 { font-size: clamp(34px, 4.4vw, 60px); line-height: 1; font-weight: 200; }
+header.page p { margin: 8px 0 0; color: #3a3a3a; max-width: 70ch; }
+.crumbs { padding: 14px var(--gut); display: flex; gap: 10px; border-bottom: 1px solid var(--hair); }
+.crumbs a { text-decoration: none; opacity: .7; } .crumbs a:hover { opacity: 1; text-decoration: underline; }
+
+.fx { padding: 56px var(--gut); border-bottom: 1px solid var(--hair); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 48px; }
+.fx-head h2 { font-size: clamp(30px, 3vw, 44px); line-height: 1.02; margin: 10px 0 12px; }
+.fx-head p { margin: 0 0 14px; color: #3a3a3a; }
+.fx-head .for { font: 400 13px var(--num); color: var(--mid); }
+.replay { all: unset; cursor: pointer; margin-top: 18px; display: inline-flex; gap: 8px; align-items: center; border: 1px solid var(--ink); padding: 10px 14px; font: 600 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; }
+.replay:hover { background: var(--ink); color: var(--paper); }
+.stage { border: 1px solid var(--ink); position: relative; overflow: hidden; min-height: 420px; }
+
+/* 1. building grows with the steps */
+.build { display: grid; grid-template-columns: 220px 1fr; }
+.steps { list-style: none; margin: 0; padding: 0; border-right: 1px solid var(--hair); }
+.steps button { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: block; padding: 13px 16px; border-bottom: 1px solid var(--hair); position: relative; }
+.steps b { display: block; font: 500 20px/1.1 var(--display); }
+.steps small { font: 400 12px var(--num); color: var(--mid); }
+.steps button::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--ink); transform: scaleY(0); transition: transform .4s var(--ease); }
+.steps button[aria-current="step"]::before { transform: scaleY(1); }
+.steps button:not([aria-current="step"]) b { color: var(--mid); }
+.steps .txt { display: none; font-size: 14px; margin-top: 4px; }
+.steps button[aria-current="step"] .txt { display: block; }
+.elev { width: 100%; height: 100%; display: block; }
+.elev .d { fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.1s var(--ease), opacity .5s; }
+.elev .on { stroke-dashoffset: 0; }
+.elev .ghost { stroke: var(--mid); stroke-width: 1; stroke-dasharray: 6 5; stroke-dashoffset: 0; opacity: 0; transition: opacity .8s; }
+.elev .ghost.on { opacity: 1; }
+.elev .thin { stroke-width: 1; }
+.elev .fill { fill: var(--ink); opacity: 0; transition: opacity .8s .3s; stroke: none; }
+.elev .fill.on { opacity: 1; }
+.elev .glow { fill: #fff; stroke: var(--ink); stroke-width: 1.5; opacity: 0; transition: opacity .8s, fill .8s; }
+.elev .glow.on { opacity: 1; fill: #f1e7c4; }
+.elev text { font: 400 12px var(--num); fill: var(--ink); opacity: 0; transition: opacity .6s .4s; }
+.elev text.on { opacity: 1; }
+.stamp { opacity: 0; transform: rotate(-8deg) scale(1.6); transform-box: fill-box; transform-origin: center; transition: opacity .3s, transform .5s cubic-bezier(.3,1.6,.5,1); }
+.stamp.on { opacity: 1; transform: rotate(-8deg) scale(1); }
+.stamp.gone { opacity: .12; transform: rotate(-8deg) scale(1); }
+.stamp rect { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+.stamp text { font: 600 13px var(--body) !important; letter-spacing: .14em; opacity: 1 !important; }
+.prog { position: absolute; left: 220px; right: 0; bottom: 0; height: 2px; background: var(--hair); }
+.prog i { display: block; height: 100%; background: var(--ink); width: 0; }
+
+/* 2. exploded axonometric */
+.axo { display: grid; grid-template-columns: 260px 1fr; }
+.svc { list-style: none; margin: 0; padding: 0; border-right: 1px solid var(--hair); }
+.svc button { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; padding: 11px 16px; border-bottom: 1px solid var(--hair); display: block; font: 500 18px/1.15 var(--display); transition: background .25s, color .25s, padding .3s var(--ease); }
+.svc button:hover, .svc button[aria-pressed="true"] { background: var(--ink); color: var(--paper); padding-left: 24px; }
+.svc small { display: block; font: 400 13px/1.4 var(--body); color: var(--mid); margin-top: 3px; }
+.svc button:hover small, .svc button[aria-pressed="true"] small { color: #c8c8c8; }
+#axo { width: 100%; height: 100%; display: block; }
+#axo g.layer { transition: transform .9s var(--ease), opacity .5s; }
+#axo .ln { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linejoin: round; transition: stroke-width .4s; }
+#axo .face { fill: #fff; stroke: var(--ink); stroke-width: 1.2; stroke-linejoin: round; }
+#axo .face.dk { fill: #e9e9e7; }
+#axo .face.pv { fill: #1c1c1c; stroke: #fff; stroke-width: .8; }
+#axo .dash { stroke-dasharray: 5 4; }
+#axo .lbl { font: 600 10px var(--body); letter-spacing: .14em; fill: var(--mid); text-transform: uppercase; transition: fill .3s; }
+#axo.focus g.layer:not(.hi) { opacity: .14; }
+#axo g.layer.hi .ln { stroke-width: 2; }
+#axo g.layer.hi .lbl { fill: var(--ink); }
+#axo .legal { opacity: 0; transition: opacity .5s; }
+#axo.show-legal .legal { opacity: 1; }
+
+/* 3. drawing to photo */
+.d2p { min-height: 0; aspect-ratio: 16 / 9; }
+.d2p img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.d2p .sketch { filter: grayscale(1) contrast(5) brightness(1.55) blur(.3px); mix-blend-mode: multiply; }
+.d2p .photo { clip-path: inset(0 100% 0 0); }
+.d2p.run .photo { animation: wipe 2.8s cubic-bezier(.7,0,.2,1) .6s forwards; }
+.d2p .scan { position: absolute; top: 0; bottom: 0; left: 0; width: 1px; background: var(--ink); box-shadow: 0 0 0 1px #fff; opacity: 0; }
+.d2p.run .scan { animation: scan 2.8s cubic-bezier(.7,0,.2,1) .6s forwards; }
+.d2p .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--hair) 1px, transparent 1px), linear-gradient(90deg, var(--hair) 1px, transparent 1px); background-size: 40px 40px; }
+@keyframes wipe { to { clip-path: inset(0 0 0 0); } }
+@keyframes scan { 0% { opacity: 1; left: 0; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+
+/* 4. laser level */
+.laser { display: grid; place-items: center; background: #0b0b0b; color: #fff; }
+.laser .beam { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: #fff; box-shadow: 0 0 12px 2px rgba(255,255,255,.6); }
+.laser.run .beam { animation: beam 2.4s cubic-bezier(.65,0,.35,1) forwards; }
+.laser .txt { text-align: center; padding: 24px; clip-path: inset(0 0 100% 0); }
+.laser.run .txt { animation: rev 2.4s cubic-bezier(.65,0,.35,1) forwards; }
+.laser h3 { font-size: clamp(38px, 5vw, 72px); font-weight: 200; line-height: 1; }
+.laser p { color: #bbb; margin: 14px auto 0; max-width: 40ch; }
+.vial { position: absolute; right: 22px; top: 22px; width: 120px; height: 18px; border: 1px solid #fff; border-radius: 9px; overflow: hidden; }
+.vial::before, .vial::after { content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: #fff; left: 46px; }
+.vial::after { left: 72px; }
+.vial i { position: absolute; top: 3px; width: 24px; height: 10px; border-radius: 5px; background: #fff; left: 6px; }
+.laser.run .vial i { animation: bubble 2.4s cubic-bezier(.3,1.4,.5,1) forwards; }
+@keyframes beam { 0% { top: 0; } 100% { top: 100%; } }
+@keyframes rev { to { clip-path: inset(0 0 0 0); } }
+@keyframes bubble { 0% { left: 6px; } 60% { left: 58px; } 100% { left: 48px; } }
+
+/* 5. structural grid snap */
+.axes svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.axes .ax { stroke: var(--mid); stroke-width: 1; stroke-dasharray: 10 4 2 4; fill: none; }
+.axes .bub circle { fill: #fff; stroke: var(--ink); }
+.axes .bub text { font: 500 13px var(--num); text-anchor: middle; dominant-baseline: central; }
+.axes .ax, .axes .bub { opacity: 0; }
+.axes.run .ax { animation: fadein .6s ease forwards; }
+.axes.run .bub { animation: fadein .4s ease forwards; }
+.axes .blk { position: absolute; background: var(--ink); color: #fff; padding: 14px 16px; font: 500 20px/1.1 var(--display); opacity: 0; }
+.axes .blk small { display: block; font: 400 12px var(--body); color: #bbb; margin-top: 4px; }
+.axes.run .blk { animation: snap .7s cubic-bezier(.3,1.5,.5,1) forwards; }
+@keyframes fadein { to { opacity: 1; } }
+@keyframes snap { 0% { opacity: 0; transform: translate(var(--fx), var(--fy)) rotate(var(--fr)); } 100% { opacity: 1; transform: none; } }
+
+/* 6. masonry heading */
+.wall { display: grid; place-items: center; }
+.bricks { position: absolute; inset: 0; display: flex; flex-direction: column-reverse; }
+.course { display: flex; height: 34px; margin-top: 2px; }
+.course:nth-child(even) { margin-left: -38px; }
+.course i { flex: 0 0 74px; height: 100%; margin-right: 2px; background: #0b0b0b; opacity: 0; transform: translateY(-60px); }
+.wall.run .course i { animation: lay .45s cubic-bezier(.3,1.3,.5,1) forwards; }
+.wall h3 { position: relative; z-index: 1; font-size: clamp(40px, 6vw, 92px); font-weight: 500; color: #fff; mix-blend-mode: difference; text-align: center; line-height: .95; opacity: 0; }
+.wall.run h3 { animation: fadein .8s ease 2.4s forwards; }
+@keyframes lay { to { opacity: 1; transform: none; } }
+
+.foot { padding: 32px var(--gut) 56px; color: var(--mid); font-size: 14px; }
+@media (max-width: 900px) {
+  .fx { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 40px 16px; }
+  .build, .axo { grid-template-columns: minmax(0, 1fr); }
+  .steps, .svc { border-right: 0; border-bottom: 1px solid var(--hair); display: flex; overflow-x: auto; }
+  .steps li, .svc li { flex: 0 0 auto; }
+  .steps button, .svc button { border-bottom: 0; border-right: 1px solid var(--hair); }
+  .steps .txt { display: none !important; }
+  .prog { left: 0; }
+  .stage { min-height: 340px; }
+  .stage.d2p { min-height: 0; }
+  .axes .blk { font-size: 15px; padding: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } }
+</style>
+</head>
+<body>
+
+<header class="page">
+  <av-logo></av-logo>
+  <div>
+    <h1>Εφέ δόμησης και αρχιτεκτονικής</h1>
+    <p>Έξι ζωντανά εφέ για να διαλέξετε. Το λογότυπο επάνω είναι το κοινό component με το εφέ του πρωτοτύπου: ζωγραφίζει το Α, μετά το V, κρατάει, σβήνει και ξαναρχίζει κάθε 12 δευτερόλεπτα.</p>
+  </div>
+</header>
+<nav class="crumbs cap" aria-label="Διαδρομή"><a href="../">Mockups</a><span aria-hidden="true">/</span><span aria-current="page">Εφέ</span></nav>
+
+<main>
+<section class="fx" id="fx1">
+  <div class="fx-head">
+    <span class="cap">Εφέ 1</span>
+    <h2>Το σπίτι χτίζεται βήμα βήμα</h2>
+    <p>Κάθε βήμα της πορείας προσθέτει κάτι στο σχέδιο: οικόπεδο, τοπογραφικό, μελέτη, σφραγίδα άδειας, σκελετός, κλειδιά. Στο site προχωράει με το scroll.</p>
+    <span class="for">για: «Πώς προχωράει ένα έργο»</span>
+  </div>
+  <div class="stage build">
+    <ol class="steps" id="steps"></ol>
+    <svg class="elev" viewBox="0 0 600 380" role="img" aria-label="Όψη κατοικίας που χτίζεται ανά βήμα">
+      <!-- 1 site visit: ground + pegs -->
+      <path class="d s1" pathLength="1" d="M20 310 H580"/>
+      <path class="d thin s1" pathLength="1" d="M110 310 V280 l14 6 -14 6 M490 310 V280 l14 6 -14 6"/>
+      <!-- 2 survey: dimension + survey points -->
+      <path class="d thin s2" pathLength="1" d="M110 340 H490 M104 346 l12 -12 M484 346 l12 -12 M110 312 V346 M490 312 V346"/>
+      <text class="s2" x="282" y="334">18,00</text>
+      <path class="d thin s2" pathLength="1" d="M60 310 l8 -14 8 14 z M524 310 l8 -14 8 14 z"/>
+      <!-- 3 design: ghost of the house -->
+      <path class="ghost s3" d="M150 300 V150 M450 300 V150 M140 150 L300 70 460 150 M150 225 H450 M190 300 V255 H230 V300 M270 190 H330 V215 H270 Z M370 190 H420 V215 H370 Z M370 260 H420 V285 H370 Z"/>
+      <text class="s3" x="462" y="110">ΜΕΛΕΤΗ</text>
+      <!-- 4 permit: stamp -->
+      <g class="stamp s4" id="stamp"><rect x="350" y="40" width="200" height="54"/><text x="366" y="62">ΑΔΕΙΑ ΔΟΜΗΣΗΣ</text><text x="366" y="82">ΕΓΚΡΙΘΗΚΕ</text></g>
+      <!-- 5 construction: foundation, columns, slabs, roof, walls -->
+      <path class="d s5" pathLength="1" d="M140 300 H460 V318 H140 Z"/>
+      <path class="d s5 c2" pathLength="1" d="M152 300 V150 M300 300 V150 M448 300 V150"/>
+      <path class="d s5 c3" pathLength="1" d="M146 228 H454 M146 222 H454 M146 153 H454 M146 147 H454"/>
+      <path class="d s5 c4" pathLength="1" d="M136 152 L300 66 464 152"/>
+      <!-- 6 keys: windows, door, light -->
+      <rect class="glow s6" x="270" y="168" width="60" height="34"/>
+      <rect class="glow s6" x="370" y="168" width="50" height="34"/>
+      <rect class="glow s6" x="370" y="244" width="50" height="34"/>
+      <rect class="fill s6" x="190" y="246" width="40" height="54"/>
+      <path class="d thin s6" pathLength="1" d="M520 310 V270 M520 272 c-22 -6 -22 -40 0 -46 c22 6 22 40 0 46"/>
+      <text class="s6" x="190" y="236">ΚΛΕΙΔΙΑ</text>
+    </svg>
+    <div class="prog"><i id="prog"></i></div>
+  </div>
+</section>
+
+<section class="fx" id="fx2">
+  <div class="fx-head">
+    <span class="cap">Εφέ 2</span>
+    <h2>Εκρηγμένη αξονομετρία</h2>
+    <p>Το σπίτι σε στρώσεις. Κάθε υπηρεσία φωτίζει τη στρώση της: έδαφος, σκελετός, σωληνώσεις, τοίχοι, στέγη με φωτοβολταϊκά. «Κατασκευή» ενώνει τις στρώσεις σε ένα κτίριο.</p>
+    <span class="for">για: «Τι αναλαμβάνουμε»</span>
+  </div>
+  <div class="stage axo">
+    <ul class="svc" id="svc"></ul>
+    <svg id="axo" viewBox="0 0 640 520" role="img" aria-label="Αξονομετρία κατοικίας σε στρώσεις"></svg>
+  </div>
+</section>
+
+<section class="fx" id="fx3">
+  <div class="fx-head">
+    <span class="cap">Εφέ 3</span>
+    <h2>Από το σχέδιο στη φωτογραφία</h2>
+    <p>Η φωτογραφία του έργου ξεκινά σαν σχέδιο με μελάνι σε κάνναβο. Μια γραμμή περνά και αφήνει πίσω της το έγχρωμο αποτέλεσμα.</p>
+    <span class="for">για: κάρτες έργων, άνοιγμα έργου</span>
+    <br><button class="replay" data-run="d2p">Ξανά</button>
+  </div>
+  <div class="stage d2p" id="d2p">
+    <div class="grid"></div>
+    <img class="sketch" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1400&q=80&auto=format&fit=crop" alt="">
+    <img class="photo" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1400&q=80&auto=format&fit=crop" alt="Κατοικία στη Βάρη">
+    <i class="scan"></i>
+  </div>
+</section>
+
+<section class="fx" id="fx4">
+  <div class="fx-head">
+    <span class="cap">Εφέ 4</span>
+    <h2>Αλφάδι λέιζερ</h2>
+    <p>Μια γραμμή λέιζερ κατεβαίνει και αποκαλύπτει την ενότητα. Η φυσαλίδα του αλφαδιού κάθεται στο κέντρο όταν τελειώσει.</p>
+    <span class="for">για: είσοδος ενοτήτων, επικοινωνία</span>
+    <br><button class="replay" data-run="laser">Ξανά</button>
+  </div>
+  <div class="stage laser" id="laser">
+    <i class="beam"></i><span class="vial"><i></i></span>
+    <div class="txt"><h3>Πείτε μας για<br>το ακίνητό σας.</h3><p>Στη Λευκάδα η πρώτη αυτοψία είναι δωρεάν.</p></div>
+  </div>
+</section>
+
+<section class="fx" id="fx5">
+  <div class="fx-head">
+    <span class="cap">Εφέ 5</span>
+    <h2>Κάνναβος αξόνων</h2>
+    <p>Οι άξονες του φέροντα οργανισμού σχεδιάζονται πρώτα. Μετά το περιεχόμενο «κουμπώνει» στους κόμβους, όπως τα υποστυλώματα.</p>
+    <span class="for">για: υπηρεσίες, ομάδα, οποιαδήποτε λίστα</span>
+    <br><button class="replay" data-run="axes">Ξανά</button>
+  </div>
+  <div class="stage axes" id="axes"><svg id="axsvg" aria-hidden="true"></svg></div>
+</section>
+
+<section class="fx" id="fx6">
+  <div class="fx-head">
+    <span class="cap">Εφέ 6</span>
+    <h2>Ο τίτλος χτίζεται</h2>
+    <p>Οι πλίνθοι στρώνονται σε σειρές, μετά ο τίτλος βγαίνει μέσα από τον τοίχο.</p>
+    <span class="for">για: hero ή μεγάλους τίτλους</span>
+    <br><button class="replay" data-run="wall">Ξανά</button>
+  </div>
+  <div class="stage wall" id="wall"><div class="bricks" id="bricks"></div><h3>Μελέτη, άδεια<br>και κατασκευή.</h3></div>
+</section>
+</main>
+
+<p class="foot">Όλα είναι SVG, CSS και λίγη JavaScript, χωρίς βιβλιοθήκες. Μεταφέρονται αυτούσια σε Astro components.</p>
+
+<script src="../shared/av-logo.js"></script>
+<script src="../../data/site.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const NS = "http://www.w3.org/2000/svg";
+
+/* ---------- 1. building by steps ---------- */
+(() => {
+  const ol = $("#steps");
+  ol.innerHTML = STEPS.map((s, i) => `<li><button type="button" data-i="${i}"><b>${esc(s.title)}</b><small>${esc(s.dur || "παράδοση")}</small><span class="txt">${esc(s.text)}</span></button></li>`).join("");
+  const btns = [...ol.querySelectorAll("button")];
+  let cur = -1, timer;
+  function go(n) {
+    cur = n;
+    btns.forEach((b, i) => i === n ? b.setAttribute("aria-current", "step") : b.removeAttribute("aria-current"));
+    for (let k = 1; k <= 6; k++) document.querySelectorAll(".elev .s" + k).forEach((el, j) => {
+      const on = k <= n + 1;
+      el.style.transitionDelay = on && k === n + 1 ? (j * 0.35) + "s" : "0s";
+      el.classList.toggle("on", on);
+    });
+    const st = $("#stamp"); st.classList.toggle("gone", n >= 4);
+    $("#prog").style.width = ((n + 1) / btns.length * 100) + "%";
+  }
+  function auto() { clearInterval(timer); timer = setInterval(() => go((cur + 1) % btns.length), 2600); }
+  ol.addEventListener("click", e => { const b = e.target.closest("button"); if (b) { go(+b.dataset.i); auto(); } });
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) { if (cur < 0) go(0); if (!reduce) auto(); } else clearInterval(timer); }, { threshold: .4 }).observe(ol.parentElement);
+})();
+
+/* ---------- 2. exploded axonometric ---------- */
+(() => {
+  const svg = $("#axo"), C = Math.cos(Math.PI / 6), S = Math.sin(Math.PI / 6), K = 16, OX = 290, OY = 215;
+  const P = (x, y, z) => [OX + (x - y) * C * K, OY + (x + y) * S * K - z * K];
+  const pts = a => a.map(p => P(...p).map(v => v.toFixed(1)).join(",")).join(" ");
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+  const poly = (g, a, cls) => el("polygon", { points: pts(a), class: cls }, g);
+  const line = (g, a, cls = "ln") => el("polyline", { points: pts(a), class: cls }, g);
+  const W = 10, D = 7, H = 6;
+  const layers = {};
+  function layer(key, label, z, draw) {
+    const g = el("g", { class: "layer", "data-key": key }, svg);
+    draw(g);
+    const [lx, ly] = P(W + 1.4, -0.6, z);
+    el("text", { x: lx, y: ly, class: "lbl" }, g).textContent = label;
+    layers[key] = g;
+  }
+  // ground with contour rings and survey points
+  layer("topo", "Έδαφος", 0, g => {
+    poly(g, [[-3, -3, 0], [W + 3, -3, 0], [W + 3, D + 3, 0], [-3, D + 3, 0]], "face dk");
+    line(g, [[-2, -1, 0], [2, -2.4, 0], [8, -2, 0], [12, 0, 0], [12.2, 5, 0], [9, 9.2, 0], [1, 9.4, 0], [-2.3, 6, 0], [-2, -1, 0]], "ln dash");
+    line(g, [[-1, 0, 0], [3, -1.3, 0], [9, -.8, 0], [11, 1, 0], [11, 6, 0], [8, 8.3, 0], [1, 8.2, 0], [-1.2, 5, 0], [-1, 0, 0]], "ln dash");
+    [[-2, -2], [W + 2, D + 2], [W + 2, -2]].forEach(([x, y]) => { line(g, [[x - .4, y, 0], [x, y, .8], [x + .4, y, 0]]); });
+  });
+  // structure: columns + beams
+  layer("stat", "Σκελετός", 0, g => {
+    const cols = [[0, 0], [W / 2, 0], [W, 0], [0, D], [W / 2, D], [W, D]];
+    cols.forEach(([x, y]) => line(g, [[x, y, 0], [x, y, H]]));
+    [3, H].forEach(z => line(g, [[0, 0, z], [W, 0, z], [W, D, z], [0, D, z], [0, 0, z]]));
+    line(g, [[W / 2, 0, 3], [W / 2, D, 3]]); line(g, [[W / 2, 0, H], [W / 2, D, H]]);
+    poly(g, [[0, 0, 0], [W, 0, 0], [W, D, 0], [0, D, 0]], "face dk");
+  });
+  // MEP: riser, runs, panel
+  layer("hm", "Η/Μ δίκτυα", 0, g => {
+    line(g, [[2, 2, 0], [2, 2, H - .3]], "ln");
+    line(g, [[2, 2, 2.6], [8, 2, 2.6], [8, 5, 2.6]], "ln dash");
+    line(g, [[2, 2, 5.6], [7, 2, 5.6], [7, 5.5, 5.6]], "ln dash");
+    line(g, [[2.4, 2, 0], [2.4, 2, H - .3]], "ln");
+    line(g, [[2.4, 2, 1.2], [6, 4.5, 1.2], [9, 4.5, 1.2]], "ln dash");
+    poly(g, [[8.5, 0, .8], [9.5, 0, .8], [9.5, 0, 2], [8.5, 0, 2]], "face");
+  });
+  // walls and windows
+  layer("arch", "Τοίχοι", 0, g => {
+    poly(g, [[0, D, 0], [W, D, 0], [W, D, H], [0, D, H]], "face");      // front (y = D) faces viewer-left
+    poly(g, [[W, 0, 0], [W, D, 0], [W, D, H], [W, 0, H]], "face dk");   // side
+    [[1.5, 1, 2.2], [4.5, 1, 2.2], [7.2, 1, 2.2], [1.5, 4, 2.2], [4.5, 4, 2.2], [7.2, 4, 2.2]].forEach(([x, z, w]) =>
+      poly(g, [[x, D, z], [x + w, D, z], [x + w, D, z + 1.4], [x, D, z + 1.4]], "face dk"));
+    [[1.6, 1], [4.4, 1], [1.6, 4], [4.4, 4]].forEach(([y, z]) => poly(g, [[W, y, z], [W, y + 1.6, z], [W, y + 1.6, z + 1.4], [W, y, z + 1.4]], "face"));
+    const legal = el("g", { class: "legal" }, g);
+    poly(legal, [[W, D - 2.5, H], [W + 3, D - 2.5, H], [W + 3, D, H], [W, D, H]], "ln dash");
+    line(legal, [[W + 3, D, H], [W + 3, D, H - 2.6], [W, D, H - 2.6]], "ln dash");
+  });
+  // roof with PV
+  layer("roof", "Στέγη · Φ/Β", H, g => {
+    poly(g, [[-.4, -.4, H], [W + .4, -.4, H], [W + .4, D + .4, H], [-.4, D + .4, H]], "face");
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 2; j++) { const x = 1.2 + i * 2.1, y = 1 + j * 2.6; poly(g, [[x, y, H + .05], [x + 1.8, y, H + .05], [x + 1.8, y + 2.2, H + .05], [x, y + 2.2, H + .05]], "face pv"); }
+  });
+  const order = ["topo", "stat", "hm", "arch", "roof"];
+  const GAP = 3;
+  function explode(gap) { order.forEach((k, i) => layers[k].style.transform = `translateY(${-(i * gap * K) + gap * K * 2}px)`); }
+  // services mapped to layers
+  const map = [["Τοπογραφικά", "topo"], ["Στατική μελέτη", "stat"], ["Η/Μ μελέτες", "hm"], ["Αρχιτεκτονική μελέτη & 3D", "arch"], ["Ενέργεια", "roof"],
+    ["Τακτοποιήσεις & βεβαιώσεις", "legal"], ["Άδειες δόμησης & πολεοδομία", "all"], ["Κατασκευή & επίβλεψη", "build"]];
+  const svcText = Object.fromEntries(SERVICES.map(s => [s.title, s.text]));
+  $("#svc").innerHTML = map.map(([t, k]) => `<li><button type="button" data-k="${k}" aria-pressed="false">${esc(t)}<small>${esc(svcText[t] || "")}</small></button></li>`).join("");
+  let pinned = null;
+  function show(k) {
+    svg.classList.remove("show-legal");
+    order.forEach(o => layers[o].classList.remove("hi"));
+    if (!k) { svg.classList.remove("focus"); explode(GAP); return; }
+    if (k === "build") { svg.classList.remove("focus"); explode(0); return; }
+    explode(GAP);
+    if (k === "all") { svg.classList.remove("focus"); return; }
+    if (k === "legal") { svg.classList.add("show-legal"); k = "arch"; }
+    svg.classList.add("focus"); layers[k].classList.add("hi");
+  }
+  explode(GAP);
+  const list = $("#svc");
+  list.addEventListener("mouseover", e => { const b = e.target.closest("button"); if (b && !pinned) show(b.dataset.k); });
+  list.addEventListener("mouseleave", () => { if (!pinned) show(null); });
+  list.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+    const same = pinned === b; list.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", "false"));
+    pinned = same ? null : b; if (pinned) b.setAttribute("aria-pressed", "true"); show(pinned ? b.dataset.k : null); });
+  list.addEventListener("focusin", e => { const b = e.target.closest("button"); if (b && !pinned) show(b.dataset.k); });
+})();
+
+/* ---------- 5. structural axes ---------- */
+function buildAxes() {
+  const st = $("#axes"), svg = $("#axsvg");
+  st.querySelectorAll(".blk").forEach(b => b.remove());
+  const w = st.clientWidth, h = st.clientHeight, xs = [.16, .5, .84].map(f => f * w), ys = [.24, .52, .8].map(f => f * h);
+  svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+  let s = "";
+  xs.forEach((x, i) => s += `<path class="ax" d="M${x} 30 V${h - 10}" style="animation-delay:${i * .15}s"/><g class="bub" style="animation-delay:${.4 + i * .1}s"><circle cx="${x}" cy="18" r="13"/><text x="${x}" y="18">${"ΑΒΓ"[i]}</text></g>`);
+  ys.forEach((y, i) => s += `<path class="ax" d="M30 ${y} H${w - 10}" style="animation-delay:${.45 + i * .15}s"/><g class="bub" style="animation-delay:${.8 + i * .1}s"><circle cx="18" cy="${y}" r="13"/><text x="18" y="${y}">${i + 1}</text></g>`);
+  svg.innerHTML = s;
+  const items = SERVICES.slice(0, 6);
+  const nodes = [[0, 0], [1, 0], [2, 0], [0, 2], [1, 2], [2, 2]];
+  items.forEach((it, i) => {
+    const [cx, cy] = nodes[i], b = document.createElement("div");
+    b.className = "blk"; b.innerHTML = `${esc(it.title)}<small>${esc(it.who)}</small>`;
+    st.appendChild(b);
+    const bw = Math.min(w * .28, 230); b.style.width = bw + "px";
+    b.style.left = (xs[cx] - bw / 2) + "px";
+    b.style.top = (ys[cy] - b.offsetHeight / 2 + (cy === 0 ? 0 : -0)) + "px";
+    b.style.setProperty("--fx", ((i % 3) - 1) * 80 + "px"); b.style.setProperty("--fy", (cy ? 120 : -120) + "px"); b.style.setProperty("--fr", (i % 2 ? 6 : -6) + "deg");
+    b.style.animationDelay = (1.4 + i * .12) + "s";
+  });
+}
+
+/* ---------- 6. masonry ---------- */
+function buildWall() {
+  const st = $("#wall"), br = $("#bricks");
+  const rows = Math.ceil(st.clientHeight / 36), per = Math.ceil(st.clientWidth / 76) + 2;
+  let html = "", n = 0;
+  for (let r = 0; r < rows; r++) { html += "<div class='course'>"; for (let c = 0; c < per; c++) html += `<i style="animation-delay:${(r * .16 + c * .012).toFixed(3)}s"></i>`; html += "</div>"; n++; }
+  br.innerHTML = html;
+}
+
+/* ---------- run-on-view + replay ---------- */
+const prep = { axes: buildAxes, wall: buildWall };
+function run(id) { const el = document.getElementById(id); el.classList.remove("run"); if (prep[id]) prep[id](); void el.offsetWidth; el.classList.add("run"); }
+document.querySelectorAll(".replay").forEach(b => b.addEventListener("click", () => run(b.dataset.run)));
+const seen = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { run(e.target.id); seen.unobserve(e.target); } }), { threshold: .45 });
+["d2p", "laser", "axes", "wall"].forEach(id => seen.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
