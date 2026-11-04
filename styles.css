@@ -5,9 +5,9 @@
   --bg: #0D0F11;
   --surface: #16191C;
   --line: #2A2E33;
-  --display: "Inter Tight", Inter, system-ui, sans-serif;
-  --body: Inter, system-ui, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --display: Jura, system-ui, sans-serif;
+  --body: Commissioner, system-ui, sans-serif;
+  --mono: Jura, ui-monospace, monospace;
   --gutter: 48px;
 }
 * { box-sizing: border-box; }
