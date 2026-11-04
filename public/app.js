@@ -54,7 +54,7 @@
           <p class="label">${esc(p.place)} · ${esc(p.year)} · ${esc(p.status)}</p>
           <h2 id="dlgTitle">${esc(p.title)}</h2>
           <p>${esc(p.summary)}</p>
-          <p>${esc(p.body)}</p>
+          <div class="md">${p.html || ""}</div>
           ${tl ? `<ul class="timeline">${tl}</ul>` : ""}
         </div>
         <div>

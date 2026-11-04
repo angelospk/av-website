@@ -72,7 +72,10 @@
      gh auth setup-git
      git config --global user.name "Όνομα Γραφείου"
      git config --global user.email "<email γραφείου>"
-6. Αντιγραφή του site και δημιουργία δικού μας (private) repo:
+6. Αντιγραφή του site και δημιουργία δικού μας (private) repo.
+   Πριν από αυτό: αν το repo angelospk/av-website δεν είναι public, ο τεχνικός
+   προσκαλεί τον λογαριασμό GitHub του γραφείου (Settings → Collaborators) και
+   εγώ αποδέχομαι την πρόσκληση από το email. Αλλιώς το clone αποτυγχάνει.
      mkdir C:\Sites
      cd C:\Sites
      git clone https://github.com/angelospk/av-website.git

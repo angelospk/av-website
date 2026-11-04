@@ -16,6 +16,18 @@ media_folder: public/images
 public_folder: /images
 locale: el
 
+# Κάθε φωτογραφία που ανεβαίνει από το CMS ξανα-κωδικοποιείται σε WebP, max 2048 px.
+# Η νέα κωδικοποίηση δεν κρατά EXIF/GPS (ελέγχθηκε 2026-11-04 με JPEG που είχε EXIF).
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 80
+          width: 2048
+          height: 2048
+
 output:
   omit_empty_optional_fields: true
 

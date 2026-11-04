@@ -10,7 +10,8 @@ const projects = entries.map((p) => ({
   id: p.id,
   ...p.data,
   facts: Object.fromEntries(p.data.facts.map((f) => [f.label, f.value])),
-  body: (p.body ?? "").trim(),
+  // Η περιγραφή σε HTML, από το Markdown, την ώρα του build (περιεχόμενο από το repo).
+  html: p.rendered?.html ?? "",
 }));
 // Φίλτρα: οι κατηγορίες που έχουν τα έργα, με τη σειρά που εμφανίζονται.
 const categories = [...new Set(projects.flatMap((p) => p.categories))];
