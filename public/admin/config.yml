@@ -1,0 +1,122 @@
+# Sveltia CMS: φόρμες για το περιεχόμενο του site.
+# Τα πεδία των έργων πρέπει να ταιριάζουν με το src/content.config.ts. Άλλαξε και τα δύο μαζί.
+backend:
+  name: github
+  repo: angelospk/av-website # ΑΛΛΑΞΕ: <λογαριασμός-γραφείου>/av-website
+  branch: main
+  # base_url: https://sveltia-cms-auth.<subdomain>.workers.dev  # βήμα «Login για το CMS» στο SETUP.md
+  commit_messages:
+    create: "content: νέο {{collection}} «{{slug}}»"
+    update: "content: αλλαγή {{collection}} «{{slug}}»"
+    delete: "content: διαγραφή {{collection}} «{{slug}}»"
+    uploadMedia: "content: νέα εικόνα {{path}}"
+    deleteMedia: "content: διαγραφή εικόνας {{path}}"
+
+media_folder: public/images
+public_folder: /images
+locale: el
+
+output:
+  omit_empty_optional_fields: true
+
+collections:
+  - name: projects
+    label: Έργα
+    label_singular: Έργο
+    folder: src/content/projects
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{fields.slug}}"
+    identifier_field: title
+    summary: "{{title}} · {{place}} · {{year}}"
+    sortable_fields: [order, year, title]
+    media_folder: /public/images/projects
+    public_folder: /images/projects
+    fields:
+      - { name: title, label: Τίτλος, widget: string }
+      - name: slug
+        label: Όνομα για το URL
+        hint: "Λατινικά, μικρά, με παύλες. Π.χ. naftali-villa. Δεν αλλάζει μετά."
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Μόνο λατινικά μικρά, αριθμοί και παύλες"]
+      - { name: place, label: Τοποθεσία, widget: string, hint: "Χωριό ή περιοχή. Όχι διεύθυνση." }
+      - { name: year, label: Έτος, widget: number, value_type: int, min: 1950, max: 2100 }
+      - name: status
+        label: Κατάσταση
+        widget: select
+        options: ["Ολοκληρώθηκε", "Σε εξέλιξη", "Μελέτη"]
+      - name: categories
+        label: Κατηγορίες
+        widget: select
+        multiple: true
+        min: 1
+        options: ["Κατοικία", "Ανακαίνιση", "Ενέργεια", "Άδειες", "Τοπογραφικά"]
+      - { name: order, label: Σειρά στη σελίδα, widget: number, value_type: int, default: 100, hint: "Μικρότερο = πιο πάνω" }
+      - { name: wide, label: Μεγάλη κάρτα, widget: boolean, default: false, required: false }
+      - { name: cover, label: Κεντρική φωτογραφία, widget: image }
+      - { name: gallery, label: Φωτογραφίες, widget: image, multiple: true, required: false }
+      - { name: summary, label: Μία πρόταση, widget: text }
+      - name: facts
+        label: Στοιχεία
+        widget: list
+        required: false
+        fields:
+          - { name: label, label: Ετικέτα, widget: string }
+          - { name: value, label: Τιμή, widget: string }
+      - name: timeline
+        label: Χρονολόγιο
+        widget: list
+        required: false
+        fields:
+          - { name: date, label: "Ημερομηνία (ΜΜ/ΕΕΕΕ)", widget: string }
+          - { name: label, label: Βήμα, widget: string }
+          - { name: done, label: Έγινε, widget: boolean, default: false }
+      - { name: draft, label: "Πρόχειρο (δεν φαίνεται)", widget: boolean, default: false, required: false }
+      - { name: demo, label: "Demo (για διαγραφή)", widget: boolean, default: false, required: false }
+      - { name: body, label: Περιγραφή, widget: markdown }
+
+  - name: settings
+    label: Στοιχεία γραφείου
+    files:
+      - name: site
+        label: Επικοινωνία, αριθμοί, υπηρεσίες, ομάδα
+        file: src/data/site.json
+        format: json
+        fields:
+          - name: contact
+            label: Επικοινωνία
+            widget: object
+            fields:
+              - { name: address, label: Διεύθυνση, widget: string }
+              - { name: phone, label: "Τηλέφωνο (όπως φαίνεται)", widget: string }
+              - { name: phoneIntl, label: "Τηλέφωνο για κλήση (+30…)", widget: string }
+              - { name: email, label: Email, widget: string }
+          - name: stats
+            label: Αριθμοί κάτω από την αρχική
+            widget: list
+            fields:
+              - { name: value, label: Αριθμός, widget: number, value_type: int }
+              - { name: suffix, label: "Κατάληξη (π.χ. +)", widget: string, required: false }
+              - { name: label, label: Περιγραφή, widget: string }
+          - name: services
+            label: Υπηρεσίες
+            widget: list
+            fields:
+              - { name: title, label: Τίτλος, widget: string }
+              - { name: text, label: Περιγραφή, widget: text }
+              - { name: who, label: Ποιοι το κάνουν, widget: string }
+          - name: steps
+            label: Βήματα έργου
+            widget: list
+            fields:
+              - { name: title, label: Βήμα, widget: string }
+              - { name: text, label: Περιγραφή, widget: text }
+              - { name: dur, label: Διάρκεια, widget: string, required: false }
+          - name: team
+            label: Ομάδα
+            widget: list
+            fields:
+              - { name: n, label: Πλήθος, widget: number, value_type: int }
+              - { name: title, label: Ειδικότητα, widget: string }
+              - { name: text, label: Τι κάνουν, widget: string }

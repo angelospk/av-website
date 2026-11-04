@@ -1,37 +1,30 @@
-<!doctype html>
-<html lang="el">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Αλέξανδρος Βλάχος | Πολιτικός μηχανικός, Λευκάδα</title>
-<meta name="description" content="Τεχνικό γραφείο του πολιτικού μηχανικού Αλέξανδρου Βλάχου στη Λευκάδα. Άδειες, μελέτες, ενεργειακά, τοπογραφικά και κατασκευή κατοικιών.">
-<link rel="icon" href="logo.svg?v=6" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600&family=Commissioner:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=9">
-<script type="importmap">
+---
+import Base from "../layouts/Base.astro";
+import site from "../data/site.json";
+import { getCollection } from "astro:content";
+
+// Έργα: από src/content/projects/*.md, χωρίς τα draft, ταξινόμηση με "order".
+const entries = (await getCollection("projects", (p) => !p.data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+const projects = entries.map((p) => ({
+  id: p.id,
+  ...p.data,
+  facts: Object.fromEntries(p.data.facts.map((f) => [f.label, f.value])),
+  body: (p.body ?? "").trim(),
+}));
+// Φίλτρα: οι κατηγορίες που έχουν τα έργα, με τη σειρά που εμφανίζονται.
+const categories = [...new Set(projects.flatMap((p) => p.categories))];
+// JSON μέσα σε <script>: το "<" γίνεται \u003c για να μην κλείσει το tag.
+const json = (v: unknown) => JSON.stringify(v).replace(/</g, "\\u003c");
+const data = `window.SERVICES=${json(site.services)};window.STEPS=${json(site.steps)};window.TEAM=${json(site.team)};window.CATEGORIES=${json(categories)};window.PROJECTS=${json(projects)};`;
+---
+<Base title="Αλέξανδρος Βλάχος | Πολιτικός μηχανικός, Λευκάδα" description="Τεχνικό γραφείο του πολιτικού μηχανικού Αλέξανδρου Βλάχου στη Λευκάδα. Άδειες, μελέτες, ενεργειακά, τοπογραφικά και κατασκευή κατοικιών.">
+<script type="importmap" slot="head" is:inline>
 { "imports": {
   "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
   "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
 } }
 </script>
-</head>
-<body>
-
-<header class="nav">
-  <a class="logo" href="#top"><svg class="logo-mark" viewBox="0 0 915 685" width="46" height="34" aria-hidden="true"><polyline class="la" pathLength="1" points="30,395 320,30 570,415"/><polyline class="lv" pathLength="1" points="205,295 405,295 635,655 885,325"/></svg><span class="logo-text">ΑΛΕΞΑΝΔΡΟΣ ΒΛΑΧΟΣ<span>Πολιτικός μηχανικός · Τεχνικό γραφείο</span></span></a>
-  <nav>
-    <div class="nav-links" id="navLinks">
-      <a href="#services">Υπηρεσίες</a>
-      <a href="#projects">Έργα</a>
-      <a href="#process">Διαδρομή</a>
-      <a href="#team">Ομάδα</a>
-    </div>
-    <a href="#contact" class="btn btn-primary btn-sm">Επικοινωνία</a>
-    <button class="menu-btn" id="menuBtn" type="button" aria-label="Μενού" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
-  </nav>
-</header>
 
 <main id="top">
 
@@ -53,10 +46,7 @@
 </section>
 
 <section class="stats wrap reveal">
-  <div><b data-count="14">0</b><span>μηχανικοί &amp; συνεργάτες</span></div>
-  <div><b data-count="320" data-suffix="+">0</b><span>άδειες δόμησης</span></div>
-  <div><b data-count="48">0</b><span>κατοικίες χτισμένες</span></div>
-  <div><b data-count="1100" data-suffix="+">0</b><span>ΠΕΑ &amp; ενεργειακές μελέτες</span></div>
+  {site.stats.map((s) => <div><b data-count={s.value} data-suffix={s.suffix || undefined}>0</b><span>{s.label}</span></div>)}
 </section>
 
 <section id="services" class="services wrap">
@@ -93,9 +83,9 @@
     <h2>Πείτε μας για το ακίνητό σας.</h2>
     <p class="muted">Απαντάμε την ίδια ή την επόμενη εργάσιμη. Στη Λευκάδα η πρώτη αυτοψία είναι δωρεάν.</p>
     <dl class="contact-facts">
-      <dt>Γραφείο</dt><dd>Λόρδου Βύρωνα 39, Λευκάδα 31100</dd>
-      <dt>Τηλέφωνο</dt><dd><a href="tel:+306931666980">693 166 6980</a></dd>
-      <dt>Email</dt><dd><a href="mailto:civil.avlachos@gmail.com">civil.avlachos@gmail.com</a></dd>
+      <dt>Γραφείο</dt><dd>{site.contact.address}</dd>
+      <dt>Τηλέφωνο</dt><dd><a href={`tel:${site.contact.phoneIntl}`}>{site.contact.phone}</a></dd>
+      <dt>Email</dt><dd><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></dd>
     </dl>
   </div>
   <form class="form" onsubmit="event.preventDefault(); this.querySelector('.ok').hidden=false;">
@@ -113,25 +103,20 @@
     </label>
     <label>Μήνυμα<textarea name="msg" rows="3"></textarea></label>
     <button class="btn btn-primary" type="submit">Αποστολή</button>
-    <p class="ok label" hidden>Η φόρμα δεν στέλνει ακόμα μηνύματα. Πάρτε μας στο 693 166 6980.</p>
+    <p class="ok label" hidden>Η φόρμα δεν στέλνει ακόμα μηνύματα. Πάρτε μας στο {site.contact.phone}.</p>
   </form>
 </section>
 
 </main>
-
-<footer class="foot wrap">
-  <span>© 2026 Αλέξανδρος Βλάχος · Πολιτικός μηχανικός</span>
-  <span class="label">ΤΕΕ · Μέλη Μητρώου Μελετητών</span>
-</footer>
 
 <dialog id="projectDialog" class="dlg" aria-labelledby="dlgTitle">
   <button class="dlg-close" aria-label="Κλείσιμο" onclick="this.closest('dialog').close()">✕</button>
   <div id="dlgBody"></div>
 </dialog>
 
-<script src="data/site.js?v=6"></script>
-<script src="data/projects.js?v=6"></script>
-<script src="app.js?v=6"></script>
-<script type="module" src="hero3d.js?v=6"></script>
-</body>
-</html>
+<Fragment slot="scripts">
+<script is:inline set:html={data}></script>
+<script is:inline src="/app.js"></script>
+<script is:inline type="module" src="/hero3d.js"></script>
+</Fragment>
+</Base>

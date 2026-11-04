@@ -1,0 +1,44 @@
+---
+import site from "../data/site.json";
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="icon" href="/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600&family=Commissioner:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<slot name="head" />
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="/#top"><svg class="logo-mark" viewBox="0 0 915 685" width="46" height="34" aria-hidden="true"><polyline class="la" pathLength="1" points="30,395 320,30 570,415"/><polyline class="lv" pathLength="1" points="205,295 405,295 635,655 885,325"/></svg><span class="logo-text">ΑΛΕΞΑΝΔΡΟΣ ΒΛΑΧΟΣ<span>Πολιτικός μηχανικός · Τεχνικό γραφείο</span></span></a>
+  <nav>
+    <div class="nav-links" id="navLinks">
+      <a href="/#services">Υπηρεσίες</a>
+      <a href="/#projects">Έργα</a>
+      <a href="/#process">Διαδρομή</a>
+      <a href="/#team">Ομάδα</a>
+    </div>
+    <a href="/#contact" class="btn btn-primary btn-sm">Επικοινωνία</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Μενού" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  </nav>
+</header>
+
+<slot />
+
+<footer class="foot wrap">
+  <span>© {new Date().getFullYear()} Αλέξανδρος Βλάχος · Πολιτικός μηχανικός · {site.contact.phone}</span>
+  <span class="label">ΤΕΕ · Μέλη Μητρώου Μελετητών</span>
+</footer>
+<slot name="scripts" />
+</body>
+</html>

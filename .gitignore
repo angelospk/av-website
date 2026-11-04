@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.env
+.env.*
+.dev.vars
+.sveltia-tmp-*
+*.bundle
