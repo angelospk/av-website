@@ -1,8 +1,11 @@
-# ΑΞΟΝΑΣ — demo site τεχνικού γραφείου
+# Αλέξανδρος Βλάχος — site τεχνικού γραφείου (Λευκάδα)
 
-Ψεύτικο γραφείο, ψεύτικα έργα. Στατικό site χωρίς build: HTML, CSS, JS, three.js από CDN.
+Πραγματικά στοιχεία επικοινωνίας και λογότυπο (`logo.svg`). Έργα, αριθμοί και ομάδα: ακόμα demo. Στατικό site χωρίς build: HTML, CSS, JS, three.js από CDN.
 
 ## Τρέξιμο
+
+Live: https://axonas.haroldpoi.dev (mini PC: `axonas-demo.service` στο 127.0.0.1:8766, Cloudflare tunnel `oc-asr`).
+Το Cloudflare κρατά CSS/JS στον browser 4 ώρες: μετά από αλλαγή, ανέβασε το `?v=N` στο `index.html`.
 
 ```bash
 cd ~/projects/axonas-demo
