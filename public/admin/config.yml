@@ -39,7 +39,9 @@ collections:
     extension: md
     format: frontmatter
     create: true
-    slug: "{{fields.slug}}"
+    slug:
+      template: "{{fields.slug}}"
+      editable: false # το όνομα αρχείου (= URL) ορίζεται μία φορά, από το πεδίο slug
     identifier_field: title
     summary: "{{title}} · {{place}}"
     sortable_fields: [order, year, title]
@@ -49,7 +51,7 @@ collections:
       - { name: title, label: Τίτλος, widget: string }
       - name: slug
         label: Όνομα για το URL
-        hint: "Λατινικά, μικρά, με παύλες. Π.χ. naftali-villa. Δεν αλλάζει μετά."
+        hint: "Λατινικά, μικρά, με παύλες. Π.χ. naftali-villa. Ορίζει το URL όταν δημιουργείται το έργο· αλλαγή αργότερα δεν αλλάζει το URL."
         widget: string
         pattern: ["^[a-z0-9-]+$", "Μόνο λατινικά μικρά, αριθμοί και παύλες"]
       - { name: place, label: Τοποθεσία, widget: string, hint: "Χωριό ή περιοχή. Όχι διεύθυνση." }

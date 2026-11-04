@@ -6,7 +6,9 @@ import { z } from "astro/zod";
 // Το build αποτυγχάνει αν λείπει υποχρεωτικό πεδίο ή έχει λάθος τύπο.
 // Τα ίδια πεδία ορίζονται και στο public/admin/config.yml (CMS). Άλλαξε και τα δύο μαζί.
 const projects = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/projects" }),
+  // Το id (και το URL /erga/<id>/) είναι πάντα το όνομα του αρχείου, ακόμα κι αν αλλάξει το πεδίο slug.
+  // Έτσι μια αλλαγή στο CMS δεν σπάει links που έχουν ήδη μοιραστεί.
+  loader: glob({ pattern: "*.md", base: "./src/content/projects", generateId: ({ entry }) => entry.replace(/\.md$/, "") }),
   schema: z.object({
     slug: z.string().regex(/^[a-z0-9-]+$/).optional(),
     title: z.string().min(1),

@@ -11,8 +11,11 @@ fs.mkdirSync(dir, { recursive: true });
 const dirty = execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trimEnd();
 const stamp = new Date().toISOString().slice(0, 10);
 const file = path.join(dir, `av-website-${stamp}.bundle`);
-execFileSync("git", ["bundle", "create", file, "--all"], { stdio: "inherit" });
-execFileSync("git", ["bundle", "verify", file], { stdio: "inherit" });
+// Πρώτα σε προσωρινό αρχείο: αν κάτι αποτύχει, το προηγούμενο backup της ημέρας μένει άθικτο.
+const tmp = `${file}.tmp`;
+execFileSync("git", ["bundle", "create", tmp, "--all"], { stdio: "inherit" });
+execFileSync("git", ["bundle", "verify", tmp], { stdio: "inherit" });
+fs.renameSync(tmp, file);
 const old = fs.readdirSync(dir).filter((f) => /^av-website-\d{4}-\d{2}-\d{2}\.bundle$/.test(f)).sort().slice(0, -8);
 for (const f of old) fs.unlinkSync(path.join(dir, f));
 console.log(`Backup OK: ${file}${old.length ? ` (σβήστηκαν ${old.length} παλιά)` : ""}`);
