@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:wght@500;700;800&family=Fira+Sans:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
 <style>
 :root {
   --sky: #ece2d0;
@@ -23,9 +24,20 @@
   --body: "Fira Sans", sans-serif;
   --mono: "JetBrains Mono", monospace;
   --ease: cubic-bezier(.16,1,.3,1);
+  /* geotechnical legend patterns, shared by the layers, the core strips and the log */
+  --pi-top: radial-gradient(rgba(243,233,216,.14) 1px, transparent 1.5px), radial-gradient(rgba(0,0,0,.25) 1px, transparent 1.5px);
+  --ps-top: 14px 14px, 9px 9px; --pp-top: 0 0, 4px 6px;
+  --pi-clay: repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 1px, transparent 1px 9px);
+  --ps-clay: auto; --pp-clay: 0 0;
+  --pi-sand: radial-gradient(rgba(36,23,14,.38) 1px, transparent 1.4px);
+  --ps-sand: 7px 7px; --pp-sand: 0 0;
+  /* limestone: staggered blocks, every other course offset by half a block */
+  --pi-rock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32'%3E%3Cpath d='M0 .5H64M0 16.5H64M.5 0V16M32.5 16V32' stroke='rgba(36,23,14,.34)' fill='none'/%3E%3C/svg%3E");
+  --ps-rock: 64px 32px; --pp-rock: 0 0;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scrollbar-color: #8a5432 var(--dark); }
+input, textarea, select { caret-color: #a0612f; }
 body { margin: 0; background: var(--sky); color: var(--dark); font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 ::selection { background: var(--dark); color: var(--light); }
 a { color: inherit; }
@@ -56,23 +68,47 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; margin: 0; text-tran
 .gauge .ticks { position: absolute; left: 44px; top: 0; bottom: 0; width: 10px; background: repeating-linear-gradient(180deg, rgba(243,233,216,.5) 0 1px, transparent 1px 10%); }
 .gauge .mark { position: absolute; left: 10px; right: 6px; height: 2px; background: #ff9a4a; top: 0; transition: top .12s linear; }
 .gauge .mark::before { content: ""; position: absolute; left: -2px; top: -5px; border: 6px solid transparent; border-left-color: #ff9a4a; }
-.gauge .read { padding: 12px 6px 16px; text-align: center; border-top: 1px solid rgba(243,233,216,.2); }
-.gauge .read b { display: block; font: 600 15px/1.2 var(--mono); }
-.gauge .read span { display: block; font: 700 13px/1.2 var(--display); letter-spacing: .08em; margin-top: 4px; color: #e7c79a; }
+.gauge .read { padding: 14px 8px 18px; text-align: center; border-top: 1px solid rgba(243,233,216,.2); }
+.gauge .read b { display: block; font: 600 13px/1.2 var(--mono); }
+.gauge .read span { display: block; font: 700 13px/1.2 var(--display); letter-spacing: .08em; margin-top: 6px; color: #e7c79a; }
 
 /* layers */
-.layer { position: relative; padding: clamp(80px, 10vw, 140px) calc(var(--gut) + var(--gauge)) clamp(80px, 10vw, 130px) var(--gut); }
-.layer::before { content: attr(data-name); position: absolute; left: var(--gut); top: 18px; font: 400 12px/1 var(--mono); letter-spacing: .06em; opacity: .7; }
+.layer { position: relative; isolation: isolate; background-color: var(--base); padding: clamp(80px, 10vw, 140px) calc(var(--gut) + var(--gauge)) clamp(80px, 10vw, 130px) var(--gut); }
+.layer::before { content: attr(data-name); position: absolute; z-index: 1; left: var(--gut); top: 16px; padding: 6px 10px; background: var(--c); font: 400 12px/1 var(--mono); letter-spacing: .06em; }
+/* the layer's own colour + legend; revealed from the drill when JS runs (html.dig) */
+.layer::after { content: ""; position: absolute; inset: 0; z-index: -1; background-color: var(--c); background-image: var(--pi); background-size: var(--ps); background-position: var(--pp); }
 .edge { position: absolute; left: 0; right: 0; top: -1px; height: 26px; }
-.l-top { background: var(--top); color: var(--light); }
-.l-clay { background: var(--clay); color: var(--light); }
-.l-sand { background: var(--sand); color: var(--dark); }
-.l-rock { background: var(--rock); color: var(--dark); }
+.l-top { --c: var(--top); --base: var(--top); --pi: var(--pi-top); --ps: var(--ps-top); --pp: var(--pp-top); color: var(--light); }
+.l-clay { --c: var(--clay); --base: var(--top); --pi: var(--pi-clay); --ps: var(--ps-clay); --pp: var(--pp-clay); color: var(--light); }
+.l-sand { --c: var(--sand); --base: var(--clay); --pi: var(--pi-sand); --ps: var(--ps-sand); --pp: var(--pp-sand); color: var(--dark); }
+.l-rock { --c: var(--rock); --base: var(--sand); --pi: var(--pi-rock); --ps: var(--ps-rock); --pp: var(--pp-rock); color: var(--dark); }
 /* geotechnical legend patterns */
-.pat-top { background-image: radial-gradient(rgba(243,233,216,.14) 1px, transparent 1.5px), radial-gradient(rgba(0,0,0,.25) 1px, transparent 1.5px); background-size: 14px 14px, 9px 9px; background-position: 0 0, 4px 6px; }
-.pat-clay { background-image: repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 1px, transparent 1px 9px); }
-.pat-sand { background-image: radial-gradient(rgba(36,23,14,.38) 1px, transparent 1.4px); background-size: 7px 7px; }
-.pat-rock { background-image: linear-gradient(90deg, rgba(36,23,14,.3) 1px, transparent 1px), linear-gradient(0deg, rgba(36,23,14,.3) 1px, transparent 1px); background-size: 46px 22px; }
+.pat-top { background-image: var(--pi-top); background-size: var(--ps-top); background-position: var(--pp-top); }
+.pat-clay { background-image: var(--pi-clay); }
+.pat-sand { background-image: var(--pi-sand); background-size: var(--ps-sand); }
+.pat-rock { background-image: var(--pi-rock); background-size: var(--ps-rock); }
+
+/* Γεώτρηση: drill column at the left edge of the strata. The bit is sticky, so it
+   rides at 55% of the viewport while the ground scrolls past (pure CSS, no JS).
+   The core strips fill per layer: scroll-driven animation, JS sets --fill otherwise. */
+.strata { position: relative; }
+.bore, .core { display: none; }
+@media (min-width: 761px) {
+  .bore { display: block; position: absolute; left: 0; top: 0; bottom: 0; width: var(--gut); z-index: 4; overflow: clip; pointer-events: none; }
+  .bit { position: sticky; top: calc(55svh - 86px); width: 26px; height: 86px; margin-left: calc(var(--gut) * .4 - 13px); filter: drop-shadow(2px 3px 0 rgba(0,0,0,.35)); }
+  .bit::before { content: ""; position: absolute; left: 9px; width: 8px; bottom: 100%; height: 400vh; background: repeating-linear-gradient(180deg, transparent 0 116px, #6e5126 116px 117px, #c99a4a 117px 124px, #6e5126 124px 125px), linear-gradient(90deg, #120c07, #6b5a4a 40%, #2a1d13 72%, #120c07); }
+  .bit svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .core { display: block; position: absolute; top: 0; bottom: 0; left: calc(var(--gut) * .4 + 17px); width: 8px; z-index: 3; background-color: var(--c); background-image: var(--pi); background-size: var(--ps); background-position: var(--pp); filter: brightness(.78) contrast(1.2); box-shadow: inset 0 0 0 1px rgba(0,0,0,.5); }
+}
+html.dig .core { clip-path: inset(0 0 calc(100% - var(--fill, 0) * 100%) 0); }
+html.dig .layer::after { clip-path: circle(150% at calc(var(--gut) * .4) 0); transition: clip-path 1.6s cubic-bezier(.45,0,.2,1); }
+html.dig .layer:not(.dug)::after { clip-path: circle(0 at calc(var(--gut) * .4) 0); }
+@keyframes core-fill { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+@keyframes auger { to { transform: translateY(12px); } }
+@supports (animation-timeline: view()) {
+  .core { animation: core-fill linear both; animation-timeline: view(); animation-range: cover 45vh cover calc(100% - 55vh); }
+  .flight { animation: auger linear both; animation-iteration-count: 80; animation-timeline: scroll(root); }
+}
 .band { height: 26px; }
 
 /* hero: surface */
@@ -81,13 +117,35 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; margin: 0; text-tran
 .hero h1 { font-size: clamp(64px, 10vw, 176px); line-height: .84; }
 .hero h1 span { color: #a0612f; }
 .sky p { max-width: 36ch; margin: 0 0 24px; }
-.ground { position: relative; height: clamp(150px, 24vh, 240px); }
+.ground { position: relative; height: clamp(150px, 24vh, 240px); overflow-x: clip; }
 .ground svg.hs { left: auto; right: calc(var(--gauge) + 10%); width: auto; height: 100%; }
 .ground svg { position: absolute; left: 0; right: var(--gauge); bottom: 0; width: calc(100% - var(--gauge)); height: 100%; }
 .surface { fill: var(--top); }
 .house { fill: none; stroke: var(--dark); stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.6s var(--ease) .5s forwards; }
 .pile { stroke: #e7c79a; stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.2s var(--ease) 1.6s forwards; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
+/* Φακός υπεδάφους: an x-ray of the ground under the surface, seen through a lens.
+   Mask = lens circle intersected with the ground shape, so the sky stays untouched. */
+.xray { position: absolute; inset: 0; z-index: 1; opacity: 0; pointer-events: none; transition: opacity .35s;
+  --lens: radial-gradient(circle 90px at var(--mx, 50%) var(--my, 75%), #000 78%, transparent 100%);
+  --soil: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 240' preserveAspectRatio='none'%3E%3Cpath d='M0 120 C 180 100, 320 135, 520 118 S 860 96, 1000 112 S 1150 120, 1200 108 V240 H0Z'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--lens), var(--soil); -webkit-mask-size: auto, calc(100% - var(--gauge)) 100%; -webkit-mask-repeat: no-repeat; -webkit-mask-composite: source-in;
+  mask-image: var(--lens), var(--soil); mask-size: auto, calc(100% - var(--gauge)) 100%; mask-repeat: no-repeat; mask-composite: intersect; }
+.xray .bands { position: absolute; left: 0; top: 38%; bottom: 0; width: calc(100% - var(--gauge)); display: grid; grid-template-rows: 1.2fr 1fr .8fr .6fr; }
+.xray .bands > i { display: block; }
+.xray .b-top { background-color: #4a3020; background-image: var(--pi-top); background-size: var(--ps-top); }
+.xray .b-clay { background-color: #8a5432; background-image: var(--pi-clay); }
+.xray .b-sand { background-color: var(--sand); background-image: var(--pi-sand); background-size: var(--ps-sand); }
+.xray .b-rock { background-color: var(--rock); background-image: var(--pi-rock); background-size: 32px 16px; }
+.xray .wt { position: absolute; left: 0; right: 0; top: 82%; border-top: 2px dashed #2f6f8c; }
+.xray .wt span { position: absolute; top: 4px; font: 600 11px/1 var(--mono); color: #123447; white-space: nowrap; }
+.xray .fdn { z-index: 1; }
+.ground.lens .xray, .ground.lens .lens-ring { opacity: 1; }
+.lens-ring { position: absolute; z-index: 2; left: calc(var(--mx, 50%) - 90px); top: calc(var(--my, 75%) - 90px); width: 180px; height: 180px; border: 2px solid var(--light); border-radius: 50%; box-shadow: 0 0 0 1px rgba(36,23,14,.5), inset 0 0 0 1px rgba(36,23,14,.5); opacity: 0; pointer-events: none; transition: opacity .35s; }
+.lens-ring::before, .lens-ring::after { content: ""; position: absolute; left: 50%; top: 50%; background: var(--light); }
+.lens-ring::before { width: 18px; height: 2px; margin: -1px 0 0 -9px; }
+.lens-ring::after { width: 2px; height: 18px; margin: -9px 0 0 -1px; }
+.lens-ring b { position: absolute; left: 50%; bottom: 100%; transform: translate(-50%, -8px); padding: 4px 8px; background: var(--dark); color: var(--light); font: 600 12px/1 var(--mono); white-space: nowrap; }
 .scroll-cue { position: absolute; left: var(--gut); bottom: 20px; color: var(--light); display: flex; gap: 10px; align-items: center; z-index: 2; }
 .scroll-cue i { width: 2px; height: 28px; background: var(--light); animation: drill 1.6s ease-in-out infinite; transform-origin: top; }
 @keyframes drill { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
@@ -98,7 +156,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; margin: 0; text-tran
 
 /* services: core samples */
 .cores { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.cores li { position: relative; padding: 20px 18px 18px 30px; background: rgba(0,0,0,.18); border-radius: 0 0 40px 40px / 0 0 14px 14px; transition: transform .4s var(--ease), background .3s; }
+.cores li { position: relative; padding: 26px 22px 24px 34px; background: rgba(0,0,0,.18); border-radius: 0 0 40px 40px / 0 0 14px 14px; transition: transform .4s var(--ease), background .3s; }
 .cores li::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; background: linear-gradient(180deg, #5b3b25 0 22%, #8a5432 22% 48%, #c39a62 48% 74%, #d8ccb4 74%); border-radius: 0 0 6px 6px; }
 .cores li:hover { transform: translateY(-6px); background: rgba(0,0,0,.28); }
 .cores h3 { font-size: 26px; line-height: .98; margin-bottom: 10px; }
@@ -120,12 +178,13 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; margin: 0; text-tran
 
 /* process: borehole log */
 .log { width: 100%; max-width: 1040px; border-collapse: collapse; border: 2px solid var(--dark); background: rgba(243,233,216,.35); }
-.log th, .log td { border: 1px solid rgba(36,23,14,.45); padding: 12px 14px; text-align: left; vertical-align: top; }
+.log th, .log td { border: 1px solid rgba(36,23,14,.45); padding: 16px 20px; text-align: left; vertical-align: top; }
 .log th { font: 600 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; background: var(--dark); color: var(--light); }
 .log td.d { font: 600 14px/1.3 var(--mono); white-space: nowrap; width: 96px; }
-.log td.p { width: 64px; padding: 0; }
-.log td.p i { display: block; height: 100%; min-height: 72px; background-color: var(--sand); transform: scaleY(0); transform-origin: top; transition: transform .8s var(--ease); }
-.log tr.in td.p i { transform: none; }
+.log td.p { position: relative; width: 64px; padding: 0; }
+.log td.p i { position: absolute; inset: 0; display: block; background-color: var(--sand); transform-origin: top; transition: transform .8s var(--ease); }
+html.js .log td.p i { transform: scaleY(0); }
+html.js .log tr.in td.p i { transform: none; }
 .log h3 { font-size: 30px; line-height: 1; }
 .log p { margin: 4px 0 0; font-size: 15px; }
 .log td.t { font: 400 13px/1.3 var(--mono); white-space: nowrap; width: 140px; }
@@ -138,25 +197,32 @@ dl.fx dt { font: 400 12px/1.8 var(--mono); }
 dl.fx dd { margin: 0; font-weight: 500; }
 dl.fx a { text-decoration: none; border-bottom: 2px solid var(--dark); }
 .form { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--dark); background: var(--light); }
-.form label { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-bottom: 1px solid rgba(36,23,14,.3); }
+.form label { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-bottom: 1px solid rgba(36,23,14,.3); }
 .form label:nth-of-type(1) { border-right: 1px solid rgba(36,23,14,.3); }
 .form .full { grid-column: 1 / -1; }
 .form input, .form select, .form textarea { font: 500 17px/1.4 var(--body); color: var(--dark); background: transparent; border: 0; padding: 4px 0; outline: none; }
 .form label:focus-within { background: #fff8ec; }
 .form .btn { grid-column: 1 / -1; justify-content: space-between; padding: 18px; }
-.ok { grid-column: 1 / -1; margin: 0; padding: 10px 14px; font-size: 14px; }
+.ok { grid-column: 1 / -1; margin: 0; padding: 14px 18px; font-size: 14px; }
 .foot { background: var(--dark); color: var(--light); padding: 24px calc(var(--gut) + var(--gauge)) 40px var(--gut); display: flex; justify-content: space-between; gap: 16px; font-size: 14px; }
 
 /* project sheet */
-.dlg { width: min(1220px, calc(100vw - 32px)); max-height: calc(100svh - 32px); padding: 0; border: 2px solid var(--dark); background: var(--light); color: var(--dark); overflow: auto; }
+.dlg { width: min(1220px, calc(100vw - 32px)); max-height: calc(100svh - 32px); padding: 0; border: 2px solid var(--dark); background: var(--light); color: var(--dark); overflow: auto; scrollbar-color: var(--clay) var(--light); }
 .dlg::backdrop { background: rgba(36,23,14,.7); }
 .dlg[open] { animation: drop .6s var(--ease); }
 @keyframes drop { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
-.dlg-top { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 20px; background: var(--dark); color: var(--light); }
+/* morph: the photo flies into the sheet; the sheet is pulled out top to bottom like a core sample */
+html.vt-open .dlg[open] { animation: none; }
+::view-transition-group(proj-photo) { animation-duration: .6s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
+::view-transition-new(proj-sheet) { animation: drop .6s cubic-bezier(.16,1,.3,1) both; }
+html.vt-close::view-transition-group(proj-photo) { animation-duration: .36s; }
+html.vt-close::view-transition-old(proj-sheet) { animation: core-back .3s cubic-bezier(.5,0,.75,0) both; }
+@keyframes core-back { to { clip-path: inset(100% 0 0 0); } }
+.dlg-top { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 24px; background: var(--dark); color: var(--light); }
 .crumbs { display: flex; flex-wrap: wrap; gap: 4px 10px; min-width: 0; font: 400 12px/1.4 var(--mono); }
 .crumbs a { text-decoration: none; opacity: .7; } .crumbs a:hover { opacity: 1; }
 .crumbs [aria-current] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 40ch; }
-.x { all: unset; cursor: pointer; font: 700 16px var(--display); letter-spacing: .08em; text-transform: uppercase; padding: 6px 4px; }
+.x { all: unset; cursor: pointer; font: 700 16px var(--display); letter-spacing: .08em; text-transform: uppercase; padding: 10px 14px; margin-right: -14px; }
 .dlg-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
 .dlg-media { padding: 20px; }
 .stage { aspect-ratio: 3 / 2; overflow: hidden; background: var(--rock); }
@@ -177,13 +243,13 @@ dl.fx a { text-decoration: none; border-bottom: 2px solid var(--dark); }
 .kv dd { font-weight: 500; }
 .tl-h { font: 400 12px var(--mono); margin: 0 0 6px; }
 .tl { list-style: none; margin: 0; padding: 0; border-left: 10px solid var(--sand); }
-.tl li { display: grid; grid-template-columns: 70px 1fr; gap: 10px; padding: 6px 0 6px 12px; border-bottom: 1px dashed rgba(36,23,14,.3); }
+.tl li { display: grid; grid-template-columns: 70px 1fr; gap: 10px; padding: 8px 0 8px 14px; border-bottom: 1px dashed rgba(36,23,14,.3); }
 .tl i { display: none; }
 .tl time { font: 400 13px var(--mono); }
-.tl li:not(.done) { opacity: .55; }
+.tl li:not(.done) { opacity: .75; }
 
-.rv { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-.rv.in { opacity: 1; transform: none; }
+html.js .rv { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+html.js .rv.in { opacity: 1; transform: none; }
 
 @media (max-width: 1000px) { .cores { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 760px) {
@@ -203,6 +269,8 @@ dl.fx a { text-decoration: none; border-bottom: 2px solid var(--dark); }
   .log td.t, .log th.t { display: none; }
   .log td.p { width: 22px; }
   .log td.d { width: 64px; font-size: 12px; }
+  .log th, .log td { padding: 14px 12px; }
+  .xray .wt span + span { display: none; }
   .form { grid-template-columns: 1fr; }
   .form label:nth-of-type(1) { border-right: 0; }
   .foot { flex-direction: column; padding-bottom: 60px; }
@@ -213,6 +281,10 @@ dl.fx a { text-decoration: none; border-bottom: 2px solid var(--dark); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+  .core, .flight { animation: none !important; clip-path: none !important; transform: none !important; }
+  .layer::after { clip-path: none !important; }
+  html.js .rv, html.js .log td.p i { opacity: 1; transform: none; }
+  .xray, .lens-ring { display: none; }
 }
 .contact > * { min-width: 0; }
 .contact dd { overflow-wrap: anywhere; }
@@ -255,21 +327,59 @@ dl.fx a { text-decoration: none; border-bottom: 2px solid var(--dark); }
       <path class="house" pathLength="1" d="M960 112 V 50 L 1010 14 L 1060 50 V 110 M945 58 L1010 10 L1075 58 M995 112 V 78 H 1025 V 111"/>
       <path class="pile" pathLength="1" d="M972 114 V 240 M1010 113 V 240 M1048 112 V 240"/>
     </svg>
+    <div class="xray" aria-hidden="true">
+      <div class="bands"><i class="b-top"></i><i class="b-clay"></i><i class="b-sand"></i><i class="b-rock"></i>
+        <div class="wt"><span style="left:6%">▽ Στάθμη υδροφόρου −3,20 m</span><span style="left:40%">▽ Στάθμη υδροφόρου −3,20 m</span><span style="left:72%">▽ Στάθμη υδροφόρου −3,20 m</span></div>
+      </div>
+      <svg class="hs fdn" viewBox="930 0 160 240">
+        <g stroke="#24170e" stroke-width="1.5">
+          <rect x="952" y="106" width="116" height="12" fill="#a39c8e"/>
+          <rect x="968" y="118" width="8" height="106" fill="#c8c1b2"/><rect x="1006" y="118" width="8" height="108" fill="#c8c1b2"/><rect x="1044" y="118" width="8" height="104" fill="#c8c1b2"/>
+          <path d="M966 224 h12 l-6 8z M1004 226 h12 l-6 8z M1042 222 h12 l-6 8z" fill="#8f887a"/>
+        </g>
+        <path d="M972 120 V222 M1010 120 V224 M1048 120 V220 M956 112 H1064" stroke="#7b4528" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+      </svg>
+    </div>
+    <div class="lens-ring" aria-hidden="true"><b>±0,00 m</b></div>
     <div class="scroll-cue mono"><i></i>Κατεβείτε στο έδαφος</div>
   </div>
 </section>
 
-<section id="ypiresies" class="layer l-top pat-top" data-name="−0,00 έως −1,20 m · Φυτική γη" data-label="Φυτική γη">
+<div class="strata">
+<div class="bore" aria-hidden="true">
+  <div class="bit">
+    <svg viewBox="0 0 26 86">
+      <defs>
+        <clipPath id="augerClip"><path d="M1 12 H25 V58 L13 72 L1 58 Z"/></clipPath>
+        <linearGradient id="brass" x1="0" x2="1"><stop offset="0" stop-color="#7a5524"/><stop offset=".45" stop-color="#e2b866"/><stop offset="1" stop-color="#6e4b1f"/></linearGradient>
+        <linearGradient id="steel" x1="0" x2="1"><stop offset="0" stop-color="#120c07"/><stop offset=".45" stop-color="#6b5a4a"/><stop offset="1" stop-color="#120c07"/></linearGradient>
+      </defs>
+      <rect x="9" y="0" width="8" height="6" fill="url(#steel)"/>
+      <rect x="6" y="4" width="14" height="9" rx="1.5" fill="url(#brass)" stroke="#24170e" stroke-width="1"/>
+      <rect x="10" y="12" width="6" height="58" fill="url(#steel)"/>
+      <g clip-path="url(#augerClip)">
+        <g class="flight" fill="url(#brass)" stroke="#24170e" stroke-width=".8">
+          <path d="M0 -4 L26 -11 V-7 L0 0Z M0 8 L26 1 V5 L0 12Z M0 20 L26 13 V17 L0 24Z M0 32 L26 25 V29 L0 36Z M0 44 L26 37 V41 L0 48Z M0 56 L26 49 V53 L0 60Z M0 68 L26 61 V65 L0 72Z M0 80 L26 73 V77 L0 84Z"/>
+        </g>
+      </g>
+      <path d="M9 66 H17 L13 86 Z" fill="url(#steel)" stroke="#24170e" stroke-width=".8"/>
+    </svg>
+  </div>
+</div>
+<section id="ypiresies" class="layer l-top" data-name="−0,00 έως −1,20 m · Φυτική γη" data-label="Φυτική γη">
+  <i class="core" aria-hidden="true"></i>
   <div class="sh rv"><h2>Τι<br>αναλαμβάνουμε</h2><p>Κάθε έργο ξεκινά με δείγμα από το έδαφος. Όλες οι μελέτες και η κατασκευή, από μία ομάδα αρχιτεκτόνων και μηχανικών.</p></div>
   <ul class="cores" id="svc"></ul>
 </section>
 
-<section id="erga" class="layer l-clay pat-clay" data-name="−1,20 έως −4,80 m · Άργιλος" data-label="Άργιλος">
+<section id="erga" class="layer l-clay" data-name="−1,20 έως −4,80 m · Άργιλος" data-label="Άργιλος">
+  <i class="core" aria-hidden="true"></i>
   <div class="sh rv"><h2>Έργα</h2><p class="mono">Ενδεικτικά έργα · demo περιεχόμενο</p></div>
   <div class="proj" id="proj"></div>
 </section>
 
-<section id="poreia" class="layer l-sand pat-sand" data-name="−4,80 έως −9,50 m · Άμμος" data-label="Άμμος">
+<section id="poreia" class="layer l-sand" data-name="−4,80 έως −9,50 m · Άμμος" data-label="Άμμος">
+  <i class="core" aria-hidden="true"></i>
   <div class="sh rv"><h2>Πώς προχωράει<br>ένα έργο</h2><p>Σαν ημερολόγιο γεώτρησης: κάθε βήμα με τη διάρκειά του. Κάθε εβδομάδα σας στέλνουμε φωτογραφίες από το εργοτάξιο.</p></div>
   <table class="log">
     <thead><tr><th>Βάθος</th><th></th><th>Βήμα</th><th class="t">Διάρκεια</th></tr></thead>
@@ -277,7 +387,8 @@ dl.fx a { text-decoration: none; border-bottom: 2px solid var(--dark); }
   </table>
 </section>
 
-<section id="epikoinonia" class="layer l-rock pat-rock contact" data-name="−9,50 m και κάτω · Ασβεστόλιθος" data-label="Βράχος">
+<section id="epikoinonia" class="layer l-rock contact" data-name="−9,50 m και κάτω · Ασβεστόλιθος" data-label="Βράχος">
+  <i class="core" aria-hidden="true"></i>
   <div class="rv">
     <h2>Πείτε μας για<br>το ακίνητό σας.</h2>
     <p>Θεμελίωση σε βράχο. Απαντάμε την ίδια ή την επόμενη εργάσιμη, και στη Λευκάδα η πρώτη αυτοψία είναι δωρεάν.</p>
@@ -297,6 +408,7 @@ dl.fx a { text-decoration: none; border-bottom: 2px solid var(--dark); }
     <p class="ok" hidden>Η φόρμα δεν στέλνει ακόμα. Πάρτε μας στο 693 166 6980.</p>
   </form>
 </section>
+</div>
 </main>
 
 <footer class="foot"><span>© 2026 Αλέξανδρος Βλάχος · Πολιτικός μηχανικός</span><span>ΤΕΕ · Μητρώο Μελετητών</span></footer>
@@ -328,29 +440,72 @@ document.querySelectorAll(".rv, .log tr").forEach(el => io.observe(el));
 
 // gauge: layer bands sized to the real sections, marker + depth readout follow scroll
 const layers = [...document.querySelectorAll(".layer")], bar = $("#bar"), mark = $("#mark");
+const docTop = el => el.getBoundingClientRect().top + scrollY;
 const bandCol = { "Φυτική γη": "#5b3b25", "Άργιλος": "#8a5432", "Άμμος": "#c39a62", "Βράχος": "#d8ccb4" };
 const MAX_M = 14;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sda = window.CSS && CSS.supports("animation-timeline: view()");
+const cores = [...document.querySelectorAll(".core")], flight = document.querySelector(".flight");
 function buildBands() {
   bar.querySelectorAll("i").forEach(n => n.remove());
   const H = document.documentElement.scrollHeight;
-  layers.forEach(l => { const i = document.createElement("i"); i.style.top = (l.offsetTop / H * 100) + "%"; i.style.height = (l.offsetHeight / H * 100) + "%"; i.style.background = bandCol[l.dataset.label]; bar.prepend(i); });
+  layers.forEach(l => { const i = document.createElement("i"); i.style.top = (docTop(l) / H * 100) + "%"; i.style.height = (l.offsetHeight / H * 100) + "%"; i.style.background = bandCol[l.dataset.label]; bar.prepend(i); });
 }
+// a layer is "dug" once the drill tip (55% of the viewport) reaches its top; its colour then spreads from the drill
+function dig() { const line = innerHeight * .55; layers.forEach(l => { if (!l.classList.contains("dug") && l.getBoundingClientRect().top < line) l.classList.add("dug"); }); }
 function update() {
   const max = document.documentElement.scrollHeight - innerHeight;
   const f = max > 0 ? scrollY / max : 0;
   mark.style.top = (f * 100) + "%";
   const probe = scrollY + innerHeight * .5;
-  const firstTop = layers[0].offsetTop;
+  const firstTop = docTop(layers[0]);
   const m = probe < firstTop ? 0 : (probe - firstTop) / (document.documentElement.scrollHeight - firstTop) * MAX_M;
   $("#depth").textContent = (m ? "−" : "±") + m.toFixed(2).replace(".", ",") + " m";
-  const cur = layers.filter(l => l.offsetTop <= probe).pop();
+  const cur = layers.filter(l => docTop(l) <= probe).pop();
   $("#lname").textContent = cur ? cur.dataset.label : "Επιφάνεια";
-  $("#top").classList.toggle("under", scrollY > layers[0].offsetTop - 60);
+  $("#top").classList.toggle("under", scrollY > firstTop - 60);
+  if (reduce) return;
+  dig();
+  if (!sda) { // fallback for browsers without scroll-driven animations
+    const line = innerHeight * .55;
+    cores.forEach(c => { const r = c.parentElement.getBoundingClientRect(); c.style.setProperty("--fill", Math.min(1, Math.max(0, (line - r.top) / r.height)).toFixed(4)); });
+    if (flight) flight.style.transform = `translateY(${(scrollY / 6) % 12}px)`;
+  }
 }
+let queued = false;
+const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; update(); }); } };
+if (!reduce) { dig(); document.documentElement.classList.add("dig"); } // layers already passed show at once, no reveal
 buildBands(); update();
-addEventListener("scroll", update, { passive: true });
+addEventListener("scroll", onScroll, { passive: true });
 addEventListener("resize", () => { buildBands(); update(); });
 addEventListener("load", () => { buildBands(); update(); });
+
+// Φακός υπεδάφους: a lens over the hero ground shows the strata, the piles and the water table
+(() => {
+  const g = $(".ground"), label = g.querySelector(".lens-ring b");
+  if (reduce) return;
+  const at = (x, y) => {
+    g.style.setProperty("--mx", x + "px"); g.style.setProperty("--my", y + "px");
+    const d = Math.min(1, Math.max(0, (y / g.clientHeight - .45) / .55)) * 12;
+    label.textContent = (d ? "−" : "±") + d.toFixed(2).replace(".", ",") + " m";
+  };
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    g.addEventListener("pointermove", e => { const r = g.getBoundingClientRect(); at(e.clientX - r.left, e.clientY - r.top); g.classList.add("lens"); });
+    g.addEventListener("pointerleave", () => g.classList.remove("lens"));
+    return;
+  }
+  // touch: one slow sweep across the ground after load, then the lens goes away
+  addEventListener("load", () => setTimeout(() => {
+    const w = g.clientWidth, y = g.clientHeight * .72, T = 4200, t0 = performance.now();
+    g.classList.add("lens");
+    const step = now => {
+      const p = Math.min(1, (now - t0) / T), e = p < .5 ? 2 * p * p : 1 - (-2 * p + 2) ** 2 / 2;
+      at(60 + (w - 120) * e, y);
+      if (p < 1) requestAnimationFrame(step); else setTimeout(() => g.classList.remove("lens"), 400);
+    };
+    requestAnimationFrame(step);
+  }, 900));
+})();
 </script>
 </body>
 </html>

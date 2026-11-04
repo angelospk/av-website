@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Εφέ καφέ | Αλέξανδρος Βλάχος</title>
+<link rel="icon" href="../../logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,200;0,300;0,500;1,200;1,300&family=Sofia+Sans:wght@400;500;600;700&family=Sofia+Sans+Extra+Condensed:wght@600;800&family=Roboto+Slab:wght@400;700&family=Cousine:wght@400;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
+<style>
+:root {
+  --wood: #1e130c; --wood-2: #2a1b11; --wood-3: #3a2717;
+  --cream: #efe2cc; --brass: #c99b5c; --brass-2: #e2bb7f;
+  --kraft: #c8a476; --kraft-2: #b8925f; --card: #f3ead9; --ink: #2e1d10; --stamp: #8e2f1b;
+  --soil: #24170e; --top: #3d2819; --clay: #7b4528; --sand: #c39a62; --marl: #a8977a; --rock: #d8ccb4; --sky: #ece2d0;
+  --gut: clamp(16px, 5vw, 72px);
+  --display: "Noto Serif Display", Georgia, serif;
+  --body: "Sofia Sans", system-ui, sans-serif;
+  --cond: "Sofia Sans Extra Condensed", "Sofia Sans", sans-serif;
+  --slab: "Roboto Slab", Georgia, serif;
+  --type: "Cousine", ui-monospace, monospace;
+  --ease: cubic-bezier(.16,1,.3,1);
+  color-scheme: dark;
+  scrollbar-color: var(--brass) var(--wood);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--wood); color: var(--cream); font: 400 17px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--brass); color: var(--wood); }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* page header */
+header.page { padding: 36px var(--gut) 28px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 24px; align-items: center; border-bottom: 1px solid rgba(239,226,204,.16); }
+header.page av-logo { width: 78px; --logo-a: var(--cream); --logo-v: var(--brass); }
+header.page h1 { font: 200 clamp(40px, 5vw, 72px)/1 var(--display); letter-spacing: -.01em; }
+header.page h1 em { color: var(--brass-2); }
+header.page p { margin: 8px 0 0; color: #c4b096; max-width: 64ch; }
+.back { text-decoration: none; border: 1px solid var(--brass); color: var(--brass-2); padding: 10px 16px; border-radius: 999px; font-size: 15px; white-space: nowrap; transition: background .25s, color .25s; }
+.back:hover { background: var(--brass); color: var(--wood); }
+@media (max-width: 700px) {
+  header.page { grid-template-columns: auto minmax(0, 1fr); }
+  header.page av-logo { width: 56px; }
+  .back { grid-column: 1 / -1; justify-self: start; }
+}
+
+/* panels */
+.fx { --bg: var(--wood); --fg: var(--cream); --dim: #c4b096; --acc: var(--brass-2); --line: rgba(239,226,204,.18);
+  background: var(--bg); color: var(--fg); padding: clamp(48px, 6vw, 88px) var(--gut);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.t-wood  { --bg: var(--wood); --fg: var(--cream); --dim: #c4b096; --acc: var(--brass-2); --line: rgba(239,226,204,.18); }
+.t-kraft { --bg: var(--kraft); --fg: var(--ink); --dim: #3d2817; --acc: var(--stamp); --line: rgba(46,29,16,.3); color-scheme: light; }
+.t-card  { --bg: var(--card); --fg: var(--ink); --dim: #5a412d; --acc: var(--stamp); --line: rgba(46,29,16,.2); color-scheme: light; }
+.t-soil  { --bg: var(--soil); --fg: #f3e9d8; --dim: #cdb99b; --acc: var(--sand); --line: rgba(243,233,216,.16); }
+.t-sky   { --bg: var(--sky); --fg: var(--soil); --dim: #4f3826; --acc: var(--clay); --line: rgba(36,23,14,.2); color-scheme: light; }
+.t-kraft { background-image: repeating-linear-gradient(97deg, rgba(46,29,16,.035) 0 2px, transparent 2px 7px); }
+.fx ::selection { background: var(--fg); color: var(--bg); }
+.fx :focus-visible { outline-color: var(--acc); }
+.fx-head { position: sticky; top: 24px; }
+.fx-head h2 { font: 300 clamp(32px, 3.4vw, 50px)/1.02 var(--display); letter-spacing: -.01em; margin-bottom: 14px; }
+.t-kraft .fx-head h2, .t-card .fx-head h2 { font: 700 clamp(28px, 3vw, 42px)/1.08 var(--slab); letter-spacing: -.01em; }
+.t-soil .fx-head h2, .t-sky .fx-head h2 { font: 800 clamp(36px, 4vw, 60px)/.95 var(--cond); text-transform: uppercase; letter-spacing: .01em; }
+.fx-head p { margin: 0 0 12px; color: var(--dim); max-width: 42ch; }
+.fx-head .for { font: 400 13px/1.4 var(--type); color: var(--dim); }
+.fx-head .for b { color: var(--fg); font-weight: 700; }
+.replay { all: unset; box-sizing: border-box; cursor: pointer; margin-top: 18px; display: inline-flex; align-items: center; gap: 10px; border: 1px solid currentColor; color: var(--fg); padding: 10px 18px; border-radius: 999px; font: 600 14px/1 var(--body); transition: background .25s, color .25s; }
+.replay::before { content: "↻"; font-size: 16px; }
+.replay:hover { background: var(--fg); color: var(--bg); }
+.replay:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+.stage { position: relative; overflow: hidden; border-radius: 6px; min-width: 0; }
+@media (max-width: 900px) {
+  .fx { grid-template-columns: minmax(0, 1fr); }
+  .fx-head { position: static; }
+}
+
+/* 1. card to folder */
+.cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.pcard { all: unset; box-sizing: border-box; cursor: pointer; display: block; width: 100%; background: var(--card); padding: 10px 10px 14px; border-radius: 4px; box-shadow: 0 1px 0 rgba(46,29,16,.25), 0 14px 26px -16px rgba(46,29,16,.55); transition: transform .4s var(--ease), box-shadow .4s; }
+.pcard:hover { transform: translateY(-4px) rotate(-.6deg); box-shadow: 0 1px 0 rgba(46,29,16,.25), 0 22px 30px -16px rgba(46,29,16,.6); }
+.pcard:focus-visible { outline: 2px solid var(--stamp); outline-offset: 4px; }
+.pcard img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; filter: sepia(.55) saturate(.7) contrast(.95); border-radius: 2px; }
+.pcard b { display: block; font: 700 17px/1.2 var(--slab); margin-top: 12px; }
+.pcard small { display: block; font: 400 13px/1.4 var(--type); color: #5a412d; margin-top: 4px; }
+@media (max-width: 600px) { .cards { grid-template-columns: minmax(0, 1fr); } .pcard { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 0 14px; align-items: center; padding: 8px; } .pcard b { margin-top: 0; } .pcard span { min-width: 0; } }
+dialog.sheet { border: 0; padding: 0; background: transparent; color: var(--ink); width: min(920px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain; }
+dialog.sheet::backdrop { background: rgba(30,19,12,.72); backdrop-filter: blur(4px); }
+.folder { position: relative; background: var(--kraft); border-radius: 0 8px 8px 8px; padding: clamp(14px, 2.4vw, 26px); display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(14px, 2.4vw, 28px); box-shadow: 0 30px 70px -20px rgba(0,0,0,.6); margin-top: 26px; }
+.folder::before { content: attr(data-tab); position: absolute; left: 0; bottom: 100%; background: var(--kraft); padding: 6px 22px 4px; border-radius: 8px 8px 0 0; font: 700 12px/1.3 var(--type); letter-spacing: .08em; color: var(--ink); }
+.folder img { height: auto; aspect-ratio: 16 / 11; object-fit: cover; border-radius: 3px; box-shadow: 0 0 0 8px var(--card), 0 10px 20px -6px rgba(46,29,16,.6); margin: 8px; width: calc(100% - 16px); }
+.folder h3 { font: 700 clamp(22px, 2.4vw, 30px)/1.1 var(--slab); }
+.folder .meta { font: 400 13px/1.5 var(--type); color: #3d2817; margin: 10px 0 14px; }
+.folder p { margin: 0 0 18px; color: #2e1d10; }
+.folder .close { all: unset; cursor: pointer; border: 1.5px solid var(--ink); padding: 10px 18px; border-radius: 999px; font: 600 14px/1 var(--body); }
+.folder .close:hover { background: var(--ink); color: var(--kraft); }
+.folder .close:focus-visible { outline: 2px solid var(--stamp); outline-offset: 3px; }
+@media (max-width: 640px) { .folder { grid-template-columns: minmax(0, 1fr); } }
+::view-transition-group(fxk-photo) { animation-duration: .6s; animation-timing-function: cubic-bezier(.2,.8,.2,1); z-index: 3; }
+::view-transition-image-pair(fxk-photo) { overflow: hidden; border-radius: 3px; }
+::view-transition-old(fxk-photo), ::view-transition-new(fxk-photo) { width: 100%; height: 100%; object-fit: cover; animation-duration: .6s; }
+::view-transition-group(fxk-title) { animation-duration: .6s; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+
+/* 2. planing */
+.plank { min-height: 340px; display: grid; align-items: center; padding: clamp(28px, 5vw, 64px) clamp(20px, 4vw, 56px);
+  background-color: #4a2f1b;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.16' numOctaves='3' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.07 0 0 0 0 0.03 0 0 0 -1.6 1.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, rgba(255,220,170,.06), rgba(0,0,0,.18));
+  background-size: 900px 300px, 100% 100%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.4), inset 0 -8px 20px rgba(0,0,0,.25); }
+.plane-wrap { position: relative; }
+.plane-band { position: absolute; inset: -18px -12px; background: linear-gradient(180deg, #8a6038, #a7774a 50%, #8a6038); border-radius: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.003 0.2' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 0 0.09 0 0 0 -1.4 0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"), linear-gradient(180deg, #7d5532, #9c6e43 50%, #7d5532); }
+.plane-h { position: relative; font: 300 clamp(38px, 6.2vw, 92px)/.98 var(--display); letter-spacing: -.015em; color: #1e130c; text-shadow: 0 1px 0 rgba(255,225,180,.35); }
+.plane-h em { font-style: italic; color: #3a1f0d; }
+.js .plane-band, .js .plane-h { clip-path: inset(-20% 100% -20% -4%); }
+.blade { position: absolute; top: -34px; bottom: -34px; left: -4px; width: 14px; opacity: 0; pointer-events: none; will-change: transform; z-index: 2; }
+.blade i { position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(90deg, #7a5428, #e2bb7f 35%, #fff1d2 48%, #c99b5c 60%, #6b4520); box-shadow: 6px 0 14px rgba(0,0,0,.45), -1px 0 0 rgba(255,240,210,.5); transform: skewX(-6deg); }
+.shaving { position: absolute; bottom: calc(100% - 30px); right: 4px; width: 170px; height: 130px; overflow: visible; transition: transform .9s cubic-bezier(.5,0,.8,.6), opacity .9s; }
+.shaving.drop { transform: translate(-30px, 220px) rotate(-60deg); opacity: 0; }
+.shaving path { fill: none; stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+
+/* 3. ink on kraft */
+.board { min-height: 300px; display: grid; place-items: center start; padding: clamp(28px, 5vw, 64px); background-color: var(--kraft);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35 0.06' numOctaves='3' seed='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 -1.6 0.92'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  box-shadow: inset 0 0 0 1px rgba(46,29,16,.25), inset 0 0 60px rgba(46,29,16,.18); }
+.ink-h { font: 700 clamp(36px, 5.6vw, 84px)/1.02 var(--slab); color: #24150a; mix-blend-mode: multiply; letter-spacing: -.01em; filter: url(#fxk-ink-rest); }
+.ink-h small { display: block; font: 400 clamp(14px, 1.4vw, 17px)/1.4 var(--type); margin-top: 18px; letter-spacing: .02em; }
+
+/* 4. stamp */
+.desk { min-height: 380px; display: grid; place-items: center; padding: clamp(24px, 4vw, 48px) 16px; background: radial-gradient(120% 90% at 30% 20%, #c39a68, #a47c4c); }
+.doc { position: relative; width: min(520px, 100%); background: var(--card); padding: clamp(20px, 3vw, 34px); border-radius: 2px; box-shadow: 0 1px 0 rgba(46,29,16,.3), 0 26px 40px -24px rgba(46,29,16,.7); font: 400 15px/1.7 var(--type); color: var(--ink); transform: rotate(-1deg); }
+.doc .dh { font-weight: 700; letter-spacing: .06em; border-bottom: 1.5px solid var(--ink); padding-bottom: 8px; margin-bottom: 12px; }
+.doc dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 14px; }
+.doc dt { color: #5a412d; } .doc dd { margin: 0; }
+.doc .sig { margin-top: 26px; display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: #5a412d; }
+.doc.shake { animation: shake .34s .42s linear both; }
+@keyframes shake { 0% { transform: rotate(-1deg); } 20% { transform: translate(2px, 4px) rotate(-.6deg); } 45% { transform: translate(-2px, -1px) rotate(-1.2deg); } 70% { transform: translate(1px, 1px) rotate(-.9deg); } 100% { transform: rotate(-1deg); } }
+.stamp, .stamp-shadow { --sx: 0px; --sy: 0px; --sr: -9deg; position: absolute; right: 8%; bottom: 18%; transform: translate(var(--sx), var(--sy)) rotate(var(--sr)); }
+.stamp { color: var(--stamp); border: 4px solid currentColor; border-radius: 6px; padding: 8px 16px 6px; text-align: center; mix-blend-mode: multiply; opacity: .9;
+  box-shadow: inset 0 0 0 3px var(--card), inset 0 0 0 5px currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -4 0 0 0 3.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -4 0 0 0 3.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.stamp b { display: block; font: 800 clamp(24px, 3.4vw, 36px)/1 var(--cond); letter-spacing: .06em; }
+.stamp span { display: block; font: 700 12px/1.6 var(--type); letter-spacing: .14em; margin-top: 3px; }
+.stamp-shadow { inset: auto 8% 18% auto; width: 230px; height: 70px; border-radius: 8px; background: rgba(46,29,16,.5); filter: blur(10px); opacity: 0; pointer-events: none; }
+.js .stamp { opacity: 0; }
+.stamp.hit { animation: hit .8s both; }
+.stamp-shadow.hit { animation: hitshadow .8s both; }
+@keyframes hit {
+  0%, 52% { opacity: 0; transform: translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(1.5); }
+  56% { opacity: 1; transform: translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(.94); }
+  70% { transform: translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(1.015); }
+  100% { opacity: .9; transform: translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(1); }
+}
+@keyframes hitshadow {
+  0% { opacity: 0; transform: translate(calc(var(--sx) + 40px), calc(var(--sy) + 50px)) rotate(var(--sr)) scale(1.9); filter: blur(22px); animation-timing-function: cubic-bezier(.55,0,.9,.5); }
+  54% { opacity: .55; transform: translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(1); filter: blur(4px); }
+  58%, 100% { opacity: 0; transform: translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(1); }
+}
+
+/* 5. borehole */
+@property --p { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --d { syntax: "<integer>"; inherits: true; initial-value: 0; }
+.bore { height: 460px; overflow-y: auto; overscroll-behavior: contain; background: var(--soil); border: 1px solid rgba(243,233,216,.16); scrollbar-color: var(--sand) #1a100a; scrollbar-width: thin; --d: round(down, calc(var(--p) * 19), 1); }
+.bore:focus-visible { outline: 2px solid var(--sand); outline-offset: 3px; }
+.bore-in { display: grid; grid-template-columns: minmax(0, 1fr) 140px; }
+.column { position: relative; height: 1700px; }
+.sky-band { height: 120px; background: linear-gradient(180deg, #ece2d0, #d9c7aa); position: relative; }
+.sky-band svg { position: absolute; left: 50%; bottom: 0; width: 140px; height: 116px; transform: translateX(-50%); overflow: visible; }
+.layer { position: relative; padding: 14px 16px; font: 600 15px/1.3 var(--body); }
+.layer small { display: block; font: 400 12px/1.4 var(--type); opacity: .9; margin-top: 2px; }
+.l1 { height: 120px; background: #3d2819 radial-gradient(circle at 30% 40%, rgba(120,150,60,.25) 0 2px, transparent 3px) 0 0 / 22px 18px; color: #f3e9d8; }
+.l2 { height: 360px; background: #7b4528 repeating-linear-gradient(176deg, rgba(0,0,0,.08) 0 2px, transparent 2px 26px); color: #f3e9d8; }
+.l3 { height: 240px; background: radial-gradient(circle, rgba(70,45,20,.55) 0 3px, transparent 4px) 0 0 / 19px 15px, radial-gradient(circle, rgba(255,240,210,.4) 0 1.5px, transparent 2px) 7px 9px / 11px 9px, #c39a62; color: #24170e; }
+.l4 { height: 400px; background: #a8977a repeating-linear-gradient(0deg, rgba(36,23,14,.12) 0 1px, transparent 1px 14px); color: #24170e; }
+.l5 { height: 460px; background: linear-gradient(90deg, rgba(36,23,14,.14) 1px, transparent 1px) 0 0 / 70px 46px, linear-gradient(0deg, rgba(36,23,14,.14) 1px, transparent 1px) 0 0 / 70px 46px, #d8ccb4; color: #24170e; }
+.layer > span { display: inline-block; background: inherit; }
+.l1 > span, .l2 > span { background: rgba(36,23,14,.55); padding: 4px 8px; border-radius: 3px; }
+.l3 > span, .l4 > span, .l5 > span { background: rgba(243,233,216,.7); padding: 4px 8px; border-radius: 3px; }
+.rod { position: absolute; left: 50%; top: 120px; width: 16px; margin-left: -8px; height: calc(var(--p) * 1520px);
+  background: repeating-linear-gradient(-28deg, #6b6258 0 6px, #b9b0a2 6px 9px, #8b8276 9px 14px); background-position: 0 calc(var(--p) * -2600px); border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,.4); }
+.bit { position: absolute; left: 50%; top: calc(120px + var(--p) * 1520px); width: 24px; height: 26px; margin-left: -12px; }
+.bit svg { width: 100%; height: 100%; display: block; }
+.core-col { position: sticky; top: 0; height: 458px; align-self: start; border-left: 1px solid rgba(243,233,216,.14); background: #1a100a; padding: 14px 12px; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 10px; color: #f3e9d8; }
+.core-col .lbl { font: 600 12px/1.3 var(--body); color: #cdb99b; }
+.tube { position: relative; width: 34px; justify-self: center; border: 2px solid #8b8276; border-radius: 17px; overflow: hidden; background: #0f0905; }
+.tube i { position: absolute; inset: 0; transform-origin: top; transform: scaleY(var(--p));
+  background: linear-gradient(180deg, #3d2819 0 7.9%, #7b4528 7.9% 31.6%, #c39a62 31.6% 47.4%, #a8977a 47.4% 73.7%, #d8ccb4 73.7%); }
+.tube i::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.12) 40%, rgba(0,0,0,.3)); }
+.depth { font: 800 34px/1 var(--cond); text-align: center; }
+.depth .n::before { content: "0"; }
+.depth small { font: 400 13px/1 var(--type); }
+.lnames { position: relative; height: 34px; font: 600 13px/1.25 var(--body); text-align: center; }
+.lnames span { position: absolute; inset: 0; opacity: 0; }
+.lnames span:nth-child(1) { opacity: clamp(0, (.079 - var(--p)) * 400, 1); }
+.lnames span:nth-child(2) { opacity: clamp(0, min((var(--p) - .079) * 400, (.316 - var(--p)) * 400), 1); }
+.lnames span:nth-child(3) { opacity: clamp(0, min((var(--p) - .316) * 400, (.474 - var(--p)) * 400), 1); }
+.lnames span:nth-child(4) { opacity: clamp(0, min((var(--p) - .474) * 400, (.737 - var(--p)) * 400), 1); }
+.lnames span:nth-child(5) { opacity: clamp(0, (var(--p) - .737) * 400, 1); }
+.hint { position: absolute; left: 50%; top: 384px; transform: translateX(-50%); background: rgba(36,23,14,.85); color: #f3e9d8; padding: 6px 12px; border-radius: 999px; font: 600 13px/1.2 var(--body); white-space: nowrap; opacity: clamp(0, 1 - var(--p) * 14, 1); pointer-events: none; }
+@supports (animation-timeline: scroll()) {
+  .bore { animation: bore-p linear both; animation-timeline: scroll(self block); }
+  @keyframes bore-p { from { --p: 0; } to { --p: 1; } }
+  .depth .n::before { counter-reset: d var(--d); content: counter(d); }
+}
+@media (max-width: 600px) { .bore-in { grid-template-columns: minmax(0, 1fr) 104px; } .depth { font-size: 28px; } }
+
+/* 6. subsoil lens */
+.lens { aspect-ratio: 2 / 1; cursor: none; touch-action: pan-y; background: #d9c7aa; --x: 50%; --y: 62%; --r: 0px; }
+.lens svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.lens .top { -webkit-mask: radial-gradient(circle var(--r) at var(--x) var(--y), transparent 98%, #000 100%); mask: radial-gradient(circle var(--r) at var(--x) var(--y), transparent 98%, #000 100%); }
+.ring { position: absolute; left: var(--x); top: var(--y); width: calc(var(--r) * 2); height: calc(var(--r) * 2); transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none;
+  box-shadow: 0 0 0 5px #c99b5c, 0 0 0 7px #6b4520, 0 10px 30px 6px rgba(36,23,14,.45), inset 0 0 18px rgba(36,23,14,.5); }
+.ring::after { content: ""; position: absolute; left: 18%; top: 12%; width: 30%; height: 18%; border-radius: 50%; background: rgba(255,248,230,.18); transform: rotate(-30deg); }
+html:not(.js) .ring { display: none; }
+.lens-cap { position: absolute; left: 12px; bottom: 10px; font: 600 13px/1.2 var(--body); color: #f3e9d8; pointer-events: none; }
+@media (max-width: 600px) { .lens { aspect-ratio: 4 / 3; } }
+
+/* 7. brass glint */
+@property --shine { syntax: "<percentage>"; inherits: false; initial-value: -40%; }
+.brass-bench { min-height: 300px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(24px, 4vw, 56px); padding: clamp(28px, 4vw, 48px) 16px;
+  background: #2a1b11 repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 1px, transparent 1px 9px); box-shadow: inset 0 0 0 1px rgba(239,226,204,.1); }
+.brass { --metal: linear-gradient(180deg, #f0d29d 0%, #c99b5c 42%, #8f6530 58%, #c99b5c 82%, #e2bb7f 100%);
+  background: linear-gradient(105deg, rgba(255,250,235,0) calc(var(--shine) - 10%), rgba(255,250,235,.95) var(--shine), rgba(255,250,235,0) calc(var(--shine) + 10%)), var(--metal);
+  color: #1e130c; box-shadow: inset 0 1px 0 rgba(255,245,220,.7), inset 0 -2px 0 rgba(70,40,10,.5), 0 8px 18px -8px rgba(0,0,0,.8); }
+.brass:hover, .brass:focus-visible, .brass.glint { animation: shine 1.3s cubic-bezier(.45,.1,.35,1); }
+@keyframes shine { from { --shine: -40%; } to { --shine: 140%; } }
+.cta { all: unset; box-sizing: border-box; cursor: pointer; padding: 18px 30px; border-radius: 999px; font: 700 17px/1 var(--body); letter-spacing: .01em;
+  background: linear-gradient(105deg, rgba(255,250,235,0) calc(var(--shine) - 10%), rgba(255,250,235,.95) var(--shine), rgba(255,250,235,0) calc(var(--shine) + 10%)), linear-gradient(180deg, #f0d29d 0%, #c99b5c 42%, #8f6530 58%, #c99b5c 82%, #e2bb7f 100%);
+  box-shadow: inset 0 1px 0 rgba(255,245,220,.7), inset 0 -2px 0 rgba(70,40,10,.5), 0 8px 18px -8px rgba(0,0,0,.8); color: #1e130c; }
+.cta:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 4px; }
+.plate { padding: 16px 26px; border-radius: 3px; text-align: center; font: 500 13px/1.4 var(--body); letter-spacing: .16em; text-transform: uppercase; position: relative; }
+.plate b { display: block; font: 300 26px/1.1 var(--display); letter-spacing: .02em; text-transform: none; color: #1e130c; text-shadow: 0 1px 0 rgba(255,240,210,.55); }
+.plate::before, .plate::after { content: ""; position: absolute; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff1d2, #6b4520); }
+.plate::before { left: 8px; } .plate::after { right: 8px; }
+.handle { all: unset; cursor: pointer; position: relative; width: 190px; height: 90px; }
+.handle .rose { position: absolute; left: 0; top: 10px; width: 70px; height: 70px; border-radius: 50%; }
+.handle .lever { position: absolute; left: 30px; top: 33px; width: 160px; height: 24px; border-radius: 12px 14px 14px 12px; transform-origin: 5px 12px; transition: transform .5s cubic-bezier(.3,1.6,.5,1); }
+.handle:hover .lever, .handle:focus-visible .lever { transform: rotate(16deg); }
+.handle:active .lever { transform: rotate(26deg); }
+.handle:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 6px; border-radius: 8px; }
+.handle:hover .brass, .handle:focus-visible .brass { animation: shine 1.3s cubic-bezier(.45,.1,.35,1); }
+
+/* 8. plaster */
+.wall { aspect-ratio: 16 / 9; background: #d8ccb4; touch-action: pan-y; cursor: none; }
+.wall img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.wall canvas { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity .8s; }
+.wall canvas.done { opacity: 0; }
+.trowel { position: absolute; left: 0; top: 0; width: 120px; height: 80px; margin: -40px 0 0 -60px; pointer-events: none; opacity: 0; transition: opacity .3s; filter: drop-shadow(0 6px 6px rgba(36,23,14,.45)); }
+.trowel.on { opacity: 1; }
+.meter { position: absolute; right: 12px; bottom: 12px; background: rgba(46,29,16,.85); color: #f3ead9; font: 700 13px/1 var(--type); padding: 8px 12px; border-radius: 999px; }
+@media (max-width: 600px) { .wall { aspect-ratio: 4 / 3; } }
+
+/* 9. tape measure */
+.tape-stage { height: 240px; background: #b8925f repeating-linear-gradient(90deg, rgba(46,29,16,.06) 0 1px, transparent 1px 3px); box-shadow: inset 0 0 0 1px rgba(46,29,16,.3); }
+.case { position: absolute; left: 14px; top: 50%; width: 150px; height: 150px; margin-top: -86px; z-index: 2; }
+.case svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.case av-logo { position: absolute; left: 34px; top: 46px; width: 74px; --logo-a: #1e130c; --logo-v: #6b4520; }
+.tape-wrap { position: absolute; left: 148px; right: 10px; top: calc(50% + 32px); height: 46px; overflow: hidden; }
+.tape { position: absolute; inset: 0 0 4px 0; transform: translateX(calc((var(--t, 1) - 1) * 100%));
+  background:
+    repeating-linear-gradient(to left, #1e130c 0 1px, transparent 1px 1cm) right top / 100% 52% no-repeat,
+    repeating-linear-gradient(to left, transparent 0 .5cm, #1e130c .5cm calc(.5cm + 1px), transparent calc(.5cm + 1px) 1cm) right top / 100% 38% no-repeat,
+    repeating-linear-gradient(to left, #1e130c 0 1px, transparent 1px 1mm) right top / 100% 22% no-repeat,
+    linear-gradient(180deg, #f0d29d, #e2bb7f 60%, #c99b5c);
+  border-radius: 0 3px 3px 0; box-shadow: 0 6px 8px -4px rgba(46,29,16,.6); }
+.tape span { position: absolute; bottom: 4px; transform: translateX(50%); font: 700 12px/1 var(--type); color: #1e130c; }
+.tape span.ten { color: #8e2f1b; font-size: 13px; }
+.hook { position: absolute; right: -2px; top: -8px; width: 9px; height: 54px; border-radius: 2px; background: linear-gradient(90deg, #6b4520, #e2bb7f, #8f6530); }
+.reading { position: absolute; right: 16px; top: 16px; background: #2e1d10; color: #f3ead9; font: 700 15px/1 var(--type); padding: 10px 14px; border-radius: 4px; }
+@media (max-width: 600px) { .case { width: 104px; height: 104px; margin-top: -60px; left: 8px; } .case av-logo { left: 24px; top: 32px; width: 50px; } .tape-wrap { left: 102px; top: calc(50% + 20px); } .tape-stage { height: 220px; } }
+
+/* 10. sand */
+@media (max-width: 600px) { .plank { min-height: 240px; } .stamp, .stamp-shadow { bottom: 5%; } }
+.sandbox { min-height: 260px; display: grid; place-items: center; padding: 28px 16px; background: radial-gradient(90% 120% at 50% 110%, #3d2819, #24170e 70%); }
+.sand-h { font: 800 clamp(52px, 9vw, 130px)/.9 var(--cond); text-transform: uppercase; color: var(--sand); text-align: center; letter-spacing: .01em; }
+.sandbox canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+.sand-on .sand-h { color: transparent; }
+.sand-on canvas { display: block; }
+@media (max-width: 600px) { .sandbox { min-height: 200px; } }
+
+.foot { padding: 40px var(--gut) 56px; color: #c4b096; font-size: 15px; border-top: 1px solid rgba(239,226,204,.16); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  .pcard:hover { transform: none; }
+  .brass:hover, .brass:focus-visible, .brass.glint, .handle:hover .brass { animation: none; --shine: 50%; filter: brightness(1.08); }
+  .handle:hover .lever, .handle:focus-visible .lever { transform: rotate(16deg); }
+  .bore { animation-duration: auto !important; }
+  .lens, .wall { cursor: auto; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="fxk-warp" x="-5%" y="-20%" width="110%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.22" numOctaves="2" seed="3" result="n"/>
+    <feDisplacementMap id="fxk-warp-map" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="fxk-ink" x="-10%" y="-25%" width="120%" height="150%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="7" result="n"/>
+    <feMorphology id="fxk-ink-dil" in="SourceAlpha" operator="dilate" radius="0" result="d"/>
+    <feGaussianBlur id="fxk-ink-blur" in="d" stdDeviation="0" result="b"/>
+    <feDisplacementMap id="fxk-ink-disp" in="b" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="m"/>
+    <feComponentTransfer in="m" result="t"><feFuncA type="linear" slope="5" intercept="-1.6"/></feComponentTransfer>
+    <feFlood flood-color="#24150a"/>
+    <feComposite in2="t" operator="in"/>
+  </filter>
+  <filter id="fxk-ink-rest" x="-5%" y="-10%" width="110%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="9" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<header class="page">
+  <av-logo></av-logo>
+  <div>
+    <h1>Εφέ <em>καφέ</em></h1>
+    <p>Δέκα κινήσεις από τον κόσμο του εργοταξίου, σε καφέ αποχρώσεις. Διαλέξτε όσες σας αρέσουν για τις κατευθύνσεις Καρυδιά, Φάκελος και Στρώσεις.</p>
+  </div>
+  <a class="back" href="../">← Όλα τα mockups</a>
+</header>
+
+<main>
+
+<section class="fx t-kraft" id="fx-folder" aria-labelledby="h-folder">
+  <div class="fx-head">
+    <h2 id="h-folder">Κάρτα → φάκελος</h2>
+    <p>Η φωτογραφία του έργου μεγαλώνει από την κάρτα και γίνεται φάκελος με τα στοιχεία. Για τη λίστα έργων.</p>
+    <p class="for">Ταιριάζει: <b>Ε · Φάκελος</b>, <b>Δ · Καρυδιά</b></p>
+  </div>
+  <div class="stage" style="overflow:visible">
+    <ul class="cards">
+      <li><button class="pcard" type="button" data-i="0"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80&auto=format&fit=crop" alt="" width="1200" height="800"><span><b>Κατοικία στο Νυδρί</b><small>2025 · 180 m² · νέα κατασκευή</small></span></button></li>
+      <li><button class="pcard" type="button" data-i="1"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80&auto=format&fit=crop" alt="" width="1200" height="800"><span><b>Βίλα στον Άγιο Νικήτα</b><small>2024 · 240 m² · μελέτη και επίβλεψη</small></span></button></li>
+      <li><button class="pcard" type="button" data-i="2"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80&auto=format&fit=crop" alt="" width="1200" height="800"><span><b>Σκελετός στην Απόλλωνα</b><small>2026 · 310 m² · σε εξέλιξη</small></span></button></li>
+    </ul>
+  </div>
+</section>
+
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-t">
+  <div class="folder" data-tab="ΦΑΚΕΛΟΣ ΕΡΓΟΥ">
+    <img id="sheet-img" src="" alt="">
+    <div>
+      <h3 id="sheet-t"></h3>
+      <p class="meta" id="sheet-m"></p>
+      <p id="sheet-d"></p>
+      <button class="close" type="button">Κλείσιμο</button>
+    </div>
+  </div>
+</dialog>
+
+<section class="fx t-wood" id="fx-plane" aria-labelledby="h-plane">
+  <div class="fx-head">
+    <h2 id="h-plane">Ροκάνισμα</h2>
+    <p>Μια ορειχάλκινη λάμα περνά πάνω από το ξύλο και αφήνει πίσω της λεία επιφάνεια και τον τίτλο. Για το hero.</p>
+    <p class="for">Ταιριάζει: <b>Δ · Καρυδιά</b></p>
+    <button class="replay" type="button" data-replay="plane">Ξανά</button>
+  </div>
+  <div class="stage plank">
+    <div class="plane-wrap" id="plane">
+      <div class="plane-band" aria-hidden="true"></div>
+      <h3 class="plane-h">Λεία επιφάνεια,<br><em>ίσια γραμμή.</em></h3>
+      <div class="blade" aria-hidden="true"><i></i>
+        <svg class="shaving" viewBox="0 0 170 130">
+          <path pathLength="1" d="M166,126 C138,122 108,114 88,98 C62,78 60,42 86,30 C110,20 128,44 114,62 C102,76 80,68 84,52 C87,42 100,42 102,52" stroke="#c98e57" stroke-width="13"/>
+          <path pathLength="1" d="M166,126 C138,122 108,114 88,98 C62,78 60,42 86,30 C110,20 128,44 114,62 C102,76 80,68 84,52 C87,42 100,42 102,52" stroke="#ecc48d" stroke-width="7"/>
+          <path pathLength="1" d="M166,126 C138,122 108,114 88,98 C62,78 60,42 86,30 C110,20 128,44 114,62 C102,76 80,68 84,52 C87,42 100,42 102,52" stroke="#fbe3bb" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fx t-card" id="fx-ink" aria-labelledby="h-ink">
+  <div class="fx-head">
+    <h2 id="h-ink">Μελάνι σε χαρτόνι</h2>
+    <p>Ο τίτλος απλώνει σαν μελάνι στο χαρτόνι και μετά στεγνώνει καθαρός. Για τίτλους ενοτήτων.</p>
+    <p class="for">Ταιριάζει: <b>Ε · Φάκελος</b></p>
+    <button class="replay" type="button" data-replay="ink">Ξανά</button>
+  </div>
+  <div class="stage board">
+    <h3 class="ink-h" id="ink-h">Μελέτη στατικής<br>επάρκειας<small>Φάκελος 07 · Λευκάδα · 2026</small></h3>
+  </div>
+</section>
+
+<section class="fx t-kraft" id="fx-stamp" aria-labelledby="h-stamp">
+  <div class="fx-head">
+    <h2 id="h-stamp">Σφραγίδα</h2>
+    <p>Η σφραγίδα πέφτει στο έγγραφο, το χαρτί τινάζεται και το μελάνι μένει με κόκκο. Για την ενότητα «Άδειες».</p>
+    <p class="for">Ταιριάζει: <b>Ε · Φάκελος</b></p>
+    <button class="replay" type="button" data-replay="stamp">Ξανά</button>
+  </div>
+  <div class="stage desk">
+    <div class="doc" id="doc">
+      <div class="dh">ΥΠΗΡΕΣΙΑ ΔΟΜΗΣΗΣ</div>
+      <dl>
+        <dt>Άδεια</dt><dd>αρ. 214 / 2026</dd>
+        <dt>Έργο</dt><dd>Διώροφη κατοικία</dd>
+        <dt>Θέση</dt><dd>Νυδρί, Λευκάδα</dd>
+        <dt>Μηχανικός</dt><dd>Α. Βλάχος</dd>
+      </dl>
+      <div class="sig"><span>Ο προϊστάμενος</span><span>Σελ. 1 / 1</span></div>
+      <div class="stamp-shadow" aria-hidden="true"></div>
+      <div class="stamp" id="stamp" role="img" aria-label="Σφραγίδα: Άδεια εκδόθηκε"><b>ΑΔΕΙΑ ΕΚΔΟΘΗΚΕ</b><span>04 · 11 · 2026</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fx t-soil" id="fx-bore" aria-labelledby="h-bore">
+  <div class="fx-head">
+    <h2 id="h-bore">Γεώτρηση</h2>
+    <p>Κυλήστε μέσα στο πλαίσιο: το τρυπάνι κατεβαίνει στις στρώσεις και το καρότο γεμίζει δίπλα. Για τη γεωτεχνική μελέτη.</p>
+    <p class="for">Ταιριάζει: <b>ΣΤ · Στρώσεις</b></p>
+  </div>
+  <div class="stage bore" id="bore" tabindex="0" role="region" aria-label="Γεώτρηση, κυλήστε για βάθος">
+    <div class="bore-in">
+      <div class="column">
+        <div class="sky-band" aria-hidden="true">
+          <svg viewBox="0 0 140 116"><g fill="none" stroke="#3d2819" stroke-width="3" stroke-linejoin="round"><path d="M30,116 L70,6 L110,116 M44,78 L96,78 M52,52 L88,52 M62,28 L78,28"/></g><rect x="88" y="94" width="46" height="22" rx="3" fill="#7b4528"/><rect x="94" y="100" width="12" height="8" fill="#ece2d0"/><circle cx="70" cy="6" r="5" fill="#c99b5c"/></svg>
+        </div>
+        <div class="layer l1"><span>Φυτική γη<small>0 – 1,5 m</small></span></div>
+        <div class="layer l2"><span>Άργιλος καστανή<small>1,5 – 6 m</small></span></div>
+        <div class="layer l3"><span>Άμμος με χαλίκια<small>6 – 9 m</small></span></div>
+        <div class="layer l4"><span>Μάργα<small>9 – 14 m</small></span></div>
+        <div class="layer l5"><span>Ασβεστόλιθος<small>14 – 20 m</small></span></div>
+        <div class="rod" aria-hidden="true"></div>
+        <div class="bit" aria-hidden="true"><svg viewBox="0 0 24 26"><path d="M0,0 H24 L12,26 Z" fill="#c99b5c" stroke="#3d2819" stroke-width="1.5"/><path d="M4,6 L20,4 M6,12 L18,10 M8,18 L15,16" stroke="#6b4520" stroke-width="1.5"/></svg></div>
+        <div class="hint" aria-hidden="true">Κυλήστε ↓</div>
+      </div>
+      <div class="core-col" aria-hidden="true">
+        <div class="lbl">Καρότο</div>
+        <div class="tube"><i></i></div>
+        <div>
+          <div class="depth">−<span class="n"></span><small> m</small></div>
+          <div class="lnames"><span>Φυτική γη</span><span>Άργιλος</span><span>Άμμος, χαλίκια</span><span>Μάργα</span><span>Ασβεστόλιθος</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fx t-sky" id="fx-lens" aria-labelledby="h-lens">
+  <div class="fx-head">
+    <h2 id="h-lens">Φακός υπεδάφους</h2>
+    <p>Περάστε τον δείκτη πάνω από το οικόπεδο: ο φακός δείχνει σκελετό, θεμέλια και πασσάλους κάτω από το έδαφος. Σε οθόνη αφής κινείται μόνος του.</p>
+    <p class="for">Ταιριάζει: <b>ΣΤ · Στρώσεις</b></p>
+  </div>
+  <div class="stage lens" id="lens" role="img" aria-label="Κατοικία σε οικόπεδο, με τομή του υπεδάφους κάτω από τον φακό: θεμέλια, πάσσαλοι, στρώσεις εδάφους">
+    <svg class="under" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="800" height="220" fill="#2f2014"/>
+      <g stroke="rgba(236,226,208,.12)" stroke-width="1"><path d="M0,40H800M0,80H800M0,120H800M0,160H800M0,200H800M80,0V220M160,0V220M240,0V220M320,0V220M400,0V220M480,0V220M560,0V220M640,0V220M720,0V220"/></g>
+      <rect y="220" width="800" height="40" fill="#3d2819"/>
+      <rect y="260" width="800" height="62" fill="#7b4528"/>
+      <rect y="322" width="800" height="40" fill="#c39a62"/>
+      <rect y="362" width="800" height="38" fill="#d8ccb4"/>
+      <g fill="rgba(36,23,14,.45)"><circle cx="40" cy="335" r="3"/><circle cx="120" cy="345" r="4"/><circle cx="210" cy="332" r="2.5"/><circle cx="600" cy="340" r="4"/><circle cx="700" cy="350" r="3"/><circle cx="760" cy="333" r="2.5"/><circle cx="660" cy="328" r="2"/></g>
+      <path d="M0,296 H800" stroke="#9cc0c8" stroke-width="2" stroke-dasharray="10 7"/>
+      <text x="600" y="290" font-family="Cousine, monospace" font-size="12" fill="#f3e9d8">υδροφόρος −4,2 m</text>
+      <g fill="none" stroke="#e2bb7f" stroke-width="3">
+        <path d="M300,220 V112 M410,220 V112 M520,220 V112 M300,166 H520 M300,112 H520 M290,112 L410,52 L530,112"/>
+      </g>
+      <g fill="#d8ccb4" stroke="#24170e" stroke-width="2">
+        <rect x="286" y="220" width="248" height="16"/>
+        <rect x="290" y="236" width="20" height="150"/><rect x="400" y="236" width="20" height="150"/><rect x="510" y="236" width="20" height="150"/>
+        <rect x="282" y="378" width="36" height="12"/><rect x="392" y="378" width="36" height="12"/><rect x="502" y="378" width="36" height="12"/>
+      </g>
+      <g font-family="Sofia Sans, sans-serif" font-size="13" font-weight="600" fill="#f3e9d8">
+        <text x="16" y="246">Φυτική γη</text><text x="16" y="292">Άργιλος</text>
+      </g>
+      <g font-family="Sofia Sans, sans-serif" font-size="13" font-weight="600" fill="#24170e">
+        <text x="16" y="346">Άμμος</text><text x="16" y="386">Βράχος</text>
+        <text x="548" y="384">πάσσαλοι Ø60</text>
+      </g>
+      <text x="548" y="232" font-family="Sofia Sans, sans-serif" font-size="13" font-weight="600" fill="#f3e9d8">πλάκα 30 cm</text>
+    </svg>
+    <svg class="top" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs><linearGradient id="fxk-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ece2d0"/><stop offset="1" stop-color="#e2cfae"/></linearGradient></defs>
+      <rect width="800" height="222" fill="url(#fxk-sky)"/>
+      <circle cx="660" cy="70" r="30" fill="#e8bf83"/>
+      <path d="M0,170 C120,150 200,160 300,176 L300,220 L0,220 Z" fill="#cdb38c"/>
+      <path d="M520,186 C620,160 700,150 800,162 L800,220 L520,220 Z" fill="#cdb38c"/>
+      <rect y="218" width="800" height="182" fill="#5a3a22"/>
+      <rect y="214" width="800" height="8" fill="#6f7a3c"/>
+      <g fill="rgba(36,23,14,.35)"><circle cx="60" cy="260" r="3"/><circle cx="150" cy="300" r="2"/><circle cx="240" cy="270" r="2.5"/><circle cx="350" cy="320" r="3"/><circle cx="470" cy="290" r="2"/><circle cx="590" cy="340" r="3"/><circle cx="700" cy="270" r="2.5"/><circle cx="760" cy="330" r="2"/><circle cx="90" cy="360" r="2.5"/><circle cx="420" cy="370" r="2"/></g>
+      <path d="M286,112 L410,50 L534,112 Z" fill="#8e4a2a"/>
+      <rect x="300" y="112" width="220" height="104" fill="#f3e9d8"/>
+      <rect x="300" y="112" width="220" height="6" fill="rgba(36,23,14,.18)"/>
+      <rect x="322" y="134" width="40" height="30" fill="#5c4330"/><rect x="458" y="134" width="40" height="30" fill="#5c4330"/>
+      <rect x="390" y="160" width="40" height="56" fill="#7b4528"/>
+      <rect x="322" y="178" width="40" height="26" fill="#5c4330"/><rect x="458" y="178" width="40" height="26" fill="#5c4330"/>
+      <g><rect x="652" y="160" width="8" height="56" fill="#5c4330"/><ellipse cx="656" cy="150" rx="34" ry="24" fill="#7a7c4a"/><ellipse cx="636" cy="160" rx="18" ry="12" fill="#6b6e3d"/></g>
+    </svg>
+    <div class="ring" aria-hidden="true"></div>
+    <div class="lens-cap">Οικόπεδο 612 m² · Νυδρί</div>
+  </div>
+</section>
+
+<section class="fx t-wood" id="fx-brass" aria-labelledby="h-brass">
+  <div class="fx-head">
+    <h2 id="h-brass">Ορειχάλκινη λάμψη</h2>
+    <p>Ένα φως περνά πάνω από τον ορείχαλκο όταν ο δείκτης ή η εστίαση φτάσει στο κουμπί. Για κουμπιά και πινακίδες.</p>
+    <p class="for">Ταιριάζει: <b>Δ · Καρυδιά</b></p>
+    <button class="replay" type="button" data-replay="brass">Ξανά</button>
+  </div>
+  <div class="stage brass-bench" id="bench">
+    <button class="cta brass" type="button">Κλείστε ραντεβού →</button>
+    <div class="plate brass"><b>Α. Βλάχος</b>Πολιτικός μηχανικός</div>
+    <button class="handle" type="button" aria-label="Πόμολο: είσοδος"><span class="rose brass"></span><span class="lever brass"></span></button>
+  </div>
+</section>
+
+<section class="fx t-card" id="fx-plaster" aria-labelledby="h-plaster">
+  <div class="fx-head">
+    <h2 id="h-plaster">Σοβάς</h2>
+    <p>Ένα μυστρί καθαρίζει τον σοβά και αποκαλύπτει τη φωτογραφία του έργου. Περάστε τον δείκτη ή σύρετε για να καθαρίσετε κι εσείς. Για «πριν / μετά».</p>
+    <p class="for">Ταιριάζει: <b>ΣΤ · Στρώσεις</b>, <b>Ε · Φάκελος</b></p>
+    <button class="replay" type="button" data-replay="plaster">Ξανά</button>
+  </div>
+  <div class="stage wall" id="wall">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80&auto=format&fit=crop" alt="Ολοκληρωμένη κατοικία με πισίνα" width="1200" height="800">
+    <canvas aria-hidden="true"></canvas>
+    <svg class="trowel" viewBox="0 0 120 80" aria-hidden="true"><path d="M8,40 L70,14 L74,66 Z" fill="#b9b0a2" stroke="#3d2819" stroke-width="2"/><path d="M12,40 L68,18" stroke="#efe9df" stroke-width="2"/><rect x="72" y="36" width="14" height="8" fill="#6b6258"/><rect x="84" y="31" width="34" height="18" rx="8" fill="#7b4528" stroke="#3d2819" stroke-width="2"/></svg>
+    <div class="meter" aria-live="off"><span id="clean">0</span>% καθαρό</div>
+  </div>
+</section>
+
+<section class="fx t-kraft" id="fx-tape" aria-labelledby="h-tape">
+  <div class="fx-head">
+    <h2 id="h-tape">Μεζούρα</h2>
+    <p>Η μεζούρα βγαίνει από τη θήκη όσο κατεβαίνετε τη σελίδα, με πραγματικά εκατοστά. Δείκτης προόδου για μεγάλες σελίδες.</p>
+    <p class="for">Ταιριάζει: <b>Ε · Φάκελος</b>, <b>Δ · Καρυδιά</b></p>
+  </div>
+  <div class="stage tape-stage" id="tape-stage">
+    <div class="case" aria-hidden="true">
+      <svg viewBox="0 0 150 150"><rect x="4" y="4" width="142" height="142" rx="40" fill="#3a2717" stroke="#1e130c" stroke-width="3"/><rect x="12" y="12" width="126" height="126" rx="34" fill="#c99b5c"/><circle cx="72" cy="72" r="46" fill="#e2bb7f" stroke="#8f6530" stroke-width="3"/><rect x="128" y="104" width="22" height="22" fill="#3a2717"/><rect x="40" y="132" width="40" height="10" rx="3" fill="#1e130c"/></svg>
+      <av-logo once></av-logo>
+    </div>
+    <div class="tape-wrap" aria-hidden="true"><div class="tape" id="tape"><i class="hook"></i></div></div>
+    <div class="reading" id="reading">— cm</div>
+  </div>
+</section>
+
+<section class="fx t-soil" id="fx-sand" aria-labelledby="h-sand">
+  <div class="fx-head">
+    <h2 id="h-sand">Άμμος</h2>
+    <p>Κόκκοι άμμου πέφτουν και κάθονται μέσα στα γράμματα, από κάτω προς τα πάνω, και μετά σταματούν. Για το σύνθημα.</p>
+    <p class="for">Ταιριάζει: <b>ΣΤ · Στρώσεις</b></p>
+    <button class="replay" type="button" data-replay="sand">Ξανά</button>
+  </div>
+  <div class="stage sandbox" id="sandbox">
+    <h3 class="sand-h">Από το οικόπεδο<br>στα κλειδιά</h3>
+    <canvas aria-hidden="true"></canvas>
+  </div>
+</section>
+
+</main>
+<footer class="foot">Mockup για συζήτηση · Γραφείο Αλέξανδρου Βλάχου, Λευκάδα</footer>
+
+<script src="../shared/av-logo.js"></script>
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const fx = {};
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  function tween(ms, step, done) {
+    let raf, t0 = null;
+    const f = t => { if (t0 === null) t0 = t; const k = Math.min(1, (t - t0) / ms); step(k); if (k < 1) raf = requestAnimationFrame(f); else if (done) done(); };
+    raf = requestAnimationFrame(f);
+    return () => cancelAnimationFrame(raf);
+  }
+  function firstView(el, fn, threshold = .4) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); fn(); } }, { threshold });
+    io.observe(el);
+  }
+  function onVisible(el, cb) { new IntersectionObserver(es => cb(es[es.length - 1].isIntersecting)).observe(el); }
+  function setup(name, stage, api) {
+    fx[name] = api;
+    if (reduce) api.final(); else firstView(stage, api.run);
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-replay]");
+    if (b && fx[b.dataset.replay]) reduce ? fx[b.dataset.replay].final() : fx[b.dataset.replay].run();
+  });
+
+  /* 1. card -> folder (View Transitions) */
+  {
+    const data = [
+      { t: "Κατοικία στο Νυδρί", m: "2025 · 180 m² · νέα κατασκευή · 14 μήνες", d: "Διώροφη κατοικία σε επικλινές οικόπεδο. Τοπογραφικό, άδεια, στατική μελέτη και κατασκευή με το ίδιο συνεργείο." },
+      { t: "Βίλα στον Άγιο Νικήτα", m: "2024 · 240 m² · μελέτη και επίβλεψη", d: "Πέτρα, ξύλο και μεγάλα ανοίγματα προς τη θάλασσα. Αντισεισμικός σχεδιασμός και επίβλεψη ως τα κλειδιά." },
+      { t: "Σκελετός στην Απόλλωνα", m: "2026 · 310 m² · σε εξέλιξη", d: "Φέρων οργανισμός από οπλισμένο σκυρόδεμα σε ζώνη με αργιλικό έδαφος. Θεμελίωση με πεδιλοδοκούς." }
+    ];
+    const sheet = $("#sheet"), sImg = $("#sheet-img"), sT = $("#sheet-t");
+    const canMorph = () => !!document.startViewTransition && !reduce;
+    let cur = null;
+    const fill = btn => { const d = data[+btn.dataset.i]; sImg.src = btn.querySelector("img").src; sImg.alt = d.t; sT.textContent = d.t; $("#sheet-m").textContent = d.m; $("#sheet-d").textContent = d.d; };
+    function open(btn) {
+      cur = btn; fill(btn);
+      if (!canMorph()) { sheet.showModal(); return; }
+      const img = btn.querySelector("img"), title = btn.querySelector("b");
+      img.style.viewTransitionName = "fxk-photo"; title.style.viewTransitionName = "fxk-title";
+      document.startViewTransition(() => {
+        img.style.viewTransitionName = ""; title.style.viewTransitionName = "";
+        sImg.style.viewTransitionName = "fxk-photo"; sT.style.viewTransitionName = "fxk-title";
+        sheet.showModal();
+      });
+    }
+    function close() {
+      if (!sheet.open) return;
+      const btn = cur;
+      if (!canMorph() || !btn) { sheet.close(); if (btn) btn.focus(); return; }
+      const img = btn.querySelector("img"), title = btn.querySelector("b");
+      const vt = document.startViewTransition(() => {
+        sImg.style.viewTransitionName = ""; sT.style.viewTransitionName = "";
+        img.style.viewTransitionName = "fxk-photo"; title.style.viewTransitionName = "fxk-title";
+        sheet.close();
+      });
+      vt.finished.finally(() => { img.style.viewTransitionName = ""; title.style.viewTransitionName = ""; btn.focus({ preventScroll: true }); });
+    }
+    document.querySelectorAll(".pcard").forEach(b => b.addEventListener("click", () => open(b)));
+    $(".folder .close").addEventListener("click", close);
+    sheet.addEventListener("cancel", e => { e.preventDefault(); close(); });
+    sheet.addEventListener("click", e => { if (e.target === sheet) close(); });
+  }
+
+  /* 2. planing */
+  {
+    const wrap = $("#plane"), band = $(".plane-band", wrap), h = $(".plane-h", wrap), blade = $(".blade", wrap), shav = $(".shaving", wrap);
+    const paths = wrap.querySelectorAll(".shaving path"), map = $("#fxk-warp-map");
+    let stop = () => {};
+    const set = p => {
+      const c = `inset(-20% ${((1 - p) * 104).toFixed(2)}% -20% -4%)`;
+      band.style.clipPath = c; h.style.clipPath = c;
+      blade.style.transform = `translateX(${(p * (wrap.offsetWidth + 12)).toFixed(1)}px)`;
+      const s = clamp(p * 1.25, 0, 1);
+      paths.forEach(pa => pa.style.strokeDashoffset = (1 - s).toFixed(3));
+    };
+    const final = () => { stop(); set(1); h.style.filter = "none"; blade.style.opacity = 0; };
+    const run = () => {
+      stop(); shav.classList.remove("drop"); blade.style.opacity = 1; set(0);
+      h.style.filter = "url(#fxk-warp)"; map.setAttribute("scale", 9);
+      stop = tween(2300, k => set(easeInOut(k)), () => {
+        shav.classList.add("drop");
+        stop = tween(800, k => { map.setAttribute("scale", (9 * (1 - easeOut(k))).toFixed(2)); blade.style.opacity = 1 - k; }, () => { h.style.filter = "none"; });
+      });
+    };
+    setup("plane", wrap, { run, final });
+  }
+
+  /* 3. ink bleed */
+  {
+    const h = $("#ink-h"), dil = $("#fxk-ink-dil"), blur = $("#fxk-ink-blur"), disp = $("#fxk-ink-disp");
+    let stop = () => {};
+    const final = () => { stop(); h.style.filter = ""; h.style.opacity = 1; };
+    const run = () => {
+      stop(); h.style.filter = "url(#fxk-ink)";
+      const step = k => {
+        const e = easeOut(k), inv = 1 - e;
+        dil.setAttribute("radius", (2.5 * inv).toFixed(2));
+        blur.setAttribute("stdDeviation", (9 * inv).toFixed(2));
+        disp.setAttribute("scale", (50 * inv).toFixed(1));
+        h.style.opacity = clamp(k * 4, 0, 1);
+      };
+      step(0);
+      stop = tween(2600, step, () => { h.style.filter = ""; });
+    };
+    if (!reduce) h.style.opacity = 0;
+    setup("ink", h, { run, final });
+  }
+
+  /* 4. stamp */
+  {
+    const doc = $("#doc"), st = $("#stamp"), sh = $(".stamp-shadow", doc);
+    const r = (a, b) => a + Math.random() * (b - a);
+    const place = () => { [st, sh].forEach(el => { el.style.setProperty("--sx", r(-22, 18).toFixed(0) + "px"); el.style.setProperty("--sy", r(-12, 10).toFixed(0) + "px"); el.style.setProperty("--sr", r(-14, -4).toFixed(1) + "deg"); }); };
+    const final = () => { place(); st.style.opacity = .9; };
+    const run = () => {
+      [st, sh, doc].forEach(el => el.classList.remove("hit", "shake"));
+      void doc.offsetWidth; place();
+      st.classList.add("hit"); sh.classList.add("hit"); doc.classList.add("shake");
+    };
+    setup("stamp", doc, { run, final });
+  }
+
+  /* 5. borehole: CSS scroll timeline, JS fallback */
+  {
+    const bore = $("#bore"), n = $(".depth .n", bore);
+    if (!CSS.supports("animation-timeline: scroll()")) {
+      n.classList.add("js-n");
+      const style = document.createElement("style");
+      style.textContent = ".depth .n.js-n::before{content:none}";
+      document.head.appendChild(style);
+      let raf = 0;
+      const upd = () => { raf = 0; const max = bore.scrollHeight - bore.clientHeight; const p = max > 0 ? bore.scrollTop / max : 0; bore.style.setProperty("--p", p.toFixed(4)); n.textContent = Math.floor(p * 19); };
+      bore.addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+      upd();
+    }
+  }
+
+  /* 6. subsoil lens */
+  {
+    const lens = $("#lens");
+    let hover = false, visible = false, raf = 0, t0 = performance.now();
+    const radius = () => clamp(lens.clientWidth * .14, 56, 120);
+    const put = (x, y) => { lens.style.setProperty("--x", x.toFixed(1) + "px"); lens.style.setProperty("--y", y.toFixed(1) + "px"); };
+    lens.style.setProperty("--r", radius() + "px");
+    addEventListener("resize", () => lens.style.setProperty("--r", radius() + "px"));
+    const sweep = t => {
+      raf = 0; if (hover || !visible) return;
+      const s = (t - t0) / 1000, w = lens.clientWidth, h = lens.clientHeight;
+      put(w * (.5 + .3 * Math.sin(s * .55)), h * (.64 + .16 * Math.sin(s * 1.1 + 1)));
+      raf = requestAnimationFrame(sweep);
+    };
+    const start = () => { if (!raf && !reduce && !hover && visible) raf = requestAnimationFrame(sweep); };
+    if (reduce) put(lens.clientWidth * .5, lens.clientHeight * .68);
+    lens.addEventListener("pointermove", e => {
+      if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+      hover = true; const b = lens.getBoundingClientRect(); put(e.clientX - b.left, e.clientY - b.top);
+    });
+    lens.addEventListener("pointerleave", () => { hover = false; start(); });
+    onVisible(lens, v => { visible = v; if (v) start(); else if (raf) { cancelAnimationFrame(raf); raf = 0; } });
+  }
+
+  /* 7. brass glint */
+  {
+    const bench = $("#bench"), parts = bench.querySelectorAll(".brass");
+    const final = () => {};
+    const run = () => parts.forEach((p, i) => { p.classList.remove("glint"); void p.offsetWidth; p.style.animationDelay = i * .18 + "s"; p.classList.add("glint"); p.addEventListener("animationend", () => { p.classList.remove("glint"); p.style.animationDelay = ""; }, { once: true }); });
+    setup("brass", bench, { run, final });
+  }
+
+  /* 8. plaster */
+  {
+    const wall = $("#wall"), cv = $("canvas", wall), ctx = cv.getContext("2d"), trowel = $(".trowel", wall), out = $("#clean");
+    const GX = 48, GY = 27; let grid = new Uint8Array(GX * GY), cleared = 0, W = 0, H = 0, dpr = 1, last = null, stop = () => {}, done = false;
+    function paint() {
+      const b = wall.getBoundingClientRect(); dpr = Math.min(2, devicePixelRatio || 1); W = b.width; H = b.height;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1;
+      const g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#e9e0cf"); g.addColorStop(1, "#d9ccb5");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      for (let i = 0; i < 34; i++) { ctx.globalAlpha = .13; ctx.strokeStyle = i % 2 ? "#fffaf0" : "#b4a17c"; ctx.lineWidth = 20 + Math.random() * 40; ctx.beginPath(); const cx = Math.random() * W, cy = Math.random() * H, rr = 60 + Math.random() * 160; ctx.arc(cx, cy, rr, Math.random() * 6, Math.random() * 6 + 1.2); ctx.stroke(); }
+      for (let i = 0; i < 9000; i++) { ctx.globalAlpha = Math.random() * .35; ctx.fillStyle = Math.random() < .55 ? "#8f7d5f" : "#fffaf0"; const z = .8 + Math.random() * 1.6; ctx.fillRect(Math.random() * W, Math.random() * H, z, z); }
+      ctx.globalAlpha = 1; grid.fill(0); cleared = 0; done = false; cv.classList.remove("done"); out.textContent = 0;
+    }
+    function wipe(x0, y0, x1, y1) {
+      const L = clamp(W * .15, 70, 150), T = 18, dx = x1 - x0, dy = y1 - y0, dist = Math.hypot(dx, dy), ang = Math.atan2(dy, dx);
+      const steps = Math.max(1, Math.ceil(dist / 5));
+      ctx.globalCompositeOperation = "destination-out";
+      for (let i = 1; i <= steps; i++) {
+        const x = x0 + dx * i / steps, y = y0 + dy * i / steps;
+        ctx.save(); ctx.translate(x, y); ctx.rotate(ang); ctx.globalAlpha = .5; ctx.fillRect(-T / 2, -L / 2, T, L);
+        ctx.globalAlpha = .9; ctx.fillRect(-T / 2, -L / 2 + 6, T, L - 12); ctx.restore();
+        const ca = Math.cos(ang + Math.PI / 2), sa = Math.sin(ang + Math.PI / 2);
+        for (let s = -L / 2 + 8; s <= L / 2 - 8; s += 4) {
+          const gx = Math.floor((x + ca * s) / W * GX), gy = Math.floor((y + sa * s) / H * GY);
+          if (gx >= 0 && gy >= 0 && gx < GX && gy < GY && !grid[gy * GX + gx]) { grid[gy * GX + gx] = 1; cleared++; }
+        }
+      }
+      ctx.globalCompositeOperation = "source-over";
+      const pct = Math.round(cleared / (GX * GY) * 100); out.textContent = pct;
+      if (pct >= 90 && !done) { done = true; cv.classList.add("done"); out.textContent = 100; }
+      trowel.style.transform = `translate(${x1}px, ${y1}px) rotate(${ang * 180 / Math.PI}deg)`;
+    }
+    const move = (x, y) => { if (last) wipe(last.x, last.y, x, y); else trowel.style.transform = `translate(${x}px, ${y}px)`; last = { x, y }; };
+    function run() {
+      stop(); paint(); last = null; trowel.classList.add("on");
+      const L = clamp(W * .15, 70, 150), rows = Math.ceil(H / (L * .78)) , pts = [];
+      for (let r = 0; r < rows; r++) { const y = (r + .5) * H / rows; pts.push(r % 2 ? [W * 1.04, y] : [-W * .04, y], r % 2 ? [-W * .04, y] : [W * 1.04, y]); }
+      const segs = pts.length - 1, ms = 900 * rows;
+      stop = tween(ms, k => {
+        const f = easeInOut(k) * segs, i = Math.min(segs - 1, Math.floor(f)), u = f - i;
+        move(pts[i][0] + (pts[i + 1][0] - pts[i][0]) * u, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * u);
+      }, () => { trowel.classList.remove("on"); last = null; if (!done) { done = true; cv.classList.add("done"); out.textContent = 100; } });
+    }
+    function final() { stop(); paint(); done = true; cv.classList.add("done"); out.textContent = 100; trowel.classList.remove("on"); }
+    wall.addEventListener("pointermove", e => {
+      if (reduce && e.pointerType === "mouse") return;
+      if (e.pointerType === "touch" && !e.buttons) return;
+      const b = wall.getBoundingClientRect(); trowel.classList.add("on"); move(e.clientX - b.left, e.clientY - b.top);
+    });
+    wall.addEventListener("pointerleave", () => { last = null; trowel.classList.remove("on"); });
+    wall.addEventListener("pointerup", () => { last = null; });
+    let lw = 0; addEventListener("resize", () => { if (Math.abs(wall.clientWidth - lw) > 2) { lw = wall.clientWidth; if (done) final(); else paint(); } });
+    lw = wall.clientWidth; paint();
+    setup("plaster", wall, { run, final });
+  }
+
+  /* 9. tape measure */
+  {
+    const stage = $("#tape-stage"), tape = $("#tape"), reading = $("#reading");
+    const pxPerCm = 96 / 2.54;
+    let lenCm = 0, x = 0, v = 0, target = 0, raf = 0, visible = false, lastT = 0;
+    function ticks() {
+      tape.querySelectorAll("span").forEach(s => s.remove());
+      lenCm = tape.clientWidth / pxPerCm;
+      for (let n = 1; n < lenCm; n++) { const s = document.createElement("span"); s.textContent = n; s.style.right = n + "cm"; if (n % 10 === 0) s.className = "ten"; tape.appendChild(s); }
+    }
+    const show = p => { tape.style.setProperty("--t", p.toFixed(4)); reading.textContent = (p * lenCm).toFixed(1).replace(".", ",") + " cm"; };
+    const progress = () => { const b = stage.getBoundingClientRect(), vh = innerHeight; return clamp((vh - b.top) / (vh * .75), 0, 1); };
+    function loop(t) {
+      raf = 0; const dt = Math.min(.05, (t - lastT) / 1000 || .016); lastT = t;
+      const k = 160, c = 2 * Math.sqrt(k) * .5; v += (k * (target - x) - c * v) * dt; x += v * dt;
+      show(clamp(x, 0, 1.02));
+      if (visible && (Math.abs(target - x) > .0005 || Math.abs(v) > .0005)) raf = requestAnimationFrame(loop);
+    }
+    const kick = () => { target = progress(); if (reduce) { x = target; show(x); return; } if (!raf && visible) { lastT = performance.now(); raf = requestAnimationFrame(loop); } };
+    addEventListener("scroll", () => { if (visible) kick(); }, { passive: true });
+    addEventListener("resize", () => { ticks(); kick(); });
+    onVisible(stage, vis => { visible = vis; if (vis) kick(); });
+    ticks(); x = target = progress(); show(x);
+  }
+
+  /* 10. sand */
+  {
+    const box = $("#sandbox"), cv = $("canvas", box), ctx = cv.getContext("2d"), h = $(".sand-h", box);
+    const cols = ["#c39a62", "#d6b27a", "#a87d48", "#e4c793", "#b88c55"];
+    let parts = [], W = 0, H = 0, g = 4, stop = () => {}, ready = false;
+    function targets() {
+      const b = box.getBoundingClientRect(); W = b.width; H = b.height;
+      const dpr = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const cs = getComputedStyle(h), size = parseFloat(cs.fontSize), lh = size * .9;
+      const off = document.createElement("canvas"); off.width = Math.ceil(W); off.height = Math.ceil(H);
+      const o = off.getContext("2d"); o.fillStyle = "#000"; o.textAlign = "center"; o.textBaseline = "middle";
+      o.font = `800 ${size}px "Sofia Sans Extra Condensed"`;
+      const lines = ["ΑΠΟ ΤΟ ΟΙΚΟΠΕΔΟ", "ΣΤΑ ΚΛΕΙΔΙΑ"];
+      lines.forEach((l, i) => o.fillText(l, W / 2, H / 2 + (i - (lines.length - 1) / 2) * lh));
+      const d = o.getImageData(0, 0, off.width, off.height).data;
+      let filled = 0; for (let i = 3; i < d.length; i += 16) if (d[i] > 128) filled++;
+      g = Math.max(2, Math.ceil(Math.sqrt(filled * 4 / 1900)));
+      parts = [];
+      for (let y = 0; y < off.height; y += g) for (let x = 0; x < off.width; x += g) {
+        if (d[(y * off.width + x) * 4 + 3] > 128) parts.push({ tx: x + (Math.random() - .5) * g * .5, ty: y + (Math.random() - .5) * g * .5, s: g * (.75 + Math.random() * .45), c: cols[(Math.random() * cols.length) | 0] });
+      }
+      if (parts.length > 2000) parts.length = 2000;
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of parts) { ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, p.s * .6, 0, 6.2832); ctx.fill(); }
+    }
+    function final() { stop(); if (!ready) return; parts.forEach(p => { p.x = p.tx; p.y = p.ty; p.done = true; }); draw(); }
+    function run() {
+      stop(); if (!ready) return;
+      parts.forEach(p => { p.x = p.tx + (Math.random() - .5) * 50; p.y = -Math.random() * H * .5 - 6; p.v = 0; p.done = false; p.delay = (1 - p.ty / H) * 1100 + Math.random() * 650; });
+      let t0 = null, prev = 0, raf;
+      const f = t => {
+        if (t0 === null) { t0 = t; prev = t; }
+        const el = t - t0, dt = Math.min(.04, (t - prev) / 1000); prev = t; let left = 0;
+        for (const p of parts) {
+          if (p.done) continue; left++;
+          if (el < p.delay) continue;
+          p.v += 2400 * dt; p.y += p.v * dt; p.x += (p.tx - p.x) * Math.min(1, dt * 7);
+          if (p.y >= p.ty) { p.y = p.ty; p.x = p.tx; p.done = true; }
+        }
+        draw();
+        if (left) raf = requestAnimationFrame(f);
+      };
+      raf = requestAnimationFrame(f);
+      stop = () => cancelAnimationFrame(raf);
+    }
+    document.fonts.load('800 40px "Sofia Sans Extra Condensed"', "ΑΠΟ").then(() => {
+      targets(); ready = true; box.classList.add("sand-on");
+      if (reduce) final(); else { parts.forEach(p => { p.x = p.tx; p.y = -99; }); draw(); }
+      setup("sand", box, { run, final });
+      let lw = W; addEventListener("resize", () => { if (Math.abs(box.clientWidth - lw) > 2) { lw = box.clientWidth; stop(); targets(); final(); } });
+    });
+  }
+})();
+</script>
+</body>
+</html>

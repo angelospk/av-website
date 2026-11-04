@@ -14,7 +14,7 @@
   --wood-2: #2a1b11;
   --wood-3: #3a2717;
   --cream: #efe2cc;
-  --dim: #b39d82;
+  --dim: #c8b398;
   --brass: #c99b5c;
   --brass-2: #e2bb7f;
   --hair: rgba(239,226,204,.14);
@@ -28,6 +28,8 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--wood); color: var(--cream); font: 400 18px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 ::selection { background: var(--brass); color: var(--wood); }
+html { color-scheme: dark; scrollbar-color: var(--brass) var(--wood); accent-color: var(--brass); }
+input, textarea, select { caret-color: var(--brass-2); }
 a { color: inherit; }
 img { display: block; max-width: 100%; }
 :focus-visible { outline: 1.5px solid var(--brass-2); outline-offset: 4px; }
@@ -48,8 +50,17 @@ main, .top, .foot { position: relative; z-index: 2; }
 .top nav { display: flex; align-items: center; gap: 30px; }
 .top nav a { text-decoration: none; font-size: 15px; color: var(--dim); transition: color .2s; }
 .top nav a:hover { color: var(--cream); }
-.btn { display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--brass); color: var(--brass-2); background: transparent; padding: 14px 24px; border-radius: 999px; text-decoration: none; font: 500 15px/1 var(--body); cursor: pointer; transition: background .3s, color .3s; }
+.btn { position: relative; display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--brass); color: var(--brass-2); background: transparent; padding: 14px 24px; border-radius: 999px; text-decoration: none; font: 500 15px/1 var(--body); cursor: pointer; transition: background .3s, color .3s; }
 .btn:hover { background: var(--brass); color: var(--wood); }
+/* brass glint: a light band runs once along the brass edge on hover/focus */
+@property --g { syntax: "<percentage>"; inherits: false; initial-value: -40%; }
+.btn::before, .handle::after { content: ""; position: absolute; pointer-events: none; border: inherit; border-color: transparent; border-radius: inherit; --g: -40%;
+  background: linear-gradient(105deg, transparent calc(var(--g) - 18%), rgba(255,241,214,.95) var(--g), transparent calc(var(--g) + 18%)) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) padding-box exclude, linear-gradient(#000 0 0); }
+.btn::before { inset: -1px; }
+.btn:hover::before { -webkit-mask: none; mask: none; background-image: linear-gradient(105deg, transparent calc(var(--g) - 18%), rgba(255,241,214,.5) var(--g), transparent calc(var(--g) + 18%)); } /* filled on hover: the glint crosses the brass face */
+.btn:hover::before, .btn:focus-visible::before, .drawers button:hover .handle::after, .drawers button:focus-visible .handle::after { --g: 140%; transition: --g 1s cubic-bezier(.4,0,.2,1); }
 .top .btn { padding: 10px 18px; font-size: 14px; color: var(--brass-2); }
 .top .btn:hover { color: var(--wood); }
 
@@ -57,10 +68,13 @@ main, .top, .foot { position: relative; z-index: 2; }
 .hero { min-height: 100svh; padding: 120px var(--gut) 64px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: end; gap: 48px; position: relative; }
 .hero h1 { font-size: clamp(56px, 8.4vw, 150px); line-height: .9; }
 .hero h1 em { font-style: italic; color: var(--brass-2); }
-.hero h1 .ln { display: block; overflow: hidden; }
-.hero h1 .ln > span { display: block; transform: translateY(105%); animation: up 1.2s var(--ease) forwards; }
-.hero h1 .ln:nth-child(2) > span { animation-delay: .12s; } .hero h1 .ln:nth-child(3) > span { animation-delay: .24s; }
-@keyframes up { to { transform: none; } }
+.hero h1 .ln { display: block; position: relative; width: fit-content; }
+.hero h1 .ln > span { display: block; }
+/* planing reveal (built by JS): brass blade + curled shaving */
+.blade { position: absolute; top: -.06em; bottom: -.06em; width: 2px; margin-left: -1px; pointer-events: none; background: linear-gradient(180deg, transparent, var(--brass-2) 18%, #fff1d6 50%, var(--brass-2) 82%, transparent); box-shadow: 0 0 12px 1px rgba(226,187,127,.55); }
+.shaving { position: absolute; right: -2px; bottom: 100%; width: .62em; height: auto; overflow: visible; transform-origin: 100% 100%; }
+.shaving path { fill: none; stroke-linecap: round; }
+.h-blade { position: absolute; width: 1.5px; pointer-events: none; background: linear-gradient(180deg, transparent, var(--brass-2) 15%, var(--brass-2) 85%, transparent); box-shadow: 0 0 10px rgba(226,187,127,.5); }
 .hero-side { padding-bottom: 12px; }
 .hero-side p { color: var(--dim); max-width: 34ch; margin: 18px 0 30px; }
 .plank { position: absolute; left: var(--gut); right: var(--gut); top: 96px; height: 1px; background: linear-gradient(90deg, transparent, var(--brass), transparent); transform: scaleX(0); animation: plane 1.8s var(--ease) .4s forwards; }
@@ -77,18 +91,18 @@ section { padding: clamp(96px, 12vw, 170px) var(--gut) 0; }
 /* services as cabinet drawers */
 .drawers { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
 .drawers li { border-bottom: 1px solid var(--hair); }
-.drawers button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 70px 1fr 48px; gap: 20px; align-items: center; padding: 22px 6px; transition: background .3s, padding .4s var(--ease); }
+.drawers button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 1fr 48px; gap: 20px; align-items: center; padding: 22px 6px; transition: background .3s, padding .4s var(--ease); }
 .drawers button:hover { background: linear-gradient(90deg, rgba(201,155,92,.08), transparent); padding-left: 16px; }
 .drawers button:focus-visible { outline: 1.5px solid var(--brass-2); outline-offset: -2px; }
-.drawers .no { font: 300 italic 22px/1 var(--display); color: var(--brass); }
 .drawers h3 { font-size: clamp(24px, 2.6vw, 38px); line-height: 1.1; }
-.handle { width: 44px; height: 14px; border: 1.5px solid var(--brass); border-radius: 0 0 10px 10px; border-top: 0; justify-self: end; transition: transform .4s var(--ease); }
+.handle { width: 44px; height: 14px; border: 1.5px solid var(--brass); border-radius: 0 0 10px 10px; border-top: 0; justify-self: end; position: relative; transition: transform .4s var(--ease); }
+.handle::after { inset: 0 -1.5px -1.5px; }
 .drawers button[aria-expanded="true"] .handle { transform: translateY(6px); }
 .drawer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
 .drawer > div { overflow: hidden; }
 .drawer.open { grid-template-rows: 1fr; }
-.drawer p { margin: 0 0 6px 90px; max-width: 56ch; color: var(--cream); }
-.drawer .who { margin: 0 0 26px 90px; color: var(--brass); font-size: 14px; }
+.drawer p { margin: 0 0 6px 6px; max-width: 56ch; color: var(--cream); }
+.drawer .who { margin: 0 0 26px 6px; color: var(--brass); font-size: 14px; }
 
 /* projects: framed strip */
 .strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 34vw); gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px var(--gut) 28px; margin: 0 calc(var(--gut) * -1); scrollbar-color: var(--brass) transparent; }
@@ -139,6 +153,15 @@ dl.fx a { text-decoration: none; border-bottom: 1px solid var(--brass); }
 .dlg { width: min(1260px, calc(100vw - 32px)); max-height: calc(100svh - 32px); padding: 0; border: 1px solid var(--wood-3); background: var(--wood-2); color: var(--cream); overflow: auto; }
 .dlg::backdrop { background: rgba(10,6,3,.78); backdrop-filter: blur(4px); }
 .dlg[open] { animation: rise .7s var(--ease); }
+html.vt-open .dlg[open], html.vt-open .stage img { animation: none; }
+/* morph: photo flies into the sheet, sheet is pulled out like a drawer; closing is quicker */
+::view-transition-group(proj-photo) { animation-duration: .6s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
+html.vt-close::view-transition-group(proj-photo) { animation-duration: .4s; }
+::view-transition-group(proj-sheet) { animation-duration: .6s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
+::view-transition-new(proj-sheet) { animation: sheet-pull .6s cubic-bezier(.16,1,.3,1) both; }
+::view-transition-old(proj-sheet) { animation: sheet-push .3s cubic-bezier(.7,0,.84,0) both; }
+@keyframes sheet-pull { from { transform: translateY(-36px); clip-path: inset(0 0 100% 0); } to { transform: none; clip-path: inset(0); } }
+@keyframes sheet-push { from { transform: none; clip-path: inset(0); opacity: 1; } to { transform: translateY(-28px); clip-path: inset(0 0 100% 0); opacity: .4; } }
 @keyframes rise { from { opacity: 0; transform: translateY(24px) scale(.98); } }
 .dlg-top { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 22px; background: var(--wood-2); border-bottom: 1px solid var(--hair); }
 .crumbs { display: flex; flex-wrap: wrap; gap: 4px 10px; min-width: 0; font-size: 14px; color: var(--dim); }
@@ -179,8 +202,7 @@ dl.fx a { text-decoration: none; border-bottom: 1px solid var(--brass); }
   .hero { grid-template-columns: 1fr; align-items: end; }
   .inlay { width: 110px; top: 110px; }
   .sh, .contact { grid-template-columns: 1fr; gap: 16px; }
-  .drawers button { grid-template-columns: 40px 1fr 40px; gap: 12px; }
-  .drawer p, .drawer .who { margin-left: 52px; }
+  .drawers button { grid-template-columns: 1fr 40px; gap: 12px; }
   .strip { grid-auto-columns: 78vw; }
   .ruler { grid-template-columns: 1fr; }
   .ruler::before { display: none; }
@@ -230,7 +252,6 @@ dl.fx a { text-decoration: none; border-bottom: 1px solid var(--brass); }
   <div class="inlay" aria-hidden="true"><av-logo once></av-logo></div>
   <h1><span class="ln"><span>Ένα σπίτι</span></span><span class="ln"><span>φτιαγμένο</span></span><span class="ln"><span><em>με μέτρο.</em></span></span></h1>
   <div class="hero-side">
-    <span class="cap">Τεχνικό γραφείο · Λευκάδα</span>
     <p>Μελέτη, άδεια και κατασκευή από ένα γραφείο. Μιλάτε με τον ίδιο μηχανικό από το τοπογραφικό ως τα κλειδιά.</p>
     <a class="btn" href="#epikoinonia">Κλείστε δωρεάν αυτοψία <span aria-hidden="true">→</span></a>
   </div>
@@ -286,10 +307,9 @@ dl.fx a { text-decoration: none; border-bottom: 1px solid var(--brass); }
 <script src="../../data/projects.js"></script>
 <script>
 const $ = s => document.querySelector(s), esc = ProjectSheet.esc;
-const roman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
 
 $("#svc").innerHTML = SERVICES.map((s, i) => `<li class="rv">
-  <button type="button" aria-expanded="false" aria-controls="dr${i}"><span class="no">${roman[i] || i + 1}</span><h3>${esc(s.title)}</h3><i class="handle" aria-hidden="true"></i></button>
+  <button type="button" aria-expanded="false" aria-controls="dr${i}"><h3>${esc(s.title)}</h3><i class="handle" aria-hidden="true"></i></button>
   <div class="drawer" id="dr${i}"><div><p>${esc(s.text)}</p><p class="who">${esc(s.who)}</p></div></div></li>`).join("");
 $("#svc").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
@@ -306,6 +326,73 @@ ProjectSheet.init({ trigger: "#proj" });
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
 document.querySelectorAll(".rv, .ruler").forEach(el => io.observe(el));
 addEventListener("scroll", () => $("#top").classList.toggle("scrolled", scrollY > 20), { passive: true });
+
+// "Ροκάνισμα": a brass plane blade sweeps each headline line; text left of the blade is revealed.
+// Hidden state is set only here, so without JS (or with reduced motion) the text is just visible.
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const SVGNS = "http://www.w3.org/2000/svg";
+const OPEN = "inset(-.3em -.3em -.3em -.3em)", SHUT = "inset(-.3em 100% -.3em -.3em)";
+function roughFilter(id) { // short-lived displacement: rough fresh-cut fibres that settle to smooth
+  const svg = document.createElementNS(SVGNS, "svg");
+  svg.setAttribute("aria-hidden", "true"); svg.style.cssText = "position:absolute;width:0;height:0";
+  svg.innerHTML = `<filter id="${id}" x="-5%" y="-20%" width="110%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.6" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>`;
+  document.body.append(svg);
+  return { svg, map: svg.querySelector("feDisplacementMap") };
+}
+function settle(f, el, delay, dur) { // scale 9 -> 0, then drop the filter
+  const t0 = performance.now() + delay;
+  const tick = now => {
+    const k = Math.min(1, Math.max(0, (now - t0) / dur));
+    f.map.setAttribute("scale", (7 * (1 - k) ** 2).toFixed(2));
+    if (k < 1) requestAnimationFrame(tick); else { el.style.filter = ""; f.svg.remove(); }
+  };
+  requestAnimationFrame(tick);
+}
+if (!calm) {
+  const SWEEP = 1100;
+  document.querySelectorAll(".hero h1 .ln").forEach((ln, i) => {
+    const txt = ln.firstElementChild, delay = 250 + i * 260;
+    const f = roughFilter("rough" + i);
+    txt.style.filter = `url(#rough${i})`;
+    txt.animate([{ clipPath: SHUT }, { clipPath: OPEN }], { duration: SWEEP, delay, easing: "cubic-bezier(.45,.05,.35,1)", fill: "backwards" })
+      .finished.then(() => settle(f, txt, 0, 700));
+    const blade = document.createElement("i"); blade.className = "blade"; blade.setAttribute("aria-hidden", "true");
+    // curled shaving: a thin ribbon that spirals up off the blade
+    blade.innerHTML = `<svg class="shaving" viewBox="0 0 60 64"><path d="M58 62 C 52 44, 30 40, 16 30 C 2 20, 6 4, 20 4 C 34 4, 36 20, 26 24 C 18 27, 14 18, 20 14" stroke="#e8cf9f" stroke-width="3.2"/><path d="M55 62 C 49 47, 29 43, 15 33" stroke="#c99b5c" stroke-width="1.4" opacity=".8"/></svg>`;
+    ln.append(blade);
+    blade.animate([{ left: "0%", opacity: 0 }, { opacity: 1, offset: .06 }, { left: "100%", opacity: 1 }], { duration: SWEEP, delay, easing: "cubic-bezier(.45,.05,.35,1)", fill: "both" });
+    blade.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 350, delay: delay + SWEEP, fill: "forwards" }).finished.then(() => blade.remove());
+    const sh = blade.firstElementChild;
+    sh.animate([ // grows and curls while the blade cuts
+      { transform: "scale(.15) rotate(-20deg)", opacity: 0 },
+      { transform: "scale(.6) rotate(4deg)", opacity: 1, offset: .25 },
+      { transform: "scale(1) rotate(14deg)", opacity: 1 }], { duration: SWEEP, delay, easing: "ease-out", fill: "both" });
+    sh.animate([ // breaks off, drops and fades
+      { transform: "scale(1) rotate(14deg)", opacity: 1 },
+      { transform: "translate(-.35em, 1.4em) scale(.9) rotate(-38deg)", opacity: 0 }], { duration: 900, delay: delay + SWEEP, easing: "cubic-bezier(.5,0,.75,0)", fill: "forwards" });
+  });
+
+  // lighter version for section titles: blade + clip reveal, once, when they enter the viewport
+  const heads = [...document.querySelectorAll("main section:not(.hero) h2")];
+  heads.forEach(h => { h.style.clipPath = SHUT; });
+  // observe the parent: a clipped-away h2 never counts as intersecting in Chromium
+  const hio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; hio.unobserve(e.target);
+    const host = e.target, h = host.querySelector("h2");
+    const r = document.createRange(); r.selectNodeContents(h);
+    const tr = r.getBoundingClientRect(), hr = host.getBoundingClientRect();
+    if (getComputedStyle(host).position === "static") host.style.position = "relative";
+    const b = document.createElement("i"); b.className = "h-blade"; b.setAttribute("aria-hidden", "true");
+    b.style.cssText = `top:${tr.top - hr.top - 6}px;height:${tr.height + 12}px;left:${tr.left - hr.left}px`;
+    host.append(b);
+    const opts = { duration: 900, delay: 150, easing: "cubic-bezier(.45,.05,.35,1)" };
+    h.animate([{ clipPath: SHUT }, { clipPath: OPEN }], { ...opts, fill: "backwards" }).finished.then(() => { h.style.clipPath = ""; });
+    h.style.clipPath = "";
+    b.animate([{ transform: "translateX(0)", opacity: 0 }, { opacity: 1, offset: .08 }, { transform: `translateX(${tr.width}px)`, opacity: 1 }], { ...opts, fill: "both" });
+    b.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, delay: 1050, fill: "forwards" }).finished.then(() => b.remove());
+  }), { threshold: .3 });
+  heads.forEach(h => hio.observe(h.parentElement));
+}
 
 // lamp follows the pointer
 if (matchMedia("(pointer: fine)").matches) {
