@@ -1,13 +1,14 @@
 ---
-slug: rooftop-pv
 title: Φωτοβολταϊκό στέγης 10 kW
-place: Παλλήνη
+slug: rooftop-pv
+place: Παλλήνη LIVE-TEST
 year: 2025
 status: Ολοκληρώθηκε
 categories:
   - Ενέργεια
   - Άδειες
 order: 80
+wide: false
 cover: https://images.unsplash.com/photo-1762960504300-1bcbdd8d9e53?w=1600&q=80&auto=format&fit=crop
 summary: Net billing, μελέτη, σύνδεση με ΔΕΔΔΗΕ σε 7 εβδομάδες.
 facts:
@@ -15,6 +16,7 @@ facts:
     value: 10 kWp
   - label: Παραγωγή
     value: ~14.000 kWh/έτος
+draft: false
 demo: true
 ---
 
