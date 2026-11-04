@@ -165,6 +165,9 @@
 
 Το token μένει αποθηκευμένο σε αυτόν τον browser. Σε κοινόχρηστο υπολογιστή: «Sign Out» στο τέλος.
 Αν χαθεί ή διαρρεύσει: GitHub → Settings → Developer settings → Personal access tokens → **Revoke**, και νέο.
+Σφάλμα «Resource not accessible by personal access token» στο Save: το token δεν έχει δικαίωμα εγγραφής.
+Στο token: Repository access = **Only select repositories** (όχι «Public repositories», που είναι μόνο ανάγνωση)
+και Contents = **Read and write** (όχι Read-only). Μετά «Sign Out» στο CMS και ξανά login με το token.
 
 **Απόδειξη:** αλλαγή από το online CMS εμφανίστηκε στο site και στο `git log`.
 
