@@ -1,0 +1,182 @@
+<svg viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="p-tick" d="M-4 4L4-4" fill="none" stroke="#0b0b0b" stroke-width="0.8"/>
+    <rect id="p-column" x="-3.9" y="-5.2" width="7.8" height="10.4" fill="#0b0b0b"/>
+    <g id="p-chair" fill="#ffffff" stroke="#0b0b0b" stroke-width="1.5">
+      <rect x="-7" y="-7" width="14" height="14" rx="2"/>
+      <path d="M-7-3H7" fill="none"/>
+    </g>
+  </defs>
+  <rect width="800" height="560" fill="#ffffff"/>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="12 4 2 4">
+    <path d="M196.5 27V369M313.5 27V369M430.5 27V369M547.5 27V369"/>
+    <path d="M87 96.5H631M87 220H631M87 343.5H631"/>
+  </g>
+
+  <g fill="#ffffff" stroke="#0b0b0b" stroke-width="1.5">
+    <circle cx="196.5" cy="18" r="9"/>
+    <circle cx="313.5" cy="18" r="9"/>
+    <circle cx="430.5" cy="18" r="9"/>
+    <circle cx="547.5" cy="18" r="9"/>
+    <circle cx="78" cy="96.5" r="9"/>
+    <circle cx="78" cy="220" r="9"/>
+    <circle cx="78" cy="343.5" r="9"/>
+    <circle cx="640" cy="96.5" r="9"/>
+    <circle cx="640" cy="220" r="9"/>
+    <circle cx="640" cy="343.5" r="9"/>
+  </g>
+  <g font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b" text-anchor="middle">
+    <text x="196.5" y="22">A</text>
+    <text x="313.5" y="22">B</text>
+    <text x="430.5" y="22">C</text>
+    <text x="547.5" y="22">D</text>
+    <text x="78" y="100.5">1</text>
+    <text x="78" y="224">2</text>
+    <text x="78" y="347.5">3</text>
+    <text x="640" y="100.5">1</text>
+    <text x="640" y="224">2</text>
+    <text x="640" y="347.5">3</text>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="0.8">
+    <path d="M190 86V39M554 86V39M190 44H554"/>
+    <path d="M196.5 86V65M313.5 86V65M430.5 86V65M547.5 86V65M196.5 70H547.5"/>
+    <path d="M185 90H107M185 350H107M112 90V350"/>
+    <path d="M185 96.5H135M185 220H135M185 343.5H135M140 96.5V343.5"/>
+  </g>
+  <g>
+    <use href="#p-tick" x="190" y="44"/>
+    <use href="#p-tick" x="554" y="44"/>
+    <use href="#p-tick" x="196.5" y="70"/>
+    <use href="#p-tick" x="313.5" y="70"/>
+    <use href="#p-tick" x="430.5" y="70"/>
+    <use href="#p-tick" x="547.5" y="70"/>
+    <use href="#p-tick" x="112" y="90"/>
+    <use href="#p-tick" x="112" y="350"/>
+    <use href="#p-tick" x="140" y="96.5"/>
+    <use href="#p-tick" x="140" y="220"/>
+    <use href="#p-tick" x="140" y="343.5"/>
+  </g>
+  <g font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b" text-anchor="middle">
+    <text x="372" y="40">14,00</text>
+    <text x="255" y="66">4,50</text>
+    <text x="372" y="66">4,50</text>
+    <text x="489" y="66">4,50</text>
+    <text x="106" y="220" transform="rotate(-90 106 220)">10,00</text>
+    <text x="134" y="158.25" transform="rotate(-90 134 158.25)">4,75</text>
+    <text x="134" y="281.75" transform="rotate(-90 134 281.75)">4,75</text>
+  </g>
+
+  <g fill="#0b0b0b">
+    <path d="M190 90H225V96.5H196.5V343.5H210V350H190Z"/>
+    <rect x="300" y="90" width="76" height="6.5"/>
+    <rect x="411" y="90" width="67" height="6.5"/>
+    <path d="M529 90H554V350H531.2V343.5H547.5V96.5H529Z"/>
+    <rect x="373" y="343.5" width="17" height="6.5"/>
+    <rect x="504" y="343.5" width="2.5" height="6.5"/>
+    <rect x="356" y="96.5" width="3.12" height="81"/>
+    <rect x="428" y="96.5" width="3.12" height="81"/>
+    <rect x="356" y="174.38" width="26" height="3.12"/>
+    <rect x="405.4" y="174.38" width="25.72" height="3.12"/>
+    <rect x="450" y="96.5" width="3.12" height="97.5"/>
+    <rect x="196.5" y="193.5" width="49.5" height="3.12"/>
+    <rect x="330" y="193.5" width="26" height="3.12"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1">
+    <path d="M225 92H300M225 95H300M376 92H411M376 95H411M478 92H529M478 95H529"/>
+    <path d="M262.5 92V95M393.5 92V95M503.5 92V95"/>
+    <path d="M210 345H309.6M210 348H309.6M317.4 345H373M317.4 348H373M390 345H426.6M390 348H426.6M434.4 345H504M434.4 348H504"/>
+    <path d="M259.8 345V348M345.2 345V348M408.3 345V348M469.2 345V348"/>
+    <path d="M211 352H309.6M317.4 352H372M391 352H426.6M434.4 352H503"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1.5">
+    <path d="M405.4 174.38V150.98M382 174.38A23.4 23.4 0 0 1 405.4 150.98"/>
+    <path d="M531.2 343.5V318.8M506.5 343.5A24.7 24.7 0 0 1 531.2 318.8"/>
+  </g>
+
+  <g fill="#ffffff" stroke="#0b0b0b" stroke-width="1.5">
+    <path d="M204 104H343V119.6H219.6V182H204Z"/>
+    <rect x="233" y="107" width="27" height="10" rx="1"/>
+    <path d="M246.5 107V117M245 103V110" fill="none"/>
+    <rect x="283" y="106" width="24" height="12"/>
+    <circle cx="289" cy="110" r="2.2"/>
+    <circle cx="301" cy="110" r="2.2"/>
+    <circle cx="289" cy="115" r="2.2"/>
+    <circle cx="301" cy="115" r="2.2"/>
+    <rect x="319" y="104" width="24" height="15.6"/>
+    <path d="M323 108V115" fill="none"/>
+    <rect x="372" y="104" width="16" height="7"/>
+    <path d="M374 111V119C374 133 386 133 386 119V111Z"/>
+    <ellipse cx="380" cy="120" rx="4" ry="7"/>
+    <rect x="362" y="147" width="13" height="17" rx="3"/>
+    <ellipse cx="368.5" cy="155" rx="4" ry="5"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b">
+    <path d="M466 213V128.76H536V213M466 154.76H536M496 154.76V213M506 154.76V213" stroke-width="1.5"/>
+    <path d="M466 162.04H496M466 169.32H496M466 176.6H496M466 183.88H496M466 191.16H496M466 198.44H496M466 205.72H496M466 213H496M506 162.04H536M506 169.32H536M506 176.6H536M506 183.88H536M506 191.16H536M506 198.44H536M506 205.72H536M506 213H536" stroke-width="1"/>
+    <path d="M481 208V141.76H521V205M516 198L521 205L526 198" stroke-width="1.5"/>
+    <path d="M463 184L478 178L485 184L499 178" stroke-width="1.5"/>
+  </g>
+
+  <g fill="#ffffff" stroke="#0b0b0b" stroke-width="1.5">
+    <use href="#p-chair" x="284" y="235"/>
+    <use href="#p-chair" x="314" y="235"/>
+    <use href="#p-chair" x="284" y="287" transform="rotate(180 284 287)"/>
+    <use href="#p-chair" x="314" y="287" transform="rotate(180 314 287)"/>
+    <use href="#p-chair" x="258" y="261" transform="rotate(-90 258 261)"/>
+    <use href="#p-chair" x="340" y="261" transform="rotate(90 340 261)"/>
+    <rect x="270" y="245" width="58" height="32" rx="2"/>
+    <rect x="205" y="290" width="75" height="29" rx="3"/>
+    <path d="M211 290V313H274V290M232 291V312M253 291V312" fill="none"/>
+    <rect x="300" y="299" width="43" height="22" rx="2"/>
+    <rect x="359" y="289" width="25" height="28" rx="3"/>
+    <path d="M364 289V312H379V289" fill="none"/>
+    <rect x="484" y="241" width="52" height="13"/>
+    <path d="M501 241V254M519 241V254" fill="none"/>
+  </g>
+
+  <g>
+    <use href="#p-column" x="196.5" y="96.5"/>
+    <use href="#p-column" x="313.5" y="96.5"/>
+    <use href="#p-column" x="430.5" y="96.5"/>
+    <use href="#p-column" x="547.5" y="96.5"/>
+    <use href="#p-column" x="196.5" y="220"/>
+    <use href="#p-column" x="313.5" y="220"/>
+    <use href="#p-column" x="430.5" y="220"/>
+    <use href="#p-column" x="547.5" y="220"/>
+    <use href="#p-column" x="196.5" y="343.5"/>
+    <use href="#p-column" x="313.5" y="343.5"/>
+    <use href="#p-column" x="430.5" y="343.5"/>
+    <use href="#p-column" x="547.5" y="343.5"/>
+  </g>
+
+  <path d="M182.2 350V402H561.8V350" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="7 4"/>
+  <g fill="none" stroke="#0b0b0b" stroke-width="1.5">
+    <rect x="205.7" y="350" width="4.6" height="52"/>
+    <rect x="541.7" y="350" width="4.6" height="52"/>
+    <path d="M205.7 402H546.3"/>
+    <rect x="246.1" y="414.1" width="241.8" height="85.8"/>
+    <rect x="250" y="418" width="234" height="78" fill="#e9e9e7"/>
+    <path d="M257 425H477V489H257Z" stroke-width="1"/>
+    <path d="M471 429V450M477 429V450M471 434H477M471 440H477M471 446H477" stroke-width="1"/>
+  </g>
+
+  <g font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b" text-anchor="middle">
+    <text x="276" y="159">Κουζίνα</text>
+    <text x="394" y="145">WC</text>
+    <text x="291" y="335">Σαλόνι</text>
+    <text x="505" y="302">Είσοδος</text>
+    <text x="372" y="388">Βεράντα</text>
+    <text x="367" y="461">Πισίνα</text>
+  </g>
+
+  <g stroke="#0b0b0b" stroke-width="1.5">
+    <path d="M720 128V75" fill="none"/>
+    <path d="M720 75L713 96L720 92L727 96Z" fill="#0b0b0b"/>
+  </g>
+  <text x="720" y="65" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b">N</text>
+</svg>

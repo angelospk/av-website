@@ -1,0 +1,161 @@
+<svg viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="s-hatch" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#e9e9e7"/>
+      <path d="M-2 2L2-2M0 8L8 0M6 10L10 6" fill="none" stroke="#0b0b0b" stroke-width="0.8"/>
+    </pattern>
+    <path id="s-tick" d="M-4 4L4-4" fill="none" stroke="#0b0b0b" stroke-width="0.8"/>
+    <rect id="s-column" x="-3.9" y="-5.2" width="7.8" height="10.4" fill="#0b0b0b"/>
+  </defs>
+  <rect width="800" height="560" fill="#ffffff"/>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="12 4 2 4">
+    <path d="M196.5 27V430M313.5 27V430M430.5 27V430M547.5 27V430"/>
+    <path d="M78 96.5H631M78 220H631M78 343.5H631"/>
+  </g>
+
+  <path d="M182.2 82.2H561.8V402H182.2Z" fill="#ffffff" stroke="#0b0b0b" stroke-width="1.5"/>
+  <path d="M182.2 82.2H190V394.2H554V82.2H561.8V402H182.2Z" fill="url(#s-hatch)" stroke="#0b0b0b" stroke-width="1"/>
+  <path d="M190 350H554" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="6 4"/>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="12 4 2 4">
+    <path d="M196.5 82.2V402M313.5 82.2V402M430.5 82.2V402M547.5 82.2V402"/>
+    <path d="M182.2 96.5H561.8M182.2 220H561.8M182.2 343.5H561.8"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="6 4">
+    <path d="M192.6 93.25H551.4M192.6 99.75H551.4M192.6 216.75H551.4M192.6 223.25H551.4M192.6 340.25H551.4M192.6 346.75H551.4"/>
+    <path d="M193.25 91.3V348.7M199.75 91.3V348.7M310.25 91.3V348.7M316.75 91.3V348.7M427.25 91.3V348.7M433.75 91.3V348.7M544.25 91.3V348.7M550.75 91.3V348.7"/>
+  </g>
+
+  <rect x="466" y="128.76" width="70" height="84.24" fill="#ffffff" stroke="#0b0b0b" stroke-width="1.5"/>
+  <path d="M466 128.76L536 213M536 128.76L466 213" fill="none" stroke="#0b0b0b" stroke-width="0.8"/>
+
+  <g>
+    <use href="#s-column" x="196.5" y="96.5"/>
+    <use href="#s-column" x="313.5" y="96.5"/>
+    <use href="#s-column" x="430.5" y="96.5"/>
+    <use href="#s-column" x="547.5" y="96.5"/>
+    <use href="#s-column" x="196.5" y="220"/>
+    <use href="#s-column" x="313.5" y="220"/>
+    <use href="#s-column" x="430.5" y="220"/>
+    <use href="#s-column" x="547.5" y="220"/>
+    <use href="#s-column" x="196.5" y="343.5"/>
+    <use href="#s-column" x="313.5" y="343.5"/>
+    <use href="#s-column" x="430.5" y="343.5"/>
+    <use href="#s-column" x="547.5" y="343.5"/>
+  </g>
+
+  <g font-family="Roboto Mono, monospace" font-size="10" fill="#0b0b0b">
+    <text x="205" y="87">K1</text>
+    <text x="322" y="87">K2</text>
+    <text x="439" y="87">K3</text>
+    <text x="556" y="87">K4</text>
+    <text x="205" y="210">K5</text>
+    <text x="322" y="210">K6</text>
+    <text x="439" y="210">K7</text>
+    <text x="556" y="210">K8</text>
+    <text x="205" y="334">K9</text>
+    <text x="322" y="334">K10</text>
+    <text x="439" y="334">K11</text>
+    <text x="556" y="334">K12</text>
+  </g>
+
+  <g font-family="Roboto Mono, monospace" font-size="10" fill="#0b0b0b" text-anchor="middle">
+    <text x="255" y="91">Δ1 25/60</text>
+    <text x="372" y="91">Δ2 25/60</text>
+    <text x="489" y="91">Δ3 25/60</text>
+    <text x="255" y="214">Δ4 25/60</text>
+    <text x="372" y="214">Δ5 25/60</text>
+    <text x="489" y="235">Δ6 25/60</text>
+    <text x="255" y="338">Δ7 25/60</text>
+    <text x="372" y="338">Δ8 25/60</text>
+    <text x="489" y="338">Δ9 25/60</text>
+    <text x="210" y="158.25" transform="rotate(-90 210 158.25)">Δ10 25/60</text>
+    <text x="327" y="158.25" transform="rotate(-90 327 158.25)">Δ11 25/60</text>
+    <text x="444" y="158.25" transform="rotate(-90 444 158.25)">Δ12 25/60</text>
+    <text x="562" y="158.25" transform="rotate(-90 562 158.25)">Δ13 25/60</text>
+    <text x="210" y="281.75" transform="rotate(-90 210 281.75)">Δ14 25/60</text>
+    <text x="327" y="281.75" transform="rotate(-90 327 281.75)">Δ15 25/60</text>
+    <text x="444" y="281.75" transform="rotate(-90 444 281.75)">Δ16 25/60</text>
+    <text x="562" y="281.75" transform="rotate(-90 562 281.75)">Δ17 25/60</text>
+  </g>
+
+  <g font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b" text-anchor="middle">
+    <text x="260" y="151">Π1</text>
+    <text x="260" y="168">h=20</text>
+    <text x="377" y="151">Π2</text>
+    <text x="377" y="168">h=20</text>
+    <text x="491" y="112">Π3</text>
+    <text x="491" y="125">h=20</text>
+    <text x="260" y="275">Π4</text>
+    <text x="260" y="292">h=20</text>
+    <text x="377" y="275">Π5</text>
+    <text x="377" y="292">h=20</text>
+    <text x="491" y="275">Π6</text>
+    <text x="491" y="292">h=20</text>
+    <text x="372" y="370">Π7</text>
+    <text x="372" y="387">h=20</text>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="0.8">
+    <path d="M196.5 78V39M547.5 78V39M196.5 44H547.5"/>
+    <path d="M196.5 78V65M313.5 78V65M430.5 78V65M547.5 78V65M196.5 70H547.5"/>
+    <path d="M178 96.5H105M178 343.5H105M110 96.5V343.5"/>
+    <path d="M178 96.5H135M178 220H135M178 343.5H135M140 96.5V343.5"/>
+    <path d="M566 343.5H595M566 402H595M590 343.5V402"/>
+  </g>
+  <g>
+    <use href="#s-tick" x="196.5" y="44"/>
+    <use href="#s-tick" x="547.5" y="44"/>
+    <use href="#s-tick" x="196.5" y="70"/>
+    <use href="#s-tick" x="313.5" y="70"/>
+    <use href="#s-tick" x="430.5" y="70"/>
+    <use href="#s-tick" x="547.5" y="70"/>
+    <use href="#s-tick" x="110" y="96.5"/>
+    <use href="#s-tick" x="110" y="343.5"/>
+    <use href="#s-tick" x="140" y="96.5"/>
+    <use href="#s-tick" x="140" y="220"/>
+    <use href="#s-tick" x="140" y="343.5"/>
+    <use href="#s-tick" x="590" y="343.5"/>
+    <use href="#s-tick" x="590" y="402"/>
+  </g>
+  <g font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b" text-anchor="middle">
+    <text x="372" y="40">13,50</text>
+    <text x="255" y="66">4,50</text>
+    <text x="372" y="66">4,50</text>
+    <text x="489" y="66">4,50</text>
+    <text x="104" y="220" transform="rotate(-90 104 220)">9,50</text>
+    <text x="134" y="158.25" transform="rotate(-90 134 158.25)">4,75</text>
+    <text x="134" y="281.75" transform="rotate(-90 134 281.75)">4,75</text>
+    <text x="604" y="372.75" transform="rotate(-90 604 372.75)">2,25</text>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="12 4 2 4">
+    <path d="M196.5 27V78M313.5 27V78M430.5 27V78M547.5 27V78M78 96.5H178M78 220H178M78 343.5H178M566 96.5H631M566 220H631M566 343.5H631"/>
+  </g>
+  <g fill="#ffffff" stroke="#0b0b0b" stroke-width="1.5">
+    <circle cx="196.5" cy="18" r="9"/>
+    <circle cx="313.5" cy="18" r="9"/>
+    <circle cx="430.5" cy="18" r="9"/>
+    <circle cx="547.5" cy="18" r="9"/>
+    <circle cx="69" cy="96.5" r="9"/>
+    <circle cx="69" cy="220" r="9"/>
+    <circle cx="69" cy="343.5" r="9"/>
+    <circle cx="640" cy="96.5" r="9"/>
+    <circle cx="640" cy="220" r="9"/>
+    <circle cx="640" cy="343.5" r="9"/>
+  </g>
+  <g font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b" text-anchor="middle">
+    <text x="196.5" y="22">A</text>
+    <text x="313.5" y="22">B</text>
+    <text x="430.5" y="22">C</text>
+    <text x="547.5" y="22">D</text>
+    <text x="69" y="100.5">1</text>
+    <text x="69" y="224">2</text>
+    <text x="69" y="347.5">3</text>
+    <text x="640" y="100.5">1</text>
+    <text x="640" y="224">2</text>
+    <text x="640" y="347.5">3</text>
+  </g>
+</svg>

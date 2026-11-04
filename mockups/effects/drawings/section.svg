@@ -1,0 +1,118 @@
+<svg viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="a-concrete" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#e9e9e7"/>
+      <path d="M-2 2L2-2M0 8L8 0M6 10L10 6" fill="none" stroke="#0b0b0b" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="a-soil" width="18" height="18" patternUnits="userSpaceOnUse">
+      <rect width="18" height="18" fill="#ffffff"/>
+      <path d="M1 6L6 1M5 10L10 5M9 14L14 9M13 18L18 13" fill="none" stroke="#0b0b0b" stroke-width="0.8"/>
+    </pattern>
+    <path id="a-tick" d="M-4 4L4-4" fill="none" stroke="#0b0b0b" stroke-width="0.8"/>
+    <g id="a-level" stroke="#0b0b0b">
+      <path d="M0 0L-7-10H7Z" fill="#ffffff" stroke-width="1"/>
+      <path d="M0 0V-10H7Z" fill="#0b0b0b" stroke="none"/>
+      <path d="M-11 0H75M0-10V-16" fill="none" stroke-width="0.8"/>
+    </g>
+  </defs>
+  <rect width="800" height="560" fill="#ffffff"/>
+
+  <path d="M65 400H735V489H65Z" fill="url(#a-soil)"/>
+  <path d="M184.4 400H475.6V438H184.4Z" fill="#ffffff"/>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1">
+    <path d="M65 400H184.4M475.6 400H550L586 403L622 402L669 405L735 404"/>
+    <path d="M76 404H110M124 404H156M573 408H600M641 409H673M699 410H724"/>
+  </g>
+
+  <g fill="url(#a-concrete)" stroke="#0b0b0b" stroke-width="2.5">
+    <path d="M184.4 425H196.1V417.2H216.9V425H319.6V417.2H340.4V425H443.1V417.2H463.9V425H475.6V438H184.4Z"/>
+    <rect x="201.3" y="400" width="10.4" height="17.2"/>
+    <rect x="324.8" y="400" width="10.4" height="17.2"/>
+    <rect x="448.3" y="400" width="10.4" height="17.2"/>
+    <rect x="200" y="400" width="260" height="5.2"/>
+  </g>
+
+  <g fill="url(#a-concrete)" stroke="#0b0b0b" stroke-width="2.5">
+    <rect x="201.3" y="238.8" width="10.4" height="161.2"/>
+    <rect x="324.8" y="238.8" width="10.4" height="161.2"/>
+    <rect x="448.3" y="238.8" width="10.4" height="161.2"/>
+    <rect x="192.2" y="316.8" width="46.56" height="5.2"/>
+    <rect x="323" y="316.8" width="189" height="5.2"/>
+    <rect x="192.2" y="233.6" width="275.6" height="5.2"/>
+    <rect x="200" y="218" width="6.5" height="15.6"/>
+    <rect x="453.5" y="218" width="6.5" height="15.6"/>
+  </g>
+
+  <g fill="url(#a-concrete)" stroke="#0b0b0b" stroke-width="2.5">
+    <rect x="200" y="238.8" width="6.5" height="78"/>
+    <rect x="453.5" y="238.8" width="6.5" height="78"/>
+    <rect x="200" y="322" width="6.5" height="78"/>
+    <rect x="453.5" y="322" width="6.5" height="78"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1.5">
+    <path d="M198 216H209M451 216H462"/>
+    <path d="M211.7 253H324.8M335.2 253H448.3"/>
+    <path d="M211.7 336.2H238.76M335.2 336.2H448.3"/>
+    <path d="M211.7 397.5H324.8M335.2 397.5H448.3"/>
+    <path d="M239 316.8H323"/>
+    <path d="M238.76 322V332M323 322V332"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1.5">
+    <path d="M323 400V395.378H315.72V390.756H308.44V386.133H301.16V381.511H293.88V376.889H286.6V372.267H279.32V367.644H272.04V363.022H264.76V358.4H238.76"/>
+    <path d="M323 405.2L264.76 363.6H238.76V358.4"/>
+    <path d="M264.76 358.4V353.778H272.04V349.156H279.32V344.533H286.6V339.911H293.88V335.289H301.16V330.667H308.44V326.044H315.72V321.422H323V316.8"/>
+    <path d="M264.76 363.6L323 322"/>
+    <path d="M238.76 358.4V334.48H264.76L323 292.88"/>
+    <path d="M264.76 334.48V358.4M323 292.88V316.8"/>
+    <path d="M272.04 329.28V353.778M286.6 318.88V344.533M301.16 308.48V335.289M315.72 298.08V326.044"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1.5">
+    <path d="M460 322H512M505 322V400M509.6 322V400M505 400H509.6"/>
+    <path d="M460 327.2H509.6M470 322V327.2M482 322V327.2M494 322V327.2M506 322V327.2"/>
+    <path d="M460 400H520M460 405.2H520"/>
+    <path d="M443 322V397.5M445 322V397.5"/>
+    <path d="M443 337.6H445M443 395H445" stroke-width="1"/>
+    <path d="M434 254.4H443V309H434ZM438.5 254.4V309" stroke-width="1"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="1.5">
+    <path d="M564 400V434H642V400M560 400H568M638 400H646"/>
+    <path d="M568 407H638M568 407V430H638V407" stroke-width="1"/>
+    <path d="M568 407H638" stroke-width="1.5"/>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="0.8">
+    <path d="M187 400H99M187 316.8H99M187 233.6H99M194 218H99M104 218V400"/>
+  </g>
+  <g>
+    <use href="#a-tick" x="104" y="400"/>
+    <use href="#a-tick" x="104" y="316.8"/>
+    <use href="#a-tick" x="104" y="233.6"/>
+    <use href="#a-tick" x="104" y="218"/>
+  </g>
+  <g font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b" text-anchor="middle">
+    <text x="96" y="358.4" transform="rotate(-90 96 358.4)">3,20</text>
+    <text x="96" y="275.2" transform="rotate(-90 96 275.2)">3,20</text>
+    <text x="96" y="225.8" transform="rotate(-90 96 225.8)">0,60</text>
+  </g>
+
+  <g fill="none" stroke="#0b0b0b" stroke-width="0.8">
+    <path d="M464 400H672M516 316.8H672M472 233.6H672M464 218H672"/>
+  </g>
+  <use href="#a-level" x="680" y="400"/>
+  <use href="#a-level" x="680" y="316.8"/>
+  <use href="#a-level" x="680" y="233.6"/>
+  <use href="#a-level" x="680" y="218"/>
+  <g font-family="Roboto Mono, monospace" font-size="11" fill="#0b0b0b">
+    <text x="692" y="395">+0,00</text>
+    <text x="692" y="311.8">+3,20</text>
+    <text x="692" y="228.6">+6,40</text>
+    <text x="692" y="213">+7,00</text>
+  </g>
+
+  <text x="400" y="525" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="13" fill="#0b0b0b">A-A</text>
+</svg>
