@@ -34,7 +34,13 @@ const d = p.data;
       <p><a class="btn btn-ghost btn-sm" href={u("/#projects")}>Όλα τα έργα</a></p>
     </div>
   </div>
-  {d.gallery.length > 0 && <div class="gallery wrap">{d.gallery.map((g) => <img src={u(g)} alt="" loading="lazy">)}</div>}
+  {d.gallery.length > 0 && (
+    <div class="gallery wrap">
+      {[d.cover, ...d.gallery].map((g, i) => (
+        <button type="button" data-src={u(g)} aria-label={`Φωτογραφία ${i + 1}`} aria-pressed={i === 0 ? "true" : "false"}><img src={u(g)} alt="" loading="lazy"></button>
+      ))}
+    </div>
+  )}
 </main>
 <script slot="scripts" is:inline>
   (() => {
@@ -42,6 +48,15 @@ const d = p.data;
     const set = (o) => { nav.classList.toggle("open", o); btn.setAttribute("aria-expanded", o); };
     btn.addEventListener("click", () => set(!nav.classList.contains("open")));
     nav.classList.add("scrolled");
+    // Thumbnails: a click shows the photo in the hero.
+    const hero = document.querySelector(".dlg-hero img");
+    document.querySelector(".gallery")?.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      hero.src = b.dataset.src;
+      document.querySelectorAll(".gallery button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      scrollTo({ top: 0, behavior: "smooth" });
+    });
   })();
 </script>
 </Base>

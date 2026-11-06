@@ -1,8 +1,9 @@
-// Hero: line drawing of a real project that builds itself, then turns slowly. Drag to orbit.
+// Hero: a real project model that builds itself, then turns slowly. Drag to orbit.
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
 const canvas = document.getElementById("hero3d");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -17,7 +18,7 @@ try {
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0x0d0f11, 30, 60);
+scene.fog = new THREE.Fog(0x0d0f11, 45, 90); // far enough to keep the model colours
 const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
 camera.position.set(26, 8.5, 26);
 
@@ -40,9 +41,15 @@ if (coarse) {
   if (tag) tag.textContent = "3D · Κατοικία στους Τσουκαλάδες";
 }
 
-const CYAN = 0x7fd1ff;
-const lineMat = new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.75 });
-const faceMat = new THREE.MeshBasicMaterial({ color: 0x0d0f11, transparent: true, opacity: 0.6, depthWrite: false, side: THREE.DoubleSide });
+// Light: soft studio environment + a low sun, so the model shows its own materials.
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.9;
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+pmrem.dispose();
+const sun = new THREE.DirectionalLight(0xfff2e0, 1.6);
+sun.position.set(-12, 20, 10);
+scene.add(sun);
 
 // Site grid
 scene.add(new THREE.GridHelper(40, 40, 0x2a2e33, 0x1a1d21));
@@ -50,9 +57,8 @@ scene.add(new THREE.GridHelper(40, 40, 0x2a2e33, 0x1a1d21));
 // Build animation: a plane rises from the ground and reveals the model below it.
 const clip = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0);
 renderer.localClippingEnabled = true;
-lineMat.clippingPlanes = faceMat.clippingPlanes = [clip];
 
-// Real project model (Τσουκαλάδες), glTF + Draco, metres. Drawn as edges, like a line drawing.
+// Real project model (Τσουκαλάδες), glTF + Draco, metres, with its own materials.
 const house = new THREE.Group();
 scene.add(house);
 let height = 0, start = Infinity;
@@ -62,8 +68,7 @@ new GLTFLoader().setDRACOLoader(draco).load(new URL("models/tsoukalades-villa.gl
   model.updateMatrixWorld(true);
   model.traverse((o) => {
     if (!o.isMesh) return;
-    o.material = faceMat;
-    o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 30), lineMat));
+    for (const m of [o.material].flat()) m.clippingPlanes = [clip];
   });
   // Fit: ~13 units wide (mobile shows it whole), centred, base on the ground.
   const box = new THREE.Box3().setFromObject(model);
