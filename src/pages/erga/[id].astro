@@ -10,10 +10,27 @@ export async function getStaticPaths() {
 }
 const { p } = Astro.props;
 const d = p.data;
+const pics = [d.cover, ...d.gallery];
+const many = pics.length + (d.model ? 1 : 0) > 1;
 ---
 <Base title={`${d.title} | Αλέξανδρος Βλάχος`} description={d.summary}>
+{d.model && <link slot="head" rel="preload" as="fetch" crossorigin="anonymous" href={u(d.model)}>}
 <main class="project-page">
-  <div class="dlg-hero"><img src={u(d.cover)} alt={d.title}></div>
+  <div class="carousel-root">
+    <div class="dlg-hero media" data-model={d.model ? u(d.model) : ""}>
+      <div class="slides" tabindex="0" aria-label="Φωτογραφίες">
+        {d.model && <div class="slide slide-3d"><canvas aria-label={`3D μοντέλο: ${d.title}`}></canvas><span class="label slide-hint">3D · σύρετε για περιστροφή</span></div>}
+        {pics.map((g, i) => <img class="slide" src={u(g)} alt={i ? "" : d.title} loading={i ? "lazy" : undefined}>)}
+      </div>
+      {many && <><button type="button" class="arrow prev" aria-label="Προηγούμενη">‹</button><button type="button" class="arrow next" aria-label="Επόμενη">›</button></>}
+    </div>
+    {many && (
+      <div class="gallery wrap">
+        {d.model && <button type="button" class="thumb-3d" aria-label="3D μοντέλο"><span>3D</span></button>}
+        {pics.map((g, i) => <button type="button" aria-label={`Φωτογραφία ${i + 1}`}><img src={u(g)} alt="" loading="lazy"></button>)}
+      </div>
+    )}
+  </div>
   <div class="dlg-body wrap">
     <div>
       <p class="label">{d.place} · {d.year} · {d.status}</p>
@@ -34,29 +51,15 @@ const d = p.data;
       <p><a class="btn btn-ghost btn-sm" href={u("/#projects")}>Όλα τα έργα</a></p>
     </div>
   </div>
-  {d.gallery.length > 0 && (
-    <div class="gallery wrap">
-      {[d.cover, ...d.gallery].map((g, i) => (
-        <button type="button" data-src={u(g)} aria-label={`Φωτογραφία ${i + 1}`} aria-pressed={i === 0 ? "true" : "false"}><img src={u(g)} alt="" loading="lazy"></button>
-      ))}
-    </div>
-  )}
 </main>
+<script slot="scripts" is:inline src={u("/carousel.js")}></script>
 <script slot="scripts" is:inline>
   (() => {
     const nav = document.querySelector(".nav"), btn = document.getElementById("menuBtn");
     const set = (o) => { nav.classList.toggle("open", o); btn.setAttribute("aria-expanded", o); };
     btn.addEventListener("click", () => set(!nav.classList.contains("open")));
     nav.classList.add("scrolled");
-    // Thumbnails: a click shows the photo in the hero.
-    const hero = document.querySelector(".dlg-hero img");
-    document.querySelector(".gallery")?.addEventListener("click", (e) => {
-      const b = e.target.closest("button");
-      if (!b) return;
-      hero.src = b.dataset.src;
-      document.querySelectorAll(".gallery button").forEach((x) => x.setAttribute("aria-pressed", x === b));
-      scrollTo({ top: 0, behavior: "smooth" });
-    });
+    mountCarousel(document.querySelector(".carousel-root"));
   })();
 </script>
 </Base>

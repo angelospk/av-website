@@ -20,6 +20,7 @@ const projects = defineCollection({
     wide: z.boolean().default(false),
     cover: z.string().min(1),
     gallery: z.array(z.string().min(1)).default([]),
+    model: z.string().min(1).optional(), // 3D μοντέλο .glb, πρώτο στις φωτογραφίες
     summary: z.string().min(1),
     facts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
     timeline: z.array(z.object({ date: z.string(), label: z.string(), done: z.boolean().default(false) })).default([]),

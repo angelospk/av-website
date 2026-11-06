@@ -13,6 +13,7 @@ gallery:
   - /images/projects/tsoukalades-villa/02.webp
   - /images/projects/tsoukalades-villa/03.webp
   - /images/projects/tsoukalades-villa/04.webp
+model: /models/tsoukalades-villa.glb
 summary: Κατοικία με πισίνα, πέτρινες επιφάνειες και υπαίθριους χώρους στους Τσουκαλάδες.
 facts:
   - label: Στάθμες

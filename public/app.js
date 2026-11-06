@@ -41,16 +41,15 @@
 
   // Project dialog (deep link: #project-<id>)
   const dlg = $("#projectDialog");
+  let destroyCarousel = () => {};
   const openProject = (id) => {
     const p = PROJECTS.find((x) => x.id === id);
     if (!p) return;
     const facts = Object.entries(p.facts || {}).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("");
     const tl = (p.timeline || []).map((t) => `<li class="${t.done ? "done" : ""}"><span class="label">${esc(t.date)}</span>${esc(t.label)}</li>`).join("");
-    // Thumbnails: cover first, then the gallery. A click shows the photo in the hero.
-    const pics = p.gallery?.length ? [p.cover, ...p.gallery] : [];
-    const gal = pics.map((g, i) => `<button type="button" data-src="${esc(g)}" aria-label="Φωτογραφία ${i + 1}" aria-pressed="${i === 0}"><img src="${esc(g)}" alt="" loading="lazy"></button>`).join("");
+    destroyCarousel(); // free the old 3D viewer before its canvas leaves the DOM
     $("#dlgBody").innerHTML = `
-      <div class="dlg-hero"><img src="${esc(p.cover)}" alt="${esc(p.title)}"></div>
+      ${carouselHTML([p.cover, ...(p.gallery || [])], p.model, p.title)}
       <div class="dlg-body">
         <div>
           <p class="label">${esc(p.place)} · ${esc(p.year)} · ${esc(p.status)}</p>
@@ -64,25 +63,20 @@
           <div class="tags">${p.categories.map((c) => `<span>${esc(c)}</span>`).join("")}</div>
           <p><a class="btn btn-ghost btn-sm" href="${window.BASE || ""}/erga/${encodeURIComponent(p.id)}/">Σελίδα έργου</a></p>
         </div>
-      </div>
-      ${gal ? `<div class="gallery">${gal}</div>` : ""}`;
+      </div>`;
     if (!dlg.open) dlg.showModal();
+    destroyCarousel = mountCarousel($("#dlgBody"));
     dlg.scrollTop = 0;
     history.replaceState(null, "", `#project-${id}`);
   };
-  $("#dlgBody").addEventListener("click", (e) => {
-    const b = e.target.closest(".gallery button");
-    if (!b) return;
-    $("#dlgBody .dlg-hero img").src = b.dataset.src;
-    $("#dlgBody").querySelectorAll(".gallery button").forEach((x) => x.setAttribute("aria-pressed", x === b));
-    dlg.scrollTo({ top: 0, behavior: "smooth" });
-  });
   $("#projectGrid").addEventListener("click", (e) => {
     const c = e.target.closest(".card");
     if (c) openProject(c.dataset.id);
   });
   let closingFromHash = false;
   dlg.addEventListener("close", () => {
+    destroyCarousel();
+    destroyCarousel = () => {};
     if (!closingFromHash && location.hash.startsWith("#project-")) history.replaceState(null, "", location.pathname + "#projects");
     closingFromHash = false;
   });

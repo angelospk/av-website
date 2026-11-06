@@ -70,6 +70,7 @@ collections:
       - { name: wide, label: Μεγάλη κάρτα, widget: boolean, default: false, required: false }
       - { name: cover, label: Κεντρική φωτογραφία, widget: image }
       - { name: gallery, label: Φωτογραφίες, widget: image, multiple: true, required: false }
+      - { name: model, label: "3D μοντέλο (.glb)", widget: file, required: false, media_folder: /public/models, public_folder: /models, hint: "Προαιρετικό. Εμφανίζεται πρώτο στις φωτογραφίες του έργου." }
       - { name: summary, label: Μία πρόταση, widget: text }
       - name: facts
         label: Στοιχεία

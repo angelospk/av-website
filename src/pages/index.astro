@@ -12,6 +12,7 @@ const projects = entries.map((p) => ({
   ...p.data,
   cover: u(p.data.cover),
   gallery: p.data.gallery.map(u),
+  model: p.data.model ? u(p.data.model) : "",
   facts: Object.fromEntries(p.data.facts.map((f) => [f.label, f.value])),
   // Η περιγραφή σε HTML, από το Markdown, την ώρα του build (περιεχόμενο από το repo).
   html: fixHtml(p.rendered?.html ?? ""),
@@ -23,12 +24,14 @@ const json = (v: unknown) => JSON.stringify(v).replace(/</g, "\\u003c");
 const data = `window.BASE=${json(base)};window.SERVICES=${json(site.services)};window.STEPS=${json(site.steps)};window.TEAM=${json(site.team)};window.CATEGORIES=${json(categories)};window.PROJECTS=${json(projects)};`;
 ---
 <Base title="Αλέξανδρος Βλάχος | Πολιτικός μηχανικός, Λευκάδα" description="Τεχνικό γραφείο του πολιτικού μηχανικού Αλέξανδρου Βλάχου στη Λευκάδα. Άδειες, μελέτες, ενεργειακά, τοπογραφικά και κατασκευή κατοικιών.">
-<script type="importmap" slot="head" is:inline>
-{ "imports": {
-  "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
-  "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
-} }
-</script>
+<Fragment slot="head">
+<!-- 3D hero: fetch everything in parallel instead of one after another. -->
+<link rel="modulepreload" href="https://unpkg.com/three@0.170.0/build/three.module.min.js">
+<link rel="modulepreload" href={u("/model3d.js")}>
+<link rel="preload" as="fetch" crossorigin="anonymous" href={u("/models/tsoukalades-villa.glb")}>
+<link rel="preload" as="fetch" crossorigin="anonymous" href="https://unpkg.com/three@0.170.0/examples/jsm/libs/draco/gltf/draco_wasm_wrapper.js">
+<link rel="preload" as="fetch" crossorigin="anonymous" href="https://unpkg.com/three@0.170.0/examples/jsm/libs/draco/gltf/draco_decoder.wasm">
+</Fragment>
 
 <main id="top">
 
@@ -120,6 +123,7 @@ const data = `window.BASE=${json(base)};window.SERVICES=${json(site.services)};w
 
 <Fragment slot="scripts">
 <script is:inline set:html={data}></script>
+<script is:inline src={u("/carousel.js")}></script>
 <script is:inline src={u("/app.js")}></script>
 <script is:inline type="module" src={u("/hero3d.js")}></script>
 </Fragment>
