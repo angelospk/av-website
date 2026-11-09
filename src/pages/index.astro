@@ -65,12 +65,14 @@ const data = `window.BASE=${json(base)};window.SERVICES=${json(site.services)};w
   <ol class="svc-list" id="serviceList"></ol>
 </section>
 
+{site.process.show && (
 <section id="process" class="process wrap">
   <header class="sec-head reveal">
-    <h2>Πώς προχωράει ένα έργο</h2>
+    <h2>{site.process.title}</h2>
   </header>
   <ol class="steps" id="steps"></ol>
 </section>
+)}
 
 <section id="contact" class="contact wrap reveal">
   <div>

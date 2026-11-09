@@ -94,7 +94,8 @@
   fromHash();
 
   // Process
-  $("#steps").innerHTML = STEPS.map((s, i) => `
+  const steps = $("#steps"); // missing when the section is hidden from the CMS
+  if (steps) steps.innerHTML = STEPS.map((s, i) => `
     <li class="reveal" style="transition-delay:${i * 80}ms">
       <span class="label">${pad(i)}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p>
       <span class="label dur">${esc(s.dur)}</span>

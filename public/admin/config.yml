@@ -115,6 +115,12 @@ collections:
               - { name: title, label: Τίτλος, widget: string }
               - { name: text, label: Περιγραφή, widget: text }
               - { name: who, label: Ποιοι το κάνουν, widget: string }
+          - name: process
+            label: Ενότητα «Διαδρομή»
+            widget: object
+            fields:
+              - { name: show, label: "Εμφάνιση ενότητας Διαδρομή", widget: boolean, default: false, required: false, hint: "Όχι = η ενότητα και το link στο μενού κρύβονται. Τα βήματα μένουν αποθηκευμένα." }
+              - { name: title, label: Τίτλος ενότητας, widget: string }
           - name: steps
             label: Βήματα έργου
             widget: list
