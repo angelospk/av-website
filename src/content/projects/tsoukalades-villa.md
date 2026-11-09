@@ -2,8 +2,6 @@
 slug: tsoukalades-villa
 title: Κατοικία στους Τσουκαλάδες
 place: Τσουκαλάδες, Λευκάδα
-year: 2025
-status: Σε εξέλιξη
 categories:
   - Κατοικία
 order: 1

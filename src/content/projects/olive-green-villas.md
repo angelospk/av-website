@@ -2,8 +2,6 @@
 slug: olive-green-villas
 title: Olive Green Villas
 place: Άγιος Ιωάννης, Λευκάδα
-year: 2025
-status: Ολοκληρώθηκε
 categories:
   - Κατοικία
 order: 3

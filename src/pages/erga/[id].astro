@@ -33,7 +33,7 @@ const many = pics.length + (d.model ? 1 : 0) > 1;
   </div>
   <div class="dlg-body wrap">
     <div>
-      <p class="label">{d.place} · {d.year} · {d.status}</p>
+      <p class="label">{[d.place, d.year, d.status].filter(Boolean).join(" · ")}</p>
       <h1>{d.title}</h1>
       <p>{d.summary}</p>
       <Fragment set:html={fixHtml(p.rendered?.html ?? "")} />

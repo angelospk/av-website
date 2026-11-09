@@ -2,8 +2,6 @@
 slug: kalamitsi-residence
 title: Κατοικία στο Καλαμίτσι
 place: Καλαμίτσι, Λευκάδα
-year: 2025
-status: Σε εξέλιξη
 categories:
   - Κατοικία
 order: 2
@@ -14,6 +12,8 @@ gallery:
   - /images/projects/kalamitsi-residence/04.webp
 summary: Κατοικία με πισίνα και υπαίθριους χώρους, με προσανατολισμό προς τη θάλασσα.
 facts:
+  - label: Εικόνες
+    value: Αρχιτεκτονική απεικόνιση
   - label: Στάθμες
     value: 2 + υπόγειο
   - label: Ισόγειο

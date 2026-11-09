@@ -54,11 +54,12 @@ collections:
         hint: "Λατινικά, μικρά, με παύλες. Π.χ. naftali-villa. Ορίζει το URL όταν δημιουργείται το έργο· αλλαγή αργότερα δεν αλλάζει το URL."
         widget: string
         pattern: ["^[a-z0-9-]+$", "Μόνο λατινικά μικρά, αριθμοί και παύλες"]
-      - { name: place, label: Τοποθεσία, widget: string, hint: "Χωριό ή περιοχή. Όχι διεύθυνση." }
-      - { name: year, label: Έτος, widget: number, value_type: int, min: 1950, max: 2100 }
+      - { name: place, label: Τοποθεσία, widget: string, required: false, hint: "Χωριό ή περιοχή. Όχι διεύθυνση." }
+      - { name: year, label: Έτος, widget: number, value_type: int, min: 1950, max: 2100, required: false, hint: "Κενό αν δεν έχει επιβεβαιωθεί." }
       - name: status
         label: Κατάσταση
         widget: select
+        required: false
         options: ["Ολοκληρώθηκε", "Σε εξέλιξη", "Μελέτη"]
       - name: categories
         label: Κατηγορίες

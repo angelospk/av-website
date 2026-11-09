@@ -12,9 +12,9 @@ const projects = defineCollection({
   schema: z.object({
     slug: z.string().regex(/^[a-z0-9-]+$/).optional(),
     title: z.string().min(1),
-    place: z.string().min(1),
-    year: z.number().int().min(1950).max(2100),
-    status: z.enum(["Ολοκληρώθηκε", "Σε εξέλιξη", "Μελέτη"]),
+    place: z.string().min(1).optional(), // κενό = δεν φαίνεται
+    year: z.number().int().min(1950).max(2100).optional(), // μόνο αν έχει επιβεβαιωθεί
+    status: z.enum(["Ολοκληρώθηκε", "Σε εξέλιξη", "Μελέτη"]).optional(), // μόνο αν έχει επιβεβαιωθεί
     categories: z.array(z.string().min(1)).min(1),
     order: z.number().default(100),
     wide: z.boolean().default(false),

@@ -17,14 +17,16 @@
 
   // Projects
   const statusClass = (s) => (s === "Σε εξέλιξη" ? "status live" : "status");
+  // Μόνο τα στοιχεία που υπάρχουν: κενό έτος ή κατάσταση δεν φαίνεται.
+  const meta = (...xs) => xs.filter(Boolean).map(esc).join(" · ");
   $("#projectGrid").innerHTML = PROJECTS.map((p) => `
     <button class="card reveal${p.wide ? " wide" : ""}" data-id="${esc(p.id)}" data-cats="${esc(p.categories.join("|"))}">
       <div class="img">
         <img src="${esc(p.cover)}" alt="${esc(p.title)}" loading="lazy">
-        <span class="${statusClass(p.status)}">${esc(p.status)}</span>
+        ${p.status ? `<span class="${statusClass(p.status)}">${esc(p.status)}</span>` : ""}
       </div>
       <h3>${esc(p.title)}</h3>
-      <p class="label meta">${esc(p.place)} · ${esc(p.year)} · ${esc(p.categories.join(" / "))}</p>
+      <p class="label meta">${meta(p.place, p.year, p.categories.join(" / "))}</p>
     </button>`).join("");
 
   $("#filters").addEventListener("click", (e) => {
@@ -52,7 +54,7 @@
       ${carouselHTML([p.cover, ...(p.gallery || [])], p.model, p.title)}
       <div class="dlg-body">
         <div>
-          <p class="label">${esc(p.place)} · ${esc(p.year)} · ${esc(p.status)}</p>
+          <p class="label">${meta(p.place, p.year, p.status)}</p>
           <h2 id="dlgTitle">${esc(p.title)}</h2>
           <p>${esc(p.summary)}</p>
           <div class="md">${p.html || ""}</div>
