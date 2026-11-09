@@ -21,7 +21,7 @@ const projects = entries.map((p) => ({
 const categories = [...new Set(projects.flatMap((p) => p.categories))];
 // JSON μέσα σε <script>: το "<" γίνεται \u003c για να μην κλείσει το tag.
 const json = (v: unknown) => JSON.stringify(v).replace(/</g, "\\u003c");
-const data = `window.BASE=${json(base)};window.SERVICES=${json(site.services)};window.STEPS=${json(site.steps)};window.TEAM=${json(site.team)};window.CATEGORIES=${json(categories)};window.PROJECTS=${json(projects)};`;
+const data = `window.BASE=${json(base)};window.SERVICES=${json(site.services)};window.STEPS=${json(site.steps)};window.CATEGORIES=${json(categories)};window.PROJECTS=${json(projects)};`;
 ---
 <Base title="Αλέξανδρος Βλάχος | Πολιτικός μηχανικός, Λευκάδα" description="Τεχνικό γραφείο του πολιτικού μηχανικού Αλέξανδρου Βλάχου στη Λευκάδα. Άδειες, μελέτες, ενεργειακά, τοπογραφικά και κατασκευή κατοικιών.">
 <Fragment slot="head">
@@ -42,25 +42,12 @@ const data = `window.BASE=${json(base)};window.SERVICES=${json(site.services)};w
     <p class="label">Μελέτες · Άδειες · Ενέργεια · Κατασκευή</p>
     <h1>Μελέτη, άδεια<br>και κατασκευή.</h1>
     <div class="hero-foot">
-      <p class="lead">Γραφείο πολιτικού μηχανικού στη Λευκάδα, με αρχιτέκτονες στην ομάδα. Μπορούμε να αναλάβουμε όλο το έργο, και για ό,τι χρειαστείτε μιλάτε με τον ίδιο μηχανικό.</p>
       <div class="cta">
         <a href="#contact" class="btn btn-primary">Κλείστε αυτοψία</a>
         <a href="#projects" class="btn btn-ghost">Δείτε έργα</a>
       </div>
     </div>
-    <p class="model-tag label" id="modelTag">3D · Κατοικία στους Τσουκαλάδες · σύρετε για περιστροφή</p>
   </div>
-</section>
-
-<section class="stats wrap reveal">
-  {site.stats.map((s) => <div><b data-count={s.value} data-suffix={s.suffix || undefined}>0</b><span>{s.label}</span></div>)}
-</section>
-
-<section id="services" class="services wrap">
-  <header class="sec-head reveal">
-    <h2>Τι αναλαμβάνουμε</h2>
-  </header>
-  <ol class="svc-list" id="serviceList"></ol>
 </section>
 
 <section id="projects" class="projects wrap">
@@ -71,18 +58,18 @@ const data = `window.BASE=${json(base)};window.SERVICES=${json(site.services)};w
   <div class="proj-grid" id="projectGrid"></div>
 </section>
 
+<section id="services" class="services wrap">
+  <header class="sec-head reveal">
+    <h2>Τι αναλαμβάνουμε</h2>
+  </header>
+  <ol class="svc-list" id="serviceList"></ol>
+</section>
+
 <section id="process" class="process wrap">
   <header class="sec-head reveal">
     <h2>Πώς προχωράει ένα έργο</h2>
   </header>
   <ol class="steps" id="steps"></ol>
-</section>
-
-<section id="team" class="team wrap">
-  <header class="sec-head reveal">
-    <h2>Η ομάδα</h2>
-  </header>
-  <div class="team-grid" id="teamGrid"></div>
 </section>
 
 <section id="contact" class="contact wrap reveal">

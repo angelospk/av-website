@@ -93,16 +93,12 @@
   addEventListener("hashchange", fromHash);
   fromHash();
 
-  // Process + team
+  // Process
   $("#steps").innerHTML = STEPS.map((s, i) => `
     <li class="reveal" style="transition-delay:${i * 80}ms">
       <span class="label">${pad(i)}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p>
       <span class="label dur">${esc(s.dur)}</span>
     </li>`).join("");
-  $("#teamGrid").innerHTML = TEAM.map((t, i) => `
-    <div class="role reveal" style="transition-delay:${i * 60}ms">
-      <b>${esc(t.n)}</b><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>
-    </div>`).join("");
 
   // Nav background on scroll
   const nav = $(".nav");
@@ -117,30 +113,14 @@
   nav.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
   addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
 
-  // Reveal + count-up
+  // Reveal
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const countUp = (el) => {
-    const end = +el.dataset.count, suf = el.dataset.suffix || "";
-    if (reduce) { el.textContent = end.toLocaleString("el-GR") + suf; return; }
-    const t0 = performance.now(), dur = 1400;
-    const tick = (t) => {
-      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
-      el.textContent = Math.round(end * e).toLocaleString("el-GR") + suf;
-      if (k < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
   const io = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
       if (!en.isIntersecting) return;
       en.target.classList.add("in");
-      en.target.querySelectorAll("[data-count]").forEach(countUp);
       io.unobserve(en.target);
     });
   }, { threshold: 0.15 });
-  // Show final numbers if the stats are skipped via a nav jump; count-up replays on view.
-  document.querySelectorAll("[data-count]").forEach((el) => {
-    el.textContent = (+el.dataset.count).toLocaleString("el-GR") + (el.dataset.suffix || "");
-  });
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 })();

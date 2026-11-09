@@ -108,13 +108,6 @@ collections:
               - { name: phone, label: "Τηλέφωνο (όπως φαίνεται)", widget: string }
               - { name: phoneIntl, label: "Τηλέφωνο για κλήση (+30…)", widget: string }
               - { name: email, label: Email, widget: string }
-          - name: stats
-            label: Αριθμοί κάτω από την αρχική
-            widget: list
-            fields:
-              - { name: value, label: Αριθμός, widget: number, value_type: int }
-              - { name: suffix, label: "Κατάληξη (π.χ. +)", widget: string, required: false }
-              - { name: label, label: Περιγραφή, widget: string }
           - name: services
             label: Υπηρεσίες
             widget: list
@@ -129,10 +122,3 @@ collections:
               - { name: title, label: Βήμα, widget: string }
               - { name: text, label: Περιγραφή, widget: text }
               - { name: dur, label: Διάρκεια, widget: string, required: false }
-          - name: team
-            label: Ομάδα
-            widget: list
-            fields:
-              - { name: n, label: Πλήθος, widget: number, value_type: int }
-              - { name: title, label: Ειδικότητα, widget: string }
-              - { name: text, label: Τι κάνουν, widget: string }
