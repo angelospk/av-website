@@ -1,73 +1,148 @@
 {
-  "contact": {
-    "address": "Λόρδου Βύρωνα 39, Λευκάδα 31100",
-    "phone": "693 166 6980",
-    "phoneIntl": "+306931666980",
-    "email": "civil.avlachos@gmail.com"
+  "el": {
+    "contact": {
+      "address": "Λόρδου Βύρωνα 39, Λευκάδα 31100",
+      "phone": "693 166 6980",
+      "phoneIntl": "+306931666980",
+      "email": "civil.avlachos@gmail.com"
+    },
+    "services": [
+      {
+        "title": "Άδειες δόμησης & πολεοδομία",
+        "text": "Έκδοση άδειας, έγκριση εργασιών μικρής κλίμακας, έλεγχος οικοδομησιμότητας, επαφή με ΥΔΟΜ."
+      },
+      {
+        "title": "Αρχιτεκτονική μελέτη & 3D",
+        "text": "Πριν βγει η άδεια μπορείτε να δείτε το σπίτι σε 3D και σε φωτορεαλιστικές εικόνες."
+      },
+      {
+        "title": "Στατική μελέτη",
+        "text": "Νέα κτίρια, προσθήκες, ενισχύσεις, στατική επάρκεια."
+      },
+      {
+        "title": "Η/Μ μελέτες",
+        "text": "Θέρμανση, ψύξη, ύδρευση, αποχέτευση, ηλεκτρολογικά, πυρασφάλεια."
+      },
+      {
+        "title": "Ενέργεια",
+        "text": "ΠΕΑ, «Εξοικονομώ», φωτοβολταϊκά, αντλίες θερμότητας, φάκελοι επιδότησης."
+      },
+      {
+        "title": "Τοπογραφικά",
+        "text": "Αποτυπώσεις, εξαρτήσεις ΕΓΣΑ87, κτηματολόγιο, χαράξεις στο εργοτάξιο."
+      },
+      {
+        "title": "Κατασκευή & επίβλεψη",
+        "text": "Χτίζουμε με δικά μας συνεργεία ή με εργολάβους που ξέρουμε, και υπογράφετε ένα συμβόλαιο για όλο το έργο."
+      }
+    ],
+    "process": {
+      "show": false,
+      "title": "Πώς προχωράει ένα έργο"
+    },
+    "steps": [
+      {
+        "title": "Αυτοψία",
+        "text": "Βλέπουμε το ακίνητο και ακούμε τι θέλετε.",
+        "dur": "1 εβδομάδα"
+      },
+      {
+        "title": "Τοπογραφικό",
+        "text": "Αποτύπωση και έλεγχος τι επιτρέπεται να χτιστεί.",
+        "dur": "1-2 εβδομάδες"
+      },
+      {
+        "title": "Μελέτες",
+        "text": "Αρχιτεκτονική, στατική, Η/Μ, ενεργειακή. 3D για έγκριση.",
+        "dur": "4-8 εβδομάδες"
+      },
+      {
+        "title": "Άδεια",
+        "text": "Υποβολή και παρακολούθηση στην ΥΔΟΜ.",
+        "dur": "4-12 εβδομάδες"
+      },
+      {
+        "title": "Κατασκευή",
+        "text": "Εργοτάξιο με εβδομαδιαία αναφορά και φωτογραφίες.",
+        "dur": "6-18 μήνες"
+      },
+      {
+        "title": "Κλειδιά",
+        "text": "Παράδοση, ΠΕΑ, ηλεκτρονική ταυτότητα κτιρίου."
+      }
+    ]
   },
-  "services": [
-    {
-      "title": "Άδειες δόμησης & πολεοδομία",
-      "text": "Έκδοση άδειας, έγκριση εργασιών μικρής κλίμακας, έλεγχος οικοδομησιμότητας, επαφή με ΥΔΟΜ."
+  "en": {
+    "contact": {
+      "address": "39 Lordou Vyronos St, Lefkada 31100",
+      "phone": "693 166 6980",
+      "phoneIntl": "+306931666980",
+      "email": "civil.avlachos@gmail.com"
     },
-    {
-      "title": "Αρχιτεκτονική μελέτη & 3D",
-      "text": "Πριν βγει η άδεια μπορείτε να δείτε το σπίτι σε 3D και σε φωτορεαλιστικές εικόνες."
+    "services": [
+      {
+        "title": "Building permits & planning",
+        "text": "Building permits, small-scale works approvals, buildability checks, liaison with the planning office (YDOM)."
+      },
+      {
+        "title": "Architectural design & 3D",
+        "text": "Before the permit is issued, you can see the house in 3D and in photorealistic images."
+      },
+      {
+        "title": "Structural design",
+        "text": "New buildings, extensions, strengthening, structural adequacy."
+      },
+      {
+        "title": "Mechanical & electrical design",
+        "text": "Heating, cooling, water supply, drainage, electrical, fire safety."
+      },
+      {
+        "title": "Energy",
+        "text": "Energy performance certificates, the «Exoikonomo» grant scheme, solar panels, heat pumps, subsidy applications."
+      },
+      {
+        "title": "Land surveys",
+        "text": "Topographic surveys, HGRS87 referencing, land registry, setting out on site."
+      },
+      {
+        "title": "Construction & supervision",
+        "text": "We build with our own crews or with contractors we know, and you sign one contract for the whole project."
+      }
+    ],
+    "process": {
+      "show": false,
+      "title": "How a project moves forward"
     },
-    {
-      "title": "Στατική μελέτη",
-      "text": "Νέα κτίρια, προσθήκες, ενισχύσεις, στατική επάρκεια."
-    },
-    {
-      "title": "Η/Μ μελέτες",
-      "text": "Θέρμανση, ψύξη, ύδρευση, αποχέτευση, ηλεκτρολογικά, πυρασφάλεια."
-    },
-    {
-      "title": "Ενέργεια",
-      "text": "ΠΕΑ, «Εξοικονομώ», φωτοβολταϊκά, αντλίες θερμότητας, φάκελοι επιδότησης."
-    },
-    {
-      "title": "Τοπογραφικά",
-      "text": "Αποτυπώσεις, εξαρτήσεις ΕΓΣΑ87, κτηματολόγιο, χαράξεις στο εργοτάξιο."
-    },
-    {
-      "title": "Κατασκευή & επίβλεψη",
-      "text": "Χτίζουμε με δικά μας συνεργεία ή με εργολάβους που ξέρουμε, και υπογράφετε ένα συμβόλαιο για όλο το έργο."
-    }
-  ],
-  "process": {
-    "show": false,
-    "title": "Πώς προχωράει ένα έργο"
-  },
-  "steps": [
-    {
-      "title": "Αυτοψία",
-      "text": "Βλέπουμε το ακίνητο και ακούμε τι θέλετε.",
-      "dur": "1 εβδομάδα"
-    },
-    {
-      "title": "Τοπογραφικό",
-      "text": "Αποτύπωση και έλεγχος τι επιτρέπεται να χτιστεί.",
-      "dur": "1-2 εβδομάδες"
-    },
-    {
-      "title": "Μελέτες",
-      "text": "Αρχιτεκτονική, στατική, Η/Μ, ενεργειακή. 3D για έγκριση.",
-      "dur": "4-8 εβδομάδες"
-    },
-    {
-      "title": "Άδεια",
-      "text": "Υποβολή και παρακολούθηση στην ΥΔΟΜ.",
-      "dur": "4-12 εβδομάδες"
-    },
-    {
-      "title": "Κατασκευή",
-      "text": "Εργοτάξιο με εβδομαδιαία αναφορά και φωτογραφίες.",
-      "dur": "6-18 μήνες"
-    },
-    {
-      "title": "Κλειδιά",
-      "text": "Παράδοση, ΠΕΑ, ηλεκτρονική ταυτότητα κτιρίου."
-    }
-  ]
+    "steps": [
+      {
+        "title": "Site visit",
+        "text": "We see the property and listen to what you want.",
+        "dur": "1 week"
+      },
+      {
+        "title": "Survey",
+        "text": "Topographic survey and a check of what may be built.",
+        "dur": "1-2 weeks"
+      },
+      {
+        "title": "Design",
+        "text": "Architectural, structural, mechanical/electrical, energy. 3D for approval.",
+        "dur": "4-8 weeks"
+      },
+      {
+        "title": "Permit",
+        "text": "Submission to and follow-up with the planning office (YDOM).",
+        "dur": "4-12 weeks"
+      },
+      {
+        "title": "Construction",
+        "text": "Building site with a weekly report and photos.",
+        "dur": "6-18 months"
+      },
+      {
+        "title": "Keys",
+        "text": "Handover, energy certificate, electronic building identity."
+      }
+    ]
+  }
 }

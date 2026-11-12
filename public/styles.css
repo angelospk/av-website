@@ -54,6 +54,7 @@ h3 { font-size: 22px; line-height: 1.2; }
 .nav nav { display: flex; align-items: center; gap: 28px; font: 500 13px/1 var(--mono); }
 .nav nav a:not(.btn):hover { color: var(--cyan); }
 .nav-links { display: contents; }
+.lang-switch { color: var(--steel); }
 .menu-btn { display: none; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 6px; }
 .menu-btn span { display: block; width: 16px; height: 1.5px; background: var(--ink); transition: transform .25s; }
 .nav.open .menu-btn span:first-child { transform: translateY(3.75px) rotate(45deg); }

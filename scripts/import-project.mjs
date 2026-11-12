@@ -4,7 +4,7 @@
 // - Μικραίνει κάθε φωτογραφία στα 2000 px και τη σώζει ως WebP.
 // - Σβήνει όλα τα metadata (EXIF, GPS, μοντέλο κάμερας). Το sharp δεν τα κρατά αν δεν του το ζητήσεις.
 // - Δεν αλλάζει τίποτα στον αρχικό φάκελο.
-// - Αν δεν υπάρχει src/content/projects/<slug>.md, φτιάχνει πρόχειρο (draft: true).
+// - Αν δεν υπάρχει src/content/projects/<slug>.el.md, φτιάχνει πρόχειρο (draft: true). Το αγγλικό <slug>.en.md το γράφει ο agent μετά.
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
@@ -39,7 +39,7 @@ for (const [i, f] of photos.entries()) {
   }
 }
 
-const md = path.join("src", "content", "projects", `${slug}.md`);
+const md = path.join("src", "content", "projects", `${slug}.el.md`);
 if (!fs.existsSync(md) && urls.length) {
   const gallery = urls.slice(1).map((u) => `  - ${u}`).join("\n");
   fs.writeFileSync(md, `---

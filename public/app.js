@@ -11,19 +11,20 @@
     </li>`).join("");
 
   // Filters
-  const cats = ["Όλα", ...CATEGORIES];
-  $("#filters").innerHTML = cats.map((c, i) =>
-    `<button class="chip" type="button" aria-pressed="${i === 0}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
+  // Κείμενα στη γλώσσα της σελίδας: window.T (src/i18n.ts). Το πρώτο φίλτρο («Όλα») έχει data-cat="*".
+  const cats = [["*", T.all], ...CATEGORIES.map((c) => [c, c])];
+  $("#filters").innerHTML = cats.map(([v, c], i) =>
+    `<button class="chip" type="button" aria-pressed="${i === 0}" data-cat="${esc(v)}">${esc(c)}</button>`).join("");
 
   // Projects
-  const statusClass = (s) => (s === "Σε εξέλιξη" ? "status live" : "status");
+  const statusClass = (p) => (p.live ? "status live" : "status");
   // Μόνο τα στοιχεία που υπάρχουν: κενό έτος ή κατάσταση δεν φαίνεται.
   const meta = (...xs) => xs.filter(Boolean).map(esc).join(" · ");
   $("#projectGrid").innerHTML = PROJECTS.map((p) => `
     <button class="card reveal${p.wide ? " wide" : ""}" data-id="${esc(p.id)}" data-cats="${esc(p.categories.join("|"))}">
       <div class="img">
         <img src="${esc(p.cover)}" alt="${esc(p.title)}" loading="lazy">
-        ${p.status ? `<span class="${statusClass(p.status)}">${esc(p.status)}</span>` : ""}
+        ${p.status ? `<span class="${statusClass(p)}">${esc(p.status)}</span>` : ""}
       </div>
       <h3>${esc(p.title)}</h3>
       <p class="label meta">${meta(p.place, p.year, p.categories.join(" / "))}</p>
@@ -35,7 +36,7 @@
     document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", c === b));
     const cat = b.dataset.cat;
     document.querySelectorAll(".card").forEach((card) => {
-      const show = cat === "Όλα" || card.dataset.cats.split("|").includes(cat);
+      const show = cat === "*" || card.dataset.cats.split("|").includes(cat);
       card.classList.toggle("hide", !show);
       if (show) card.classList.add("in");
     });
@@ -63,7 +64,7 @@
         <div>
           <dl class="facts">${facts}</dl>
           <div class="tags">${p.categories.map((c) => `<span>${esc(c)}</span>`).join("")}</div>
-          <p><a class="btn btn-ghost btn-sm" href="${window.BASE || ""}/erga/${encodeURIComponent(p.id)}/">Σελίδα έργου</a></p>
+          <p><a class="btn btn-ghost btn-sm" href="${esc(p.href)}">${esc(T.projectPage)}</a></p>
         </div>
       </div>`;
     if (!dlg.open) dlg.showModal();

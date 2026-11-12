@@ -1,0 +1,10 @@
+---
+// Project page in English: /en/projects/<id>/. Content: src/components/ProjectPage.astro.
+import ProjectPage from "../../../components/ProjectPage.astro";
+import { getProjects } from "../../../lib/projects";
+
+export async function getStaticPaths() {
+  return (await getProjects("en")).map((p) => ({ params: { id: p.id }, props: { p } }));
+}
+---
+<ProjectPage lang="en" p={Astro.props.p} />

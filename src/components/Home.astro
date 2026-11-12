@@ -1,0 +1,159 @@
+---
+// Η αρχική σελίδα, σε μία γλώσσα. Τη χρησιμοποιούν το src/pages/index.astro (el) και το src/pages/en/index.astro (en).
+import Base from "../layouts/Base.astro";
+import { base, u, fixHtml } from "../lib/url";
+import { T, siteFor, path, projectPath, type Lang } from "../i18n";
+import { getProjects } from "../lib/projects";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
+const site = siteFor(lang);
+
+// Έργα: από src/content/projects/, χωρίς τα draft, ταξινόμηση με "order".
+const projects = (await getProjects(lang)).map((p) => ({
+  ...p,
+  cover: u(p.cover),
+  gallery: p.gallery.map(u),
+  model: p.model ? u(p.model) : "",
+  facts: Object.fromEntries(p.facts.map((f) => [f.label, f.value])),
+  // Η περιγραφή σε HTML, από το Markdown, την ώρα του build (περιεχόμενο από το repo).
+  html: fixHtml(p.html),
+  href: projectPath(lang, p.id),
+}));
+// Φίλτρα: οι κατηγορίες που έχουν τα έργα, με τη σειρά που εμφανίζονται.
+const categories = [...new Set(projects.flatMap((p) => p.categories))];
+// Κείμενα που χρειάζονται τα scripts (app.js, carousel.js).
+const ui = { all: t.all, projectPage: t.projectPage, photos: t.photos, photo: t.photo, prev: t.prev, next: t.next, model3d: t.model3d, model3dHint: t.model3dHint };
+// JSON μέσα σε <script>: το "<" γίνεται < για να μην κλείσει το tag.
+const json = (v: unknown) => JSON.stringify(v).replace(/</g, "\\u003c");
+const data = `window.BASE=${json(base)};window.T=${json(ui)};window.SERVICES=${json(site.services)};window.STEPS=${json(site.steps)};window.CATEGORIES=${json(categories)};window.PROJECTS=${json(projects)};`;
+const fill = (s: string) => s.replace("{phone}", site.contact.phone);
+const form = { off: fill(t.formOff), sending: t.formSending, ok: t.formOk, fail: fill(t.formFail), lang };
+---
+<Base title={t.title} description={t.description} lang={lang} alt={path(lang === "el" ? "en" : "el", "/")}>
+<Fragment slot="head">
+<!-- 3D hero: fetch everything in parallel instead of one after another. -->
+<link rel="modulepreload" href="https://unpkg.com/three@0.170.0/build/three.module.min.js">
+<link rel="modulepreload" href={u("/model3d.js")}>
+<link rel="preload" as="fetch" crossorigin="anonymous" href={u("/models/tsoukalades-villa.glb")}>
+<link rel="preload" as="fetch" crossorigin="anonymous" href="https://unpkg.com/three@0.170.0/examples/jsm/libs/draco/gltf/draco_wasm_wrapper.js">
+<link rel="preload" as="fetch" crossorigin="anonymous" href="https://unpkg.com/three@0.170.0/examples/jsm/libs/draco/gltf/draco_decoder.wasm">
+</Fragment>
+
+<main id="top">
+
+<section class="hero">
+  <canvas id="hero3d" aria-label={t.hero3d}></canvas>
+  <div class="hero-shade"></div>
+  <div class="hero-inner wrap">
+    <p class="label">{t.heroLabel}</p>
+    <h1 set:html={t.heroTitle} />
+    <div class="hero-foot">
+      <div class="cta">
+        <a href="#contact" class="btn btn-primary">{t.ctaVisit}</a>
+        <a href="#projects" class="btn btn-ghost">{t.ctaProjects}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects wrap">
+  <header class="sec-head reveal">
+    <h2>{t.projectsTitle}</h2>
+  </header>
+  <div class="filters" id="filters" role="group" aria-label={t.filterLabel}></div>
+  <div class="proj-grid" id="projectGrid"></div>
+</section>
+
+<section id="services" class="services wrap">
+  <header class="sec-head reveal">
+    <h2>{t.servicesTitle}</h2>
+  </header>
+  <ol class="svc-list" id="serviceList"></ol>
+</section>
+
+{site.process.show && (
+<section id="process" class="process wrap">
+  <header class="sec-head reveal">
+    <h2>{site.process.title}</h2>
+  </header>
+  <ol class="steps" id="steps"></ol>
+</section>
+)}
+
+<section id="contact" class="contact wrap reveal">
+  <div>
+    <h2>{t.contactTitle}</h2>
+    <p class="muted">{t.contactLede}</p>
+    <dl class="contact-facts">
+      <dt>{t.office}</dt><dd>{site.contact.address}</dd>
+      <dt>{t.phone}</dt><dd><a href={`tel:${site.contact.phoneIntl}`}>{site.contact.phone}</a></dd>
+      <dt>{t.email}</dt><dd><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></dd>
+    </dl>
+  </div>
+  <form class="form" id="contactForm" data-key={site.contact.formKey ?? ""}>
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label>{t.formName}<input required name="name" autocomplete="name"></label>
+    <label>{t.formPhone}<input required name="phone" type="tel" autocomplete="tel"></label>
+    <label>{t.formNeed}
+      <select name="need">
+        {t.needs.map((n) => <option>{n}</option>)}
+      </select>
+    </label>
+    <label>{t.formMsg}<textarea name="msg" rows="3"></textarea></label>
+    <button class="btn btn-primary" type="submit">{t.formSend}</button>
+    <p class="ok label" role="status" aria-live="polite" hidden></p>
+  </form>
+  <script is:inline define:vars={{ text: form }}>
+    const form = document.getElementById("contactForm");
+    const msg = form.querySelector(".ok");
+    const say = (t) => { msg.textContent = t; msg.hidden = false; };
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const key = form.dataset.key;
+      if (!key) return say(text.off);
+      const btn = form.querySelector("button");
+      const data = Object.fromEntries(new FormData(form));
+      btn.disabled = true;
+      say(text.sending);
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            ...data,
+            access_key: key,
+            botcheck: !!data.botcheck,
+            // Το email πάει στο γραφείο: θέμα στα ελληνικά, με τη γλώσσα του επισκέπτη.
+            subject: `Νέο μήνυμα από το site${text.lang === "en" ? " (αγγλικά)" : ""}: ${data.need}`,
+            from_name: "Site Αλέξανδρος Βλάχος",
+          }),
+        });
+        const out = await res.json();
+        if (!out.success) throw new Error(out.message);
+        form.reset();
+        say(text.ok);
+      } catch {
+        say(text.fail);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</section>
+
+</main>
+
+<dialog id="projectDialog" class="dlg" aria-labelledby="dlgTitle">
+  <button class="dlg-close" aria-label={t.close} onclick="this.closest('dialog').close()">✕</button>
+  <div id="dlgBody"></div>
+</dialog>
+
+<Fragment slot="scripts">
+<script is:inline set:html={data}></script>
+<script is:inline src={u("/carousel.js")}></script>
+<script is:inline src={u("/app.js")}></script>
+<script is:inline type="module" src={u("/hero3d.js")}></script>
+</Fragment>
+</Base>

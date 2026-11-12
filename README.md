@@ -4,7 +4,8 @@ Site του τεχνικού γραφείου Αλέξανδρου Βλάχου,
 
 - **Astro 7**, στατικό. Hosting: **GitHub Pages** (δωρεάν), αυτόματα σε κάθε push στο `main`.
 - **Sveltia CMS** στο `/admin/`: φόρμες για έργα και στοιχεία γραφείου, online ή τοπικά.
-- Περιεχόμενο σε απλά αρχεία: `src/content/projects/*.md` και `src/data/site.json`.
+- Περιεχόμενο σε απλά αρχεία: `src/content/projects/<slug>.el.md` / `.en.md` και `src/data/site.json`.
+- Δύο γλώσσες: ελληνικά στο `/`, αγγλικά στο `/en/`. Κείμενα εκτός CMS: `src/i18n.ts`.
 - Οδηγίες για AI agent: `AGENTS.md`. Στήσιμο σε νέο υπολογιστή από το μηδέν: `SETUP.md`.
 
 Τα έργα με `demo: true` και οι φωτογραφίες Unsplash είναι παραδείγματα.
@@ -24,6 +25,7 @@ Site του τεχνικού γραφείου Αλέξανδρου Βλάχου,
    - «Άλλαξε το τηλέφωνο σε …»
    - «Κρύψε το έργο Δράγανο»
    - «Γύρνα πίσω την τελευταία αλλαγή»
+   - «Μετάφρασε στα αγγλικά ό,τι άλλαξε»
 4. Ο agent διαβάζει μόνος του τους κανόνες (`AGENTS.md`) και φέρνει πρώτα ό,τι άλλαξε από το CMS.
 5. Σου δείχνει τη σελίδα στο `http://localhost:4321/`. Αν είναι σωστή, πες «ναι». Βγαίνει online σε 1-2 λεπτά.
 
@@ -41,8 +43,10 @@ npm run build      # ελέγχει το περιεχόμενο και φτιά�
 
 | Αρχείο | Τι κάνει |
 |---|---|
-| `src/pages/index.astro` | Αρχική. Περνάει τα δεδομένα στο `public/app.js` |
-| `src/pages/erga/[id].astro` | Μία σελίδα ανά έργο: `/erga/<id>/` |
+| `src/components/Home.astro` | Αρχική, σε μία γλώσσα. Περνάει τα δεδομένα στο `public/app.js`. Σελίδες: `src/pages/index.astro`, `src/pages/en/index.astro` |
+| `src/components/ProjectPage.astro` | Μία σελίδα ανά έργο: `/erga/<id>/` και `/en/projects/<id>/` |
+| `src/i18n.ts` | Κείμενα της σελίδας εκτός CMS, σε `el` και `en` |
+| `src/lib/projects.ts` | Ενώνει `<slug>.el.md` με `<slug>.en.md` |
 | `src/content.config.ts` | Κανόνες για τα πεδία των έργων (έλεγχος στο build) |
 | `public/admin/config.yml` | Φόρμες του CMS (ίδια πεδία με το παραπάνω) |
 | `public/styles.css`, `public/app.js`, `public/hero3d.js` | Εμφάνιση, φίλτρα/παράθυρο έργου, 3D |

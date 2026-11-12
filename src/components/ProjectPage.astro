@@ -1,0 +1,64 @@
+---
+// Μία σελίδα έργου, σε μία γλώσσα: /erga/<id>/ (el) και /en/projects/<id>/ (en).
+import Base from "../layouts/Base.astro";
+import { u, fixHtml } from "../lib/url";
+import { T, path, projectPath, type Lang } from "../i18n";
+import type { Project } from "../lib/projects";
+
+interface Props { lang: Lang; p: Project }
+const { lang, p: d } = Astro.props;
+const t = T[lang];
+const pics = [d.cover, ...d.gallery];
+const many = pics.length + (d.model ? 1 : 0) > 1;
+---
+<Base title={`${d.title} | ${t.name}`} description={d.summary} lang={lang} alt={projectPath(lang === "el" ? "en" : "el", d.id)}>
+{d.model && <link slot="head" rel="preload" as="fetch" crossorigin="anonymous" href={u(d.model)}>}
+<main class="project-page">
+  <div class="carousel-root">
+    <div class="dlg-hero media" data-model={d.model ? u(d.model) : ""}>
+      <div class="slides" tabindex="0" aria-label={t.photos}>
+        {d.model && <div class="slide slide-3d"><canvas aria-label={`${t.model3d}: ${d.title}`}></canvas><span class="label slide-hint">{t.model3dHint}</span></div>}
+        {pics.map((g, i) => <img class="slide" src={u(g)} alt={i ? "" : d.title} loading={i ? "lazy" : undefined}>)}
+      </div>
+      {many && <><button type="button" class="arrow prev" aria-label={t.prev}>‹</button><button type="button" class="arrow next" aria-label={t.next}>›</button></>}
+    </div>
+    {many && (
+      <div class="gallery wrap">
+        {d.model && <button type="button" class="thumb-3d" aria-label={t.model3d}><span>3D</span></button>}
+        {pics.map((g, i) => <button type="button" aria-label={`${t.photo} ${i + 1}`}><img src={u(g)} alt="" loading="lazy"></button>)}
+      </div>
+    )}
+  </div>
+  <div class="dlg-body wrap">
+    <div>
+      <p class="label">{[d.place, d.year, d.status].filter(Boolean).join(" · ")}</p>
+      <h1>{d.title}</h1>
+      <p>{d.summary}</p>
+      <Fragment set:html={fixHtml(d.html)} />
+      {d.timeline.length > 0 && (
+        <ul class="timeline">
+          {d.timeline.map((s) => <li class={s.done ? "done" : ""}><span class="label">{s.date}</span>{s.label}</li>)}
+        </ul>
+      )}
+    </div>
+    <div>
+      <dl class="facts">
+        {d.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+      </dl>
+      <div class="tags">{d.categories.map((c) => <span>{c}</span>)}</div>
+      <p><a class="btn btn-ghost btn-sm" href={path(lang, "/#projects")}>{t.allProjects}</a></p>
+    </div>
+  </div>
+</main>
+<script slot="scripts" is:inline set:html={`window.T=${JSON.stringify({ photos: t.photos, photo: t.photo, prev: t.prev, next: t.next, model3d: t.model3d, model3dHint: t.model3dHint }).replace(/</g, "\\u003c")};`}></script>
+<script slot="scripts" is:inline src={u("/carousel.js")}></script>
+<script slot="scripts" is:inline>
+  (() => {
+    const nav = document.querySelector(".nav"), btn = document.getElementById("menuBtn");
+    const set = (o) => { nav.classList.toggle("open", o); btn.setAttribute("aria-expanded", o); };
+    btn.addEventListener("click", () => set(!nav.classList.contains("open")));
+    nav.classList.add("scrolled");
+    mountCarousel(document.querySelector(".carousel-root"));
+  })();
+</script>
+</Base>

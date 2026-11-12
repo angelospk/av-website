@@ -7,15 +7,17 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
   // pics: [cover, ...gallery]; model: URL or empty.
+  // Κείμενα στη γλώσσα της σελίδας (window.T, από το src/i18n.ts). Χωρίς T: ελληνικά.
+  const t = Object.assign({ photos: "Φωτογραφίες", photo: "Φωτογραφία", prev: "Προηγούμενη", next: "Επόμενη", model3d: "3D μοντέλο", model3dHint: "3D · σύρετε για περιστροφή" }, window.T);
   window.carouselHTML = (pics, model, title) => {
-    const slides = (model ? [`<div class="slide slide-3d"><canvas aria-label="3D μοντέλο: ${esc(title)}"></canvas><span class="label slide-hint">3D · σύρετε για περιστροφή</span></div>`] : [])
+    const slides = (model ? [`<div class="slide slide-3d"><canvas aria-label="${esc(t.model3d)}: ${esc(title)}"></canvas><span class="label slide-hint">${esc(t.model3dHint)}</span></div>`] : [])
       .concat(pics.map((g, i) => `<img class="slide" src="${esc(g)}" alt="${i ? "" : esc(title)}" ${i ? 'loading="lazy"' : ""}>`));
-    const thumbs = (model ? [`<button type="button" class="thumb-3d" aria-label="3D μοντέλο"><span>3D</span></button>`] : [])
-      .concat(pics.map((g, i) => `<button type="button" aria-label="Φωτογραφία ${i + 1}"><img src="${esc(g)}" alt="" loading="lazy"></button>`));
+    const thumbs = (model ? [`<button type="button" class="thumb-3d" aria-label="${esc(t.model3d)}"><span>3D</span></button>`] : [])
+      .concat(pics.map((g, i) => `<button type="button" aria-label="${esc(t.photo)} ${i + 1}"><img src="${esc(g)}" alt="" loading="lazy"></button>`));
     const many = slides.length > 1;
     return `<div class="dlg-hero media" data-model="${esc(model || "")}">
-      <div class="slides" tabindex="0" aria-label="Φωτογραφίες">${slides.join("")}</div>
-      ${many ? `<button type="button" class="arrow prev" aria-label="Προηγούμενη">‹</button><button type="button" class="arrow next" aria-label="Επόμενη">›</button>` : ""}
+      <div class="slides" tabindex="0" aria-label="${esc(t.photos)}">${slides.join("")}</div>
+      ${many ? `<button type="button" class="arrow prev" aria-label="${esc(t.prev)}">‹</button><button type="button" class="arrow next" aria-label="${esc(t.next)}">›</button>` : ""}
     </div>${many ? `<div class="gallery">${thumbs.join("")}</div>` : ""}`;
   };
 

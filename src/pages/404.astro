@@ -1,10 +1,12 @@
 ---
+// Μία σελίδα 404 για όλο το site (GitHub Pages), με ελληνικά και αγγλικά μαζί.
 import Base from "../layouts/Base.astro";
 import { u } from "../lib/url";
 ---
-<Base title="Η σελίδα δεν βρέθηκε | Αλέξανδρος Βλάχος" description="Η σελίδα δεν βρέθηκε.">
+<Base title="Η σελίδα δεν βρέθηκε | Αλέξανδρος Βλάχος" description="Η σελίδα δεν βρέθηκε. Page not found." lang="el" alt={u("/en/")}>
 <main class="wrap" style="padding:200px 0 160px">
   <h1>Η σελίδα δεν βρέθηκε.</h1>
-  <p><a class="btn btn-primary" href={u("/")}>Αρχική</a></p>
+  <p lang="en">Page not found.</p>
+  <p><a class="btn btn-primary" href={u("/")}>Αρχική</a> <a class="btn btn-ghost" href={u("/en/")} lang="en">Home</a></p>
 </main>
 </Base>

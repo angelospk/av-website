@@ -1,18 +1,26 @@
 ---
-import site from "../data/site.json";
 import { u } from "../lib/url";
+import { T, siteFor, path, type Lang } from "../i18n";
 import "@fontsource-variable/manrope";
-interface Props { title: string; description: string }
-const { title, description } = Astro.props;
+// lang: γλώσσα της σελίδας. alt: η ίδια σελίδα στην άλλη γλώσσα (για το κουμπί EL/EN).
+interface Props { title: string; description: string; lang: Lang; alt: string }
+const { title, description, lang, alt } = Astro.props;
+const t = T[lang];
+const site = siteFor(lang);
+const other: Lang = lang === "el" ? "en" : "el";
+const here = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
+const there = Astro.site ? new URL(alt, Astro.site).href : alt;
 ---
 <!doctype html>
-<html lang="el">
+<html lang={lang}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
 <link rel="icon" href={u("/logo.svg")} type="image/svg+xml">
+<link rel="alternate" hreflang={lang} href={here}>
+<link rel="alternate" hreflang={other} href={there}>
 <link rel="stylesheet" href={u("/styles.css")}>
 <script type="importmap" is:inline>
 { "imports": {
@@ -25,23 +33,24 @@ const { title, description } = Astro.props;
 <body>
 
 <header class="nav">
-  <a class="logo" href={u("/#top")}><svg class="logo-mark" viewBox="0 0 915 685" width="46" height="34" aria-hidden="true"><polyline class="la" pathLength="1" points="30,395 320,30 570,415"/><polyline class="lv" pathLength="1" points="205,295 405,295 635,655 885,325"/></svg><span class="logo-text">Αλέξανδρος Βλάχος<span>Πολιτικός μηχανικός · Τεχνικό γραφείο</span></span></a>
+  <a class="logo" href={path(lang, "/#top")}><svg class="logo-mark" viewBox="0 0 915 685" width="46" height="34" aria-hidden="true"><polyline class="la" pathLength="1" points="30,395 320,30 570,415"/><polyline class="lv" pathLength="1" points="205,295 405,295 635,655 885,325"/></svg><span class="logo-text">{t.name}<span>{t.role}</span></span></a>
   <nav>
     <div class="nav-links" id="navLinks">
-      <a href={u("/#projects")}>Έργα</a>
-      <a href={u("/#services")}>Υπηρεσίες</a>
-      {site.process.show && <a href={u("/#process")}>Διαδρομή</a>}
+      <a href={path(lang, "/#projects")}>{t.navProjects}</a>
+      <a href={path(lang, "/#services")}>{t.navServices}</a>
+      {site.process.show && <a href={path(lang, "/#process")}>{t.navProcess}</a>}
+      <a class="lang-switch" href={alt} hreflang={other} lang={other} aria-label={t.switchLabel}>{t.switchShort}</a>
     </div>
-    <a href={u("/#contact")} class="btn btn-primary btn-sm">Επικοινωνία</a>
-    <button class="menu-btn" id="menuBtn" type="button" aria-label="Μενού" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    <a href={path(lang, "/#contact")} class="btn btn-primary btn-sm">{t.navContact}</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
   </nav>
 </header>
 
 <slot />
 
 <footer class="foot wrap">
-  <span>© {new Date().getFullYear()} Αλέξανδρος Βλάχος · Πολιτικός μηχανικός · {site.contact.phone}</span>
-  <span class="label">ΤΕΕ · Μέλη Μητρώου Μελετητών</span>
+  <span>© {new Date().getFullYear()} {t.name} · {t.roleShort} · {site.contact.phone}</span>
+  <span class="label">{t.footerLabel}</span>
 </footer>
 <slot name="scripts" />
 </body>

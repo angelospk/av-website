@@ -1,65 +1,10 @@
 ---
-import Base from "../../layouts/Base.astro";
-import { getCollection } from "astro:content";
-import { u, fixHtml } from "../../lib/url";
+// Σελίδα έργου στα ελληνικά: /erga/<id>/ (για κοινοποίηση και Google). Περιεχόμενο: src/components/ProjectPage.astro.
+import ProjectPage from "../../components/ProjectPage.astro";
+import { getProjects } from "../../lib/projects";
 
-// Μία σελίδα ανά έργο: /erga/<id>/ (για κοινοποίηση και Google).
 export async function getStaticPaths() {
-  const projects = await getCollection("projects", (p) => !p.data.draft);
-  return projects.map((p) => ({ params: { id: p.id }, props: { p } }));
+  return (await getProjects("el")).map((p) => ({ params: { id: p.id }, props: { p } }));
 }
-const { p } = Astro.props;
-const d = p.data;
-const pics = [d.cover, ...d.gallery];
-const many = pics.length + (d.model ? 1 : 0) > 1;
 ---
-<Base title={`${d.title} | Αλέξανδρος Βλάχος`} description={d.summary}>
-{d.model && <link slot="head" rel="preload" as="fetch" crossorigin="anonymous" href={u(d.model)}>}
-<main class="project-page">
-  <div class="carousel-root">
-    <div class="dlg-hero media" data-model={d.model ? u(d.model) : ""}>
-      <div class="slides" tabindex="0" aria-label="Φωτογραφίες">
-        {d.model && <div class="slide slide-3d"><canvas aria-label={`3D μοντέλο: ${d.title}`}></canvas><span class="label slide-hint">3D · σύρετε για περιστροφή</span></div>}
-        {pics.map((g, i) => <img class="slide" src={u(g)} alt={i ? "" : d.title} loading={i ? "lazy" : undefined}>)}
-      </div>
-      {many && <><button type="button" class="arrow prev" aria-label="Προηγούμενη">‹</button><button type="button" class="arrow next" aria-label="Επόμενη">›</button></>}
-    </div>
-    {many && (
-      <div class="gallery wrap">
-        {d.model && <button type="button" class="thumb-3d" aria-label="3D μοντέλο"><span>3D</span></button>}
-        {pics.map((g, i) => <button type="button" aria-label={`Φωτογραφία ${i + 1}`}><img src={u(g)} alt="" loading="lazy"></button>)}
-      </div>
-    )}
-  </div>
-  <div class="dlg-body wrap">
-    <div>
-      <p class="label">{[d.place, d.year, d.status].filter(Boolean).join(" · ")}</p>
-      <h1>{d.title}</h1>
-      <p>{d.summary}</p>
-      <Fragment set:html={fixHtml(p.rendered?.html ?? "")} />
-      {d.timeline.length > 0 && (
-        <ul class="timeline">
-          {d.timeline.map((t) => <li class={t.done ? "done" : ""}><span class="label">{t.date}</span>{t.label}</li>)}
-        </ul>
-      )}
-    </div>
-    <div>
-      <dl class="facts">
-        {d.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
-      </dl>
-      <div class="tags">{d.categories.map((c) => <span>{c}</span>)}</div>
-      <p><a class="btn btn-ghost btn-sm" href={u("/#projects")}>Όλα τα έργα</a></p>
-    </div>
-  </div>
-</main>
-<script slot="scripts" is:inline src={u("/carousel.js")}></script>
-<script slot="scripts" is:inline>
-  (() => {
-    const nav = document.querySelector(".nav"), btn = document.getElementById("menuBtn");
-    const set = (o) => { nav.classList.toggle("open", o); btn.setAttribute("aria-expanded", o); };
-    btn.addEventListener("click", () => set(!nav.classList.contains("open")));
-    nav.classList.add("scrolled");
-    mountCarousel(document.querySelector(".carousel-root"));
-  })();
-</script>
-</Base>
+<ProjectPage lang="el" p={Astro.props.p} />

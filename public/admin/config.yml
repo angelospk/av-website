@@ -16,6 +16,14 @@ media_folder: public/images
 public_folder: /images
 locale: el
 
+# Δύο γλώσσες. Στο CMS κάθε πεδίο που μεταφράζεται δείχνει ελληνικά και αγγλικά δίπλα-δίπλα.
+# Έργα: <slug>.el.md + <slug>.en.md. Στοιχεία γραφείου: src/data/site.json = { el: {...}, en: {...} }.
+# i18n: true = μεταφράζεται. duplicate = ίδια τιμή και στις δύο γλώσσες. Χωρίς i18n = μόνο στα ελληνικά.
+i18n:
+  structure: multiple_files
+  locales: [el, en]
+  default_locale: el
+
 # Κάθε φωτογραφία που ανεβαίνει από το CMS ξανα-κωδικοποιείται σε WebP, max 2048 px.
 # Η νέα κωδικοποίηση δεν κρατά EXIF/GPS (ελέγχθηκε 2026-11-04 με JPEG που είχε EXIF).
 media_libraries:
@@ -36,6 +44,7 @@ collections:
     label: Έργα
     label_singular: Έργο
     folder: src/content/projects
+    i18n: true
     extension: md
     format: frontmatter
     create: true
@@ -48,13 +57,13 @@ collections:
     media_folder: /public/images/projects
     public_folder: /images/projects
     fields:
-      - { name: title, label: Τίτλος, widget: string }
+      - { name: title, label: Τίτλος, widget: string, i18n: true }
       - name: slug
         label: Όνομα για το URL
         hint: "Λατινικά, μικρά, με παύλες. Π.χ. naftali-villa. Ορίζει το URL όταν δημιουργείται το έργο· αλλαγή αργότερα δεν αλλάζει το URL."
         widget: string
         pattern: ["^[a-z0-9-]+$", "Μόνο λατινικά μικρά, αριθμοί και παύλες"]
-      - { name: place, label: Τοποθεσία, widget: string, required: false, hint: "Χωριό ή περιοχή. Όχι διεύθυνση." }
+      - { name: place, label: Τοποθεσία, widget: string, required: false, hint: "Χωριό ή περιοχή. Όχι διεύθυνση.", i18n: true }
       - { name: year, label: Έτος, widget: number, value_type: int, min: 1950, max: 2100, required: false, hint: "Κενό αν δεν έχει επιβεβαιωθεί." }
       - name: status
         label: Κατάσταση
@@ -72,59 +81,67 @@ collections:
       - { name: cover, label: Κεντρική φωτογραφία, widget: image }
       - { name: gallery, label: Φωτογραφίες, widget: image, multiple: true, required: false }
       - { name: model, label: "3D μοντέλο (.glb)", widget: file, required: false, media_folder: /public/models, public_folder: /models, hint: "Προαιρετικό. Εμφανίζεται πρώτο στις φωτογραφίες του έργου." }
-      - { name: summary, label: Μία πρόταση, widget: text }
+      - { name: summary, label: Μία πρόταση, widget: text, i18n: true }
       - name: facts
         label: Στοιχεία
         widget: list
         required: false
+        i18n: true
         fields:
-          - { name: label, label: Ετικέτα, widget: string }
-          - { name: value, label: Τιμή, widget: string }
+          - { name: label, label: Ετικέτα, widget: string, i18n: true }
+          - { name: value, label: Τιμή, widget: string, i18n: true }
       - name: timeline
         label: Χρονολόγιο
         widget: list
         required: false
+        i18n: true
         fields:
-          - { name: date, label: "Ημερομηνία (ΜΜ/ΕΕΕΕ)", widget: string }
-          - { name: label, label: Βήμα, widget: string }
-          - { name: done, label: Έγινε, widget: boolean, default: false }
+          - { name: date, label: "Ημερομηνία (ΜΜ/ΕΕΕΕ)", widget: string, i18n: duplicate }
+          - { name: label, label: Βήμα, widget: string, i18n: true }
+          - { name: done, label: Έγινε, widget: boolean, default: false, i18n: duplicate }
       - { name: draft, label: "Πρόχειρο (δεν φαίνεται)", widget: boolean, default: false, required: false }
       - { name: demo, label: "Demo (για διαγραφή)", widget: boolean, default: false, required: false }
-      - { name: body, label: Περιγραφή, widget: markdown }
+      - { name: body, label: Περιγραφή, widget: markdown, i18n: true }
 
   - name: settings
     label: Στοιχεία γραφείου
+    i18n: true
     files:
       - name: site
         label: Επικοινωνία, αριθμοί, υπηρεσίες, ομάδα
         file: src/data/site.json
         format: json
+        i18n: true
         fields:
           - name: contact
             label: Επικοινωνία
             widget: object
+            i18n: true
             fields:
-              - { name: address, label: Διεύθυνση, widget: string }
-              - { name: phone, label: "Τηλέφωνο (όπως φαίνεται)", widget: string }
-              - { name: phoneIntl, label: "Τηλέφωνο για κλήση (+30…)", widget: string }
-              - { name: email, label: Email, widget: string }
-              - { name: formKey, label: "Κλειδί φόρμας (Web3Forms access key)", widget: string, required: false, hint: "Από το web3forms.com. Κενό: η φόρμα δεν στέλνει." }
+              - { name: address, label: Διεύθυνση, widget: string, i18n: true }
+              - { name: phone, label: "Τηλέφωνο (όπως φαίνεται)", widget: string, i18n: duplicate }
+              - { name: phoneIntl, label: "Τηλέφωνο για κλήση (+30…)", widget: string, i18n: duplicate }
+              - { name: email, label: Email, widget: string, i18n: duplicate }
+              - { name: formKey, label: "Κλειδί φόρμας (Web3Forms access key)", widget: string, required: false, i18n: duplicate, hint: "Από το web3forms.com. Κενό: η φόρμα δεν στέλνει." }
           - name: services
             label: Υπηρεσίες
             widget: list
+            i18n: true
             fields:
-              - { name: title, label: Τίτλος, widget: string }
-              - { name: text, label: Περιγραφή, widget: text }
+              - { name: title, label: Τίτλος, widget: string, i18n: true }
+              - { name: text, label: Περιγραφή, widget: text, i18n: true }
           - name: process
             label: Ενότητα «Διαδρομή»
             widget: object
+            i18n: true
             fields:
-              - { name: show, label: "Εμφάνιση ενότητας Διαδρομή", widget: boolean, default: false, required: false, hint: "Όχι = η ενότητα και το link στο μενού κρύβονται. Τα βήματα μένουν αποθηκευμένα." }
-              - { name: title, label: Τίτλος ενότητας, widget: string }
+              - { name: show, label: "Εμφάνιση ενότητας Διαδρομή", widget: boolean, default: false, required: false, i18n: duplicate, hint: "Όχι = η ενότητα και το link στο μενού κρύβονται. Τα βήματα μένουν αποθηκευμένα." }
+              - { name: title, label: Τίτλος ενότητας, widget: string, i18n: true }
           - name: steps
             label: Βήματα έργου
             widget: list
+            i18n: true
             fields:
-              - { name: title, label: Βήμα, widget: string }
-              - { name: text, label: Περιγραφή, widget: text }
-              - { name: dur, label: Διάρκεια, widget: string, required: false }
+              - { name: title, label: Βήμα, widget: string, i18n: true }
+              - { name: text, label: Περιγραφή, widget: text, i18n: true }
+              - { name: dur, label: Διάρκεια, widget: string, required: false, i18n: true }
