@@ -41,6 +41,7 @@ CMS: Sveltia CMS στο `/admin/`. Ο χρήστης είναι συνήθως �
 | Ζήτημα | Τι κάνεις |
 |---|---|
 | Αλλαγή τηλεφώνου, email, αριθμών | `src/data/site.json` |
+| Η φόρμα επικοινωνίας δεν στέλνει email | κλειδί Web3Forms στο `contact.formKey` του `src/data/site.json` (`SETUP.md`, Φάση 2β) |
 | Απόκρυψη έργου | `draft: true` στο `.md` |
 | Σειρά έργων | πεδίο `order` (μικρότερο = πιο πάνω) |
 | Διαγραφή έργου | σβήσε το `.md` και τον φάκελο `public/images/projects/<slug>/`, μόνο με «ναι» |

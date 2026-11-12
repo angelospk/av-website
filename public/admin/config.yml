@@ -108,6 +108,7 @@ collections:
               - { name: phone, label: "Τηλέφωνο (όπως φαίνεται)", widget: string }
               - { name: phoneIntl, label: "Τηλέφωνο για κλήση (+30…)", widget: string }
               - { name: email, label: Email, widget: string }
+              - { name: formKey, label: "Κλειδί φόρμας (Web3Forms access key)", widget: string, required: false, hint: "Από το web3forms.com. Κενό: η φόρμα δεν στέλνει." }
           - name: services
             label: Υπηρεσίες
             widget: list
