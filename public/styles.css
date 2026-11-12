@@ -90,7 +90,6 @@ section.wrap { padding-top: 160px; }
 .svc .num { font: 500 12px/1 var(--mono); color: var(--steel); letter-spacing: .08em; margin-right: 20px; }
 .svc h3 { display: flex; align-items: baseline; }
 .svc p { margin: 0; color: var(--steel); max-height: 0; opacity: 0; overflow: hidden; transition: max-height .4s, opacity .4s; }
-.svc .who { font: 500 11px/1.4 var(--mono); color: var(--cyan); letter-spacing: .06em; text-transform: uppercase; margin-top: 8px; display: block; }
 .svc:hover, .svc:focus-within { padding-left: 12px; }
 .svc:hover p, .svc:focus-within p { max-height: 140px; opacity: 1; }
 .svc:hover h3 { color: var(--ink); }

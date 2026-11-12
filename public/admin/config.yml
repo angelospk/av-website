@@ -114,7 +114,6 @@ collections:
             fields:
               - { name: title, label: Τίτλος, widget: string }
               - { name: text, label: Περιγραφή, widget: text }
-              - { name: who, label: Ποιοι το κάνουν, widget: string }
           - name: process
             label: Ενότητα «Διαδρομή»
             widget: object

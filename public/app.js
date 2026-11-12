@@ -7,7 +7,7 @@
   $("#serviceList").innerHTML = SERVICES.map((s, i) => `
     <li class="svc reveal" tabindex="0">
       <h3><span class="num">${pad(i)}</span>${esc(s.title)}</h3>
-      <div><p>${esc(s.text)}<span class="who">${esc(s.who)}</span></p></div>
+      <div><p>${esc(s.text)}</p></div>
     </li>`).join("");
 
   // Filters
