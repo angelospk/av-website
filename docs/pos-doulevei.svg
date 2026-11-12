@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" font-family="'Segoe UI', system-ui, -apple-system, Arial, sans-serif">
+  <title>Πώς δουλεύει το site του γραφείου</title>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
+    </marker>
+    <style>
+      .h { font-size: 19px; font-weight: 700; fill: #1f2328; }
+      .t { font-size: 15px; fill: #31363d; }
+      .s { font-size: 13px; fill: #57606a; }
+      .b { font-weight: 700; }
+      .k { font-size: 12px; font-weight: 700; letter-spacing: .08em; fill: #57606a; }
+      .ln { stroke: #57606a; stroke-width: 2.2; fill: none; marker-end: url(#arr); }
+      .lbl { font-size: 13px; fill: #57606a; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="900" fill="#f7f4ee"/>
+
+  <!-- Τίτλος -->
+  <text x="40" y="52" font-size="28" font-weight="700" fill="#1f2328">Πώς δουλεύει το site του γραφείου</text>
+  <text x="40" y="80" class="t">Δύο τρόποι να το αλλάξεις. Μία αποθήκη (GitHub). Όλα τα άλλα γίνονται μόνα τους.</text>
+
+  <!-- Στήλες -->
+  <text x="40" y="122" class="k">1. ΑΛΛΑΖΕΙΣ ΤΟ SITE</text>
+  <text x="470" y="122" class="k">2. ΑΠΟΘΗΚΕΥΕΤΑΙ</text>
+  <text x="800" y="122" class="k">3. ΒΓΑΙΝΕΙ ONLINE</text>
+
+  <!-- CMS -->
+  <rect x="40" y="136" width="360" height="150" rx="14" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <rect x="40" y="136" width="8" height="150" rx="4" fill="#2563eb"/>
+  <text x="64" y="166" class="h">Α. CMS: φόρμες στον browser</text>
+  <text x="64" y="192" class="t">Άνοιξε <tspan class="b">&lt;site&gt;/admin/</tspan> από οποιονδήποτε</text>
+  <text x="64" y="212" class="t">υπολογιστή με internet.</text>
+  <text x="64" y="240" class="t"><tspan class="b">Για:</tspan> κείμενα, τηλέφωνα, έργα, σειρά</text>
+  <text x="64" y="260" class="t">έργων, απόκρυψη έργου.</text>
+  <text x="64" y="279" class="s">Ποιος: όποιος έχει το token του υπολογιστή.</text>
+
+  <!-- Coding agent -->
+  <rect x="40" y="306" width="360" height="190" rx="14" fill="#fff" stroke="#7c3aed" stroke-width="2.5"/>
+  <rect x="40" y="306" width="8" height="190" rx="4" fill="#7c3aed"/>
+  <text x="64" y="336" class="h">Β. Coding agent (Claude Code)</text>
+  <text x="64" y="362" class="t">Στον υπολογιστή του γραφείου,</text>
+  <text x="64" y="382" class="t">μέσα στον φάκελο του site.</text>
+  <text x="64" y="410" class="t"><tspan class="b">Για:</tspan> νέο έργο από φάκελο του NAS,</text>
+  <text x="64" y="430" class="t">φωτογραφίες, αλλαγές εμφάνισης.</text>
+  <text x="64" y="458" class="t">Δείχνει πρώτα τη σελίδα τοπικά.</text>
+  <text x="64" y="478" class="t">Ανεβαίνει <tspan class="b">μόνο</tspan> όταν πεις «ναι».</text>
+
+  <!-- GitHub -->
+  <rect x="470" y="186" width="260" height="230" rx="14" fill="#24292f"/>
+  <text x="494" y="222" font-size="22" font-weight="700" fill="#fff">GitHub</text>
+  <text x="494" y="250" font-size="15" fill="#d0d7de">Η αποθήκη του site.</text>
+  <text x="494" y="280" font-size="15" fill="#d0d7de">Όλα τα αρχεία, μαζί με</text>
+  <text x="494" y="300" font-size="15" fill="#d0d7de">το ιστορικό κάθε αλλαγής.</text>
+  <text x="494" y="330" font-size="15" fill="#d0d7de">Κάθε αλλαγή γυρίζει πίσω.</text>
+  <text x="494" y="366" font-size="13" fill="#ffd33d" font-weight="700">Δημόσιο: τα βλέπει</text>
+  <text x="494" y="385" font-size="13" fill="#ffd33d" font-weight="700">όποιος θέλει.</text>
+
+  <!-- Site online -->
+  <rect x="800" y="186" width="360" height="230" rx="14" fill="#fff" stroke="#15803d" stroke-width="2.5"/>
+  <rect x="800" y="186" width="8" height="230" rx="4" fill="#15803d"/>
+  <text x="824" y="222" class="h">Το site online</text>
+  <text x="824" y="250" class="t">GitHub Pages: δωρεάν hosting.</text>
+  <text x="824" y="280" class="t">Μετά από κάθε αλλαγή χτίζεται</text>
+  <text x="824" y="300" class="t">ξανά μόνο του, σε <tspan class="b">1-2 λεπτά</tspan>.</text>
+  <text x="824" y="330" class="t">Δεν χρειάζεται server ή</text>
+  <text x="824" y="350" class="t">συντήρηση.</text>
+  <text x="824" y="385" class="s">Διεύθυνση: github.io ή δικό σας domain.</text>
+
+  <!-- Βέλη πάνω σειράς -->
+  <path class="ln" d="M400,211 C440,211 440,260 466,260"/>
+  <text x="404" y="176" class="lbl">«Αποθήκευση»</text>
+  <path class="ln" d="M400,401 C440,401 440,350 466,350"/>
+  <text x="414" y="424" class="lbl">push</text>
+  <path class="ln" d="M730,301 L796,301"/>
+  <text x="737" y="290" class="lbl">αυτόματα</text>
+
+  <!-- Δεύτερη σειρά -->
+  <text x="40" y="536" class="k">ΑΣΦΑΛΕΙΑ</text>
+  <text x="800" y="536" class="k">ΟΤΑΝ ΓΡΑΦΕΙ ΕΝΑΣ ΠΕΛΑΤΗΣ</text>
+
+  <!-- ΑΝΑΚΤΗΣΗ -->
+  <rect x="40" y="550" width="360" height="130" rx="14" fill="#fff" stroke="#b45309" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="64" y="582" class="h">Φάκελος «ΑΝΑΚΤΗΣΗ»</text>
+  <text x="64" y="608" class="t">Τυπωμένος + στο NAS. Λογαριασμοί,</text>
+  <text x="64" y="628" class="t">recovery codes, τι κάνεις αν χαθεί</text>
+  <text x="64" y="648" class="t">υπολογιστής ή λογαριασμός.</text>
+  <text x="64" y="670" class="s">Χωρίς κωδικούς: μόνο πού φυλάσσονται.</text>
+
+  <!-- Backup -->
+  <rect x="470" y="550" width="260" height="130" rx="14" fill="#fff" stroke="#b45309" stroke-width="2.5"/>
+  <rect x="470" y="550" width="8" height="130" rx="4" fill="#b45309"/>
+  <text x="494" y="582" class="h">Backup στο NAS</text>
+  <text x="494" y="608" class="t">Κάθε Δευτέρα 10:00,</text>
+  <text x="494" y="628" class="t">αυτόματα. Όλο το site</text>
+  <text x="494" y="648" class="t">μαζί με το ιστορικό.</text>
+  <path class="ln" d="M600,416 L600,546"/>
+  <text x="610" y="490" class="lbl">αντίγραφο</text>
+
+  <!-- Φόρμα -->
+  <rect x="800" y="550" width="360" height="130" rx="14" fill="#fff" stroke="#0e7490" stroke-width="2.5"/>
+  <rect x="800" y="550" width="8" height="130" rx="4" fill="#0e7490"/>
+  <text x="824" y="582" class="h">Φόρμα επικοινωνίας</text>
+  <text x="824" y="608" class="t">Επισκέπτης → Web3Forms →</text>
+  <text x="824" y="628" class="t"><tspan class="b">email στο γραφείο</tspan>.</text>
+  <text x="824" y="650" class="s">Δωρεάν έως 250 μηνύματα τον μήνα.</text>
+  <text x="824" y="668" class="s">Κλειδί: CMS → Επικοινωνία.</text>
+  <path class="ln" d="M1110,416 L1110,546"/>
+
+  <!-- Κανόνες -->
+  <rect x="40" y="712" width="1120" height="160" rx="14" fill="#fff4f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="64" y="744" class="h" fill="#b91c1c">Τι πρέπει να ξέρεις</text>
+  <text x="64" y="776" class="t"><tspan class="b">1.</tspan> Ό,τι αποθηκεύεις βγαίνει online σε 1-2 λεπτά.</text>
+  <text x="64" y="804" class="t"><tspan class="b">2.</tspan> Ποτέ όνομα πελάτη, διεύθυνση, ΑΦΜ, αριθμό άδειας.</text>
+  <text x="64" y="832" class="t"><tspan class="b">3.</tspan> Φωτογραφίες μόνο μέσω του agent: σβήνει το GPS.</text>
+  <text x="620" y="776" class="t"><tspan class="b">4.</tspan> Λάθος; Κάθε αλλαγή γυρίζει πίσω από το ιστορικό.</text>
+  <text x="620" y="804" class="t"><tspan class="b">5.</tspan> Κωδικοί και tokens ποτέ στη συνομιλία με το AI.</text>
+  <text x="620" y="832" class="t"><tspan class="b">6.</tspan> Κάτι χάλασε; Ρώτα τον agent: «γιατί δεν βγήκε online;»</text>
+</svg>
