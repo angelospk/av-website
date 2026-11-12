@@ -8,7 +8,6 @@ order: 1
 wide: true
 cover: /images/projects/exec-49a3903f-e3df-4520-98fd-4923a7560e2e.webp
 gallery:
-  - /images/projects/exec-49a3903f-e3df-4520-98fd-4923a7560e2e.webp
   - /images/projects/exec-6b817790-74c2-4dab-b33d-a0d159476ef6.webp
   - /images/projects/exec-8e805410-72db-4865-bde2-ab25a23e36a3.webp
 model: /models/tsoukalades-villa.glb
